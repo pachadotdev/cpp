@@ -18,21 +18,21 @@ knitr::opts_chunk$set(
 ```
 
 In many cases there is no need to convert a package from Rcpp.
-If the code is already written and you don't have a very compelling need to use cpp11 I would recommend you continue to use Rcpp.
-However if you *do* feel like your project will benefit from using cpp11 this vignette will provide some guidance and doing the conversion.
+If the code is already written and you don't have a very compelling need to use cpp4r I would recommend you continue to use Rcpp.
+However if you *do* feel like your project will benefit from using cpp4r this vignette will provide some guidance and doing the conversion.
 
 ## Getting started
 
-1.  Add cpp11 by calling `usethis::use_cpp11()`.
+1.  Add cpp4r by calling `usethis::use_cpp4r()`.
 
 2.  Start converting function by function.
 
     Converting the code a bit at a time (and regularly running your tests) is the best way to do the conversion correctly and make progress.
     Doing a separate commit after converting each file (or possibly each function) can make finding any regressions with [git bisect](https://youtu.be/KKeucpfAuuA) much easier in the future.
 
-    1.  Convert `#include <Rcpp.h>` to `#include <cpp11.hpp>`.
-    2.  Convert all instances of `// [[Rcpp::export]]` to `[[cpp11::register]]`.
-    3.  Grep for `Rcpp::` and replace with the equivalent cpp11 function using the cheatsheets below.
+    1.  Convert `#include <Rcpp.h>` to `#include <cpp4r.hpp>`.
+    2.  Convert all instances of `// [[Rcpp::export]]` to `[[cpp4r::register]]`.
+    3.  Grep for `Rcpp::` and replace with the equivalent cpp4r function using the cheatsheets below.
 
 3.  Remove Rcpp
 
@@ -47,7 +47,7 @@ However if you *do* feel like your project will benefit from using cpp11 this vi
 
 ### Vectors
 
-| Rcpp            | cpp11 (read-only)   | cpp11 (writable)              |
+| Rcpp            | cpp4r (read-only)   | cpp4r (writable)              |
 |-----------------|---------------------|-------------------------------|
 | NumericVector   | doubles             | writable::doubles             |
 | NumericMatrix   | doubles_matrix\<\>  | writable::doubles_matrix\<\>  |
@@ -58,24 +58,24 @@ However if you *do* feel like your project will benefit from using cpp11 this vi
 | List            | list                | writable::list                |
 | RObject         | sexp                |                               |
 
-Note that each cpp11 vector class has a read-only and writeable version.
-The default classes, e.g. `cpp11::doubles` are *read-only* classes that do not permit modification.
+Note that each cpp4r vector class has a read-only and writeable version.
+The default classes, e.g. `cpp4r::doubles` are *read-only* classes that do not permit modification.
 If you want to modify the data you or create a new vector, use the writeable variant.
 
-Another major difference in Rcpp and cpp11 is how vectors are grown.
+Another major difference in Rcpp and cpp4r is how vectors are grown.
 Rcpp vectors have a `push_back()` method, but unlike `std::vector()` no additional space is reserved when pushing.
 This makes calling `push_back()` repeatably very expensive, as the entire vector has to be copied each call.
-In contrast `cpp11` vectors grow efficiently, reserving extra space.
-See <https://cpp11.r-lib.org/articles/motivations.html#growing-vectors> for more details.
+In contrast `cpp4r` vectors grow efficiently, reserving extra space.
+See <https://cpp4r.r-lib.org/articles/motivations.html#growing-vectors> for more details.
 
 Rcpp also allows very flexible implicit conversions, e.g. if you pass a `REALSXP` to a function that takes a `Rcpp::IntegerVector()` it is implicitly converted to a `INTSXP`.
 These conversions are nice for usability, but require (implicit) duplication of the data, with the associated runtime costs.
-cpp11 throws an error in these cases.
+cpp4r throws an error in these cases.
 If you want the implicit coercions you can add a call to `as.integer()` or `as.double()` as appropriate from R when you call the function.
 
 ### Other objects
 
-| Rcpp                    | cpp11            |
+| Rcpp                    | cpp4r            |
 |-------------------------|------------------|
 | XPtr                    | external_pointer |
 | Environment             | environment      |
@@ -84,7 +84,7 @@ If you want the implicit coercions you can add a call to `as.integer()` or `as.d
 
 ### Functions
 
-| Rcpp                                     | cpp11                    |
+| Rcpp                                     | cpp4r                    |
 |------------------------------------------|--------------------------|
 | `wrap()`                                 | `as_sexp()`              |
 | `as()`                                   | `as_cpp()`               |
@@ -92,7 +92,7 @@ If you want the implicit coercions you can add a call to `as.integer()` or `as.d
 | `checkUserInterrupt()`                   | `check_user_interrupt()` |
 | `CharacterVector::create("a", "b", "c")` | `{"a", "b", "c"}`        |
 
-Note that `cpp11::stop()` and `cpp11::warning()` are thin wrappers around `Rf_stop()` and `Rf_warning()`.
+Note that `cpp4r::stop()` and `cpp4r::warning()` are thin wrappers around `Rf_stop()` and `Rf_warning()`.
 These are simple C functions with a `printf()` API, so they do not understand C++ objects like `std::string`.
 Therefore you need to call `obj.c_str()` when passing string data to them.
 
@@ -105,10 +105,10 @@ Calling R functions from C++ is similar to using Rcpp.
 Rcpp::Function as_tibble("as_tibble", Rcpp::Environment::namespace_env("tibble"));
 as_tibble(x, Rcpp::Named(".rows", num_rows), Rcpp::Named(".name_repair", name_repair));
 
-// cpp11 -----------------------------------------------
-using namespace cpp11::literals; // so we can use ""_nm syntax
+// cpp4r -----------------------------------------------
+using namespace cpp4r::literals; // so we can use ""_nm syntax
 
-auto as_tibble = cpp11::package("tibble")["as_tibble"];
+auto as_tibble = cpp4r::package("tibble")["as_tibble"];
 as_tibble(x, ".rows"_nm = num_rows, ".name_repair"_nm = name_repair);
 ```
 
@@ -126,7 +126,7 @@ as_tibble(x, ".rows"_nm = num_rows, ".name_repair"_nm = name_repair);
 
 Rcpp includes calls to `GetRNGstate()` and `PutRNGstate()` around the wrapped function.
 This ensures that if any C++ code calls the R API functions `unif_rand()`, `norm_rand()`, `exp_rand()`, or `R_unif_index()` the random seed state is set accordingly.
-cpp11 does *not* do this, so you must include the calls to `GetRNGstate()` and `PutRNGstate()` *yourself* if you use any of those functions in your C++ code.
+cpp4r does *not* do this, so you must include the calls to `GetRNGstate()` and `PutRNGstate()` *yourself* if you use any of those functions in your C++ code.
 See [R-exts 6.3 - Random number generation](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Random-numbers) for details on these functions.
 
 One convenient way to do safely is to use a simple class:
@@ -153,7 +153,7 @@ void foo() {
 
 ### STL includes
 
-Rcpp.h includes a number of STL headers automatically, notably `<string>` and `<vector>`, however the cpp11 headers generally do not.
+Rcpp.h includes a number of STL headers automatically, notably `<string>` and `<vector>`, however the cpp4r headers generally do not.
 If you have errors like
 
 ```
@@ -168,8 +168,8 @@ If you see something like this:
 
 ```
  In file included from file.cpp:1:
- In file included from path/cpp11/include/cpp11.hpp:3:
- path/cpp11/include/cpp11/R.hpp:12:9: warning: 'STRICT_R_HEADERS' macro redefined [-Wmacro-redefined]
+ In file included from path/cpp4r/include/cpp4r.hpp:3:
+ path/cpp4r/include/cpp4r/R.hpp:12:9: warning: 'STRICT_R_HEADERS' macro redefined [-Wmacro-redefined]
  #define STRICT_R_HEADERS
 ```
 
@@ -177,17 +177,17 @@ Make sure to remove `PKG_CPPFLAGS=-DSTRICT_R_HEADERS` from `src/Makevars`.
 
 ### R API includes
 
-cpp11 conflicts with macros declared by some R headers unless the macros `R_NO_REMAP` and `STRICT_R_HEADERS` are defined.
-If you include `cpp11.hpp` (or, at a minimum, `cpp11/R.hpp`) before any R headers these macros will be defined appropriately, otherwise you may see errors like
+cpp4r conflicts with macros declared by some R headers unless the macros `R_NO_REMAP` and `STRICT_R_HEADERS` are defined.
+If you include `cpp4r.hpp` (or, at a minimum, `cpp4r/R.hpp`) before any R headers these macros will be defined appropriately, otherwise you may see errors like
 
-> R headers were included before cpp11 headers and at least one of R_NO_REMAP or STRICT_R_HEADERS was not defined.
+> R headers were included before cpp4r headers and at least one of R_NO_REMAP or STRICT_R_HEADERS was not defined.
 
 Which indicate that you must either change your include order or add preprocessor definitions for `R_NO_REMAP` and `STRICT_R_HEADERS`.
 Note that transitive includes of R headers (for example, those included by `Rcpp.h`) can also introduce the conflicting macros.
 
 ### Type aliases
 
-If you use typedefs for cpp11 types or define custom types you will need to define them in a `pkgname_types.hpp` file so that `cpp_register()` can include it in the generated code.
+If you use typedefs for cpp4r types or define custom types you will need to define them in a `pkgname_types.hpp` file so that `cpp_register()` can include it in the generated code.
 
 ### Logical vector construction
 
@@ -197,11 +197,11 @@ When constructing vectors with more than one element this is not an issue
 
 ``` cpp
 // bad
-cpp11::writable::logicals({FALSE});
+cpp4r::writable::logicals({FALSE});
 
 // good
-cpp11::writable::logicals({r_bool(FALSE)});
+cpp4r::writable::logicals({r_bool(FALSE)});
 
 // good
-cpp11::writable::logicals({FALSE, NA_LOGICAL});
+cpp4r::writable::logicals({FALSE, NA_LOGICAL});
 ```

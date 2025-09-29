@@ -39,7 +39,7 @@ test_that("cpp_source local controls RTTI/vtable symbol visibility", {
 
   # Provider: abstract Base + Impl factory (polymorphic triggers RTTI/vtable)
   provider_code <- '
-    #include <cpp11/R.hpp>
+    #include <cpp4r/R.hpp>
     struct Base { virtual ~Base(){}; virtual int foo() = 0; };
     struct Impl : Base { int foo() override { return 77; } };
 
@@ -49,7 +49,7 @@ test_that("cpp_source local controls RTTI/vtable symbol visibility", {
 
   # Consumer uses typeid(Base) (forces reference to typeinfo symbol) and
   # calls the factory produced by the provider.
-  consumer_code <- '\n#include <cpp11/R.hpp>\n#include <typeinfo>\n#include <string>\nstruct Base { virtual ~Base(){}; virtual int foo() = 0; };\nextern "C" Base* make_impl();\nextern "C" SEXP call_typeinfo_and_run() {\n  const std::type_info& t = typeid(Base);\n  std::string n = t.name();\n  Base* b = make_impl();\n  int v = b->foo();\n  delete b;\n  SEXP out = PROTECT(Rf_allocVector(INTSXP, 2));\n  INTEGER(out)[0] = (int)n.size();\n  INTEGER(out)[1] = v;\n  UNPROTECT(1);\n  return out;\n}\n'
+  consumer_code <- '\n#include <cpp4r/R.hpp>\n#include <typeinfo>\n#include <string>\nstruct Base { virtual ~Base(){}; virtual int foo() = 0; };\nextern "C" Base* make_impl();\nextern "C" SEXP call_typeinfo_and_run() {\n  const std::type_info& t = typeid(Base);\n  std::string n = t.name();\n  Base* b = make_impl();\n  int v = b->foo();\n  delete b;\n  SEXP out = PROTECT(Rf_allocVector(INTSXP, 2));\n  INTEGER(out)[0] = (int)n.size();\n  INTEGER(out)[1] = v;\n  UNPROTECT(1);\n  return out;\n}\n'
 
   # 1) provider loaded with local = TRUE -> consumer should fail to load
   expect_silent(cpp_source(code = provider_code, dir = dirs$provider, clean = FALSE, local = TRUE))

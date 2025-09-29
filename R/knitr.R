@@ -1,4 +1,4 @@
-eng_cpp11 <- function(options) {
+eng_cpp4r <- function(options) {
   if (options$eval) {
     cpp_source(
       code = options$code,

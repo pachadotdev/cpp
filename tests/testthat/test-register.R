@@ -15,7 +15,7 @@ describe("pkg_links_to_rcpp", {
 
     expect_false(pkg_links_to_rcpp(pkg_path(pkg)))
 
-    pkg$set("LinkingTo", paste("Rcpp", "cpp11", sep = ","))
+    pkg$set("LinkingTo", paste("Rcpp", "cpp4r", sep = ","))
     pkg$write()
 
     expect_true(pkg_links_to_rcpp(pkg_path(pkg)))
@@ -70,7 +70,7 @@ describe("get_call_entries", {
     file.copy(test_path("multiple.cpp"), file.path(p, "src", "multiple.cpp"))
 
     cpp_register(p)
-    cpp_bindings <- file.path(p, "src", "cpp11.cpp")
+    cpp_bindings <- file.path(p, "src", "cpp4r.cpp")
     expect_snapshot(cat(read_file(cpp_bindings)))
   })
 })
@@ -85,19 +85,19 @@ describe("wrap_call", {
   it("works with non-void functions and no arguments", {
     expect_equal(
       wrap_call("foo", "bool", tibble::tibble(type = character(), name = character())),
-      "  return cpp11::as_sexp(foo());"
+      "  return cpp4r::as_sexp(foo());"
     )
   })
   it("works with void functions and some arguments", {
     expect_equal(
       wrap_call("foo", "void", tibble::tibble(type = c("double", "int"), name = c("x", "y"))),
-      "  foo(cpp11::as_cpp<cpp11::decay_t<double>>(x), cpp11::as_cpp<cpp11::decay_t<int>>(y));\n    return R_NilValue;"
+      "  foo(cpp4r::as_cpp<cpp4r::decay_t<double>>(x), cpp4r::as_cpp<cpp4r::decay_t<int>>(y));\n    return R_NilValue;"
     )
   })
   it("works with non-void functions and some arguments", {
     expect_equal(
       wrap_call("foo", "bool", tibble::tibble(type = c("double", "int"), name = c("x", "y"))),
-      "  return cpp11::as_sexp(foo(cpp11::as_cpp<cpp11::decay_t<double>>(x), cpp11::as_cpp<cpp11::decay_t<int>>(y)));"
+      "  return cpp4r::as_sexp(foo(cpp4r::as_cpp<cpp4r::decay_t<double>>(x), cpp4r::as_cpp<cpp4r::decay_t<int>>(y)));"
     )
   })
 })
@@ -106,7 +106,7 @@ describe("get_registered_functions", {
   it("returns an empty tibble given a non-existent file", {
     f <- tempfile()
     decorations <- decor::cpp_decorations(files = f, is_attribute = TRUE)
-    res <- get_registered_functions(decorations, "cpp11::register")
+    res <- get_registered_functions(decorations, "cpp4r::register")
     expect_equal(names(res), c("file", "line", "decoration", "params", "context", "name", "return_type", "args"))
     expect_equal(NROW(res), 0)
   })
@@ -115,14 +115,14 @@ describe("get_registered_functions", {
     f <- tempfile()
     file.create(f)
     decorations <- decor::cpp_decorations(files = f, is_attribute = TRUE)
-    res <- get_registered_functions(decorations, "cpp11::register")
+    res <- get_registered_functions(decorations, "cpp4r::register")
     expect_equal(names(res), c("file", "line", "decoration", "params", "context", "name", "return_type", "args"))
     expect_equal(NROW(res), 0)
   })
 
   it("works with a single registration", {
     decorations <- decor::cpp_decorations(files = test_path("single.cpp"), is_attribute = TRUE)
-    res <- get_registered_functions(decorations, "cpp11::register")
+    res <- get_registered_functions(decorations, "cpp4r::register")
     expect_equal(names(res), c("file", "line", "decoration", "params", "context", "name", "return_type", "args"))
     expect_equal(NROW(res), 1L)
     expect_equal(res$name, "foo")
@@ -133,7 +133,7 @@ describe("get_registered_functions", {
 
   it("works with multiple registrations", {
     decorations <- decor::cpp_decorations(files = test_path("multiple.cpp"), is_attribute = TRUE)
-    res <- get_registered_functions(decorations, "cpp11::register")
+    res <- get_registered_functions(decorations, "cpp4r::register")
     expect_equal(names(res), c("file", "line", "decoration", "params", "context", "name", "return_type", "args"))
     expect_equal(NROW(res), 3L)
     expect_equal(res$name, c("foo", "bar", "baz"))
@@ -177,7 +177,7 @@ describe("generate_cpp_functions", {
     funs <- tibble::tibble(
       file = "foo.cpp",
       line = 1L,
-      decoration = "cpp11",
+      decoration = "cpp4r",
       params = list(NA),
       context = list(NA_character_),
       name = "foo",
@@ -188,11 +188,11 @@ describe("generate_cpp_functions", {
     expect_equal(generate_cpp_functions(funs),
 "// foo.cpp
 void foo();
-extern \"C\" SEXP _cpp11_foo() {
-  BEGIN_CPP11
+extern \"C\" SEXP _cpp4r_foo() {
+  BEGIN_cpp4r
     foo();
     return R_NilValue;
-  END_CPP11
+  END_cpp4r
 }"
     )
   })
@@ -201,7 +201,7 @@ extern \"C\" SEXP _cpp11_foo() {
     funs <- tibble::tibble(
       file = "foo.cpp",
       line = 1L,
-      decoration = "cpp11",
+      decoration = "cpp4r",
       params = list(NA),
       context = list(NA_character_),
       name = "foo",
@@ -213,10 +213,10 @@ extern \"C\" SEXP _cpp11_foo() {
 "// foo.cpp
 void foo();
 extern \"C\" SEXP _mypkg_foo() {
-  BEGIN_CPP11
+  BEGIN_cpp4r
     foo();
     return R_NilValue;
-  END_CPP11
+  END_cpp4r
 }"
     )
   })
@@ -226,7 +226,7 @@ extern \"C\" SEXP _mypkg_foo() {
     funs <- tibble::tibble(
       file = "foo.cpp",
       line = 1L,
-      decoration = "cpp11",
+      decoration = "cpp4r",
       params = list(NA),
       context = list(NA_character_),
       name = "foo",
@@ -237,10 +237,10 @@ extern \"C\" SEXP _mypkg_foo() {
     expect_equal(generate_cpp_functions(funs),
 "// foo.cpp
 int foo();
-extern \"C\" SEXP _cpp11_foo() {
-  BEGIN_CPP11
-    return cpp11::as_sexp(foo());
-  END_CPP11
+extern \"C\" SEXP _cpp4r_foo() {
+  BEGIN_cpp4r
+    return cpp4r::as_sexp(foo());
+  END_cpp4r
 }"
     )
   })
@@ -249,7 +249,7 @@ extern \"C\" SEXP _cpp11_foo() {
     funs <- tibble::tibble(
       file = "foo.cpp",
       line = 1L,
-      decoration = "cpp11",
+      decoration = "cpp4r",
       params = list(NA),
       context = list(NA_character_),
       name = "foo",
@@ -260,11 +260,11 @@ extern \"C\" SEXP _cpp11_foo() {
     expect_equal(generate_cpp_functions(funs),
 "// foo.cpp
 void foo(int bar);
-extern \"C\" SEXP _cpp11_foo(SEXP bar) {
-  BEGIN_CPP11
-    foo(cpp11::as_cpp<cpp11::decay_t<int>>(bar));
+extern \"C\" SEXP _cpp4r_foo(SEXP bar) {
+  BEGIN_cpp4r
+    foo(cpp4r::as_cpp<cpp4r::decay_t<int>>(bar));
     return R_NilValue;
-  END_CPP11
+  END_cpp4r
 }"
     )
   })
@@ -273,7 +273,7 @@ extern \"C\" SEXP _cpp11_foo(SEXP bar) {
     funs <- tibble::tibble(
       file = "foo.cpp",
       line = 1L,
-      decoration = "cpp11",
+      decoration = "cpp4r",
       params = list(NA),
       context = list(NA_character_),
       name = "foo",
@@ -284,10 +284,10 @@ extern \"C\" SEXP _cpp11_foo(SEXP bar) {
     expect_equal(generate_cpp_functions(funs),
 "// foo.cpp
 int foo(int bar);
-extern \"C\" SEXP _cpp11_foo(SEXP bar) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(foo(cpp11::as_cpp<cpp11::decay_t<int>>(bar)));
-  END_CPP11
+extern \"C\" SEXP _cpp4r_foo(SEXP bar) {
+  BEGIN_cpp4r
+    return cpp4r::as_sexp(foo(cpp4r::as_cpp<cpp4r::decay_t<int>>(bar)));
+  END_cpp4r
 }"
     )
   })
@@ -296,7 +296,7 @@ extern \"C\" SEXP _cpp11_foo(SEXP bar) {
     funs <- tibble::tibble(
       file = c("foo.cpp", "bar.cpp"),
       line = c(1L, 3L),
-      decoration = c("cpp11", "cpp11"),
+      decoration = c("cpp4r", "cpp4r"),
       params = list(NA, NA),
       context = list(NA_character_, NA_character_),
       name = c("foo", "bar"),
@@ -310,17 +310,17 @@ extern \"C\" SEXP _cpp11_foo(SEXP bar) {
     expect_equal(generate_cpp_functions(funs),
 "// foo.cpp
 int foo(int bar);
-extern \"C\" SEXP _cpp11_foo(SEXP bar) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(foo(cpp11::as_cpp<cpp11::decay_t<int>>(bar)));
-  END_CPP11
+extern \"C\" SEXP _cpp4r_foo(SEXP bar) {
+  BEGIN_cpp4r
+    return cpp4r::as_sexp(foo(cpp4r::as_cpp<cpp4r::decay_t<int>>(bar)));
+  END_cpp4r
 }
 // bar.cpp
 bool bar(double baz);
-extern \"C\" SEXP _cpp11_bar(SEXP baz) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(bar(cpp11::as_cpp<cpp11::decay_t<double>>(baz)));
-  END_CPP11
+extern \"C\" SEXP _cpp4r_bar(SEXP baz) {
+  BEGIN_cpp4r
+    return cpp4r::as_sexp(bar(cpp4r::as_cpp<cpp4r::decay_t<double>>(baz)));
+  END_cpp4r
 }"
     )
   })
@@ -348,7 +348,7 @@ describe("generate_r_functions", {
     funs <- tibble::tibble(
       file = "foo.cpp",
       line = 1L,
-      decoration = "cpp11",
+      decoration = "cpp4r",
       params = list(NA),
       context = list(NA_character_),
       name = "foo",
@@ -356,9 +356,9 @@ describe("generate_r_functions", {
       args = list(tibble::tibble(type = character(), name = character()))
     )
 
-    expect_equal(generate_r_functions(funs, package = "cpp11"),
+    expect_equal(generate_r_functions(funs, package = "cpp4r"),
 "foo <- function() {
-  invisible(.Call(`_cpp11_foo`))
+  invisible(.Call(`_cpp4r_foo`))
 }")
   })
 
@@ -366,7 +366,7 @@ describe("generate_r_functions", {
     funs <- tibble::tibble(
       file = "foo.cpp",
       line = 1L,
-      decoration = "cpp11",
+      decoration = "cpp4r",
       params = list(NA),
       context = list(NA_character_),
       name = "foo",
@@ -374,9 +374,9 @@ describe("generate_r_functions", {
       args = list(tibble::tibble(type = character(), name = character()))
     )
 
-    expect_equal(generate_r_functions(funs, package = "cpp11", use_package = TRUE),
+    expect_equal(generate_r_functions(funs, package = "cpp4r", use_package = TRUE),
 "foo <- function() {
-  invisible(.Call(\"_cpp11_foo\", PACKAGE = \"cpp11\"))
+  invisible(.Call(\"_cpp4r_foo\", PACKAGE = \"cpp4r\"))
 }")
   })
 
@@ -384,7 +384,7 @@ describe("generate_r_functions", {
     funs <- tibble::tibble(
       file = "foo.cpp",
       line = 1L,
-      decoration = "cpp11",
+      decoration = "cpp4r",
       params = list(NA),
       context = list(NA_character_),
       name = "foo",
@@ -402,7 +402,7 @@ describe("generate_r_functions", {
     funs <- tibble::tibble(
       file = "foo.cpp",
       line = 1L,
-      decoration = "cpp11",
+      decoration = "cpp4r",
       params = list(NA),
       context = list(NA_character_),
       name = "foo",
@@ -410,9 +410,9 @@ describe("generate_r_functions", {
       args = list(tibble::tibble(type = character(), name = character()))
     )
 
-    expect_equal(generate_r_functions(funs, package = "cpp11"),
+    expect_equal(generate_r_functions(funs, package = "cpp4r"),
 "foo <- function() {
-  .Call(`_cpp11_foo`)
+  .Call(`_cpp4r_foo`)
 }")
   })
 
@@ -420,7 +420,7 @@ describe("generate_r_functions", {
     funs <- tibble::tibble(
       file = "foo.cpp",
       line = 1L,
-      decoration = "cpp11",
+      decoration = "cpp4r",
       params = list(NA),
       context = list(NA_character_),
       name = "foo",
@@ -428,9 +428,9 @@ describe("generate_r_functions", {
       args = list(tibble::tibble(type = character(), name = character()))
     )
 
-    expect_equal(generate_r_functions(funs, package = "cpp11", use_package = TRUE),
+    expect_equal(generate_r_functions(funs, package = "cpp4r", use_package = TRUE),
 "foo <- function() {
-  .Call(\"_cpp11_foo\", PACKAGE = \"cpp11\")
+  .Call(\"_cpp4r_foo\", PACKAGE = \"cpp4r\")
 }")
   })
 
@@ -438,7 +438,7 @@ describe("generate_r_functions", {
     funs <- tibble::tibble(
       file = "foo.cpp",
       line = 1L,
-      decoration = "cpp11",
+      decoration = "cpp4r",
       params = list(NA),
       context = list(NA_character_),
       name = "foo",
@@ -446,9 +446,9 @@ describe("generate_r_functions", {
       args = list(tibble::tibble(type = "int", name = "bar"))
     )
 
-    expect_equal(generate_r_functions(funs, package = "cpp11"),
+    expect_equal(generate_r_functions(funs, package = "cpp4r"),
 "foo <- function(bar) {
-  invisible(.Call(`_cpp11_foo`, bar))
+  invisible(.Call(`_cpp4r_foo`, bar))
 }")
   })
 
@@ -456,7 +456,7 @@ describe("generate_r_functions", {
     funs <- tibble::tibble(
       file = "foo.cpp",
       line = 1L,
-      decoration = "cpp11",
+      decoration = "cpp4r",
       params = list(NA),
       context = list(NA_character_),
       name = "foo",
@@ -464,9 +464,9 @@ describe("generate_r_functions", {
       args = list(tibble::tibble(type = "int", name = "bar"))
     )
 
-    expect_equal(generate_r_functions(funs, package = "cpp11"),
+    expect_equal(generate_r_functions(funs, package = "cpp4r"),
 "foo <- function(bar) {
-  .Call(`_cpp11_foo`, bar)
+  .Call(`_cpp4r_foo`, bar)
 }")
   })
 
@@ -474,7 +474,7 @@ describe("generate_r_functions", {
     funs <- tibble::tibble(
       file = c("foo.cpp", "bar.cpp"),
       line = c(1L, 3L),
-      decoration = c("cpp11", "cpp11"),
+      decoration = c("cpp4r", "cpp4r"),
       params = list(NA, NA),
       context = list(NA_character_, NA_character_),
       name = c("foo", "bar"),
@@ -485,13 +485,13 @@ describe("generate_r_functions", {
       )
     )
 
-    expect_equal(generate_r_functions(funs, package = "cpp11"),
+    expect_equal(generate_r_functions(funs, package = "cpp4r"),
 "foo <- function(bar) {
-  .Call(`_cpp11_foo`, bar)
+  .Call(`_cpp4r_foo`, bar)
 }
 
 bar <- function(baz) {
-  .Call(`_cpp11_bar`, baz)
+  .Call(`_cpp4r_bar`, baz)
 }")
   })
 })
@@ -516,11 +516,11 @@ describe("cpp_register", {
     file.copy(test_path("single.cpp"), file.path(p, "src", "single.cpp"))
     cpp_register(p)
 
-    r_bindings <- file.path(p, "R", "cpp11.R")
+    r_bindings <- file.path(p, "R", "cpp4r.R")
     expect_true(file.exists(r_bindings))
     expect_snapshot(cat(read_file(r_bindings)))
 
-    cpp_bindings <- file.path(p, "src", "cpp11.cpp")
+    cpp_bindings <- file.path(p, "src", "cpp4r.cpp")
     expect_true(file.exists(cpp_bindings))
     expect_snapshot(cat(read_file(cpp_bindings)))
   })
@@ -557,7 +557,7 @@ describe("cpp_register", {
       any(
         grepl(
           pattern = '#include "testPkg_types.h"',
-          x = readLines(file.path(p, "src", "cpp11.cpp")),
+          x = readLines(file.path(p, "src", "cpp4r.cpp")),
           fixed = TRUE
         )
       )
@@ -576,7 +576,7 @@ describe("cpp_register", {
       any(
         grepl(
           pattern = '#include "testPkg_types.hpp"',
-          x = readLines(file.path(p, "src", "cpp11.cpp")),
+          x = readLines(file.path(p, "src", "cpp4r.cpp")),
           fixed = TRUE
         )
       )
@@ -597,7 +597,7 @@ describe("cpp_register", {
       any(
         grepl(
           pattern = '#include "testPkg_types.h"',
-          x = readLines(file.path(p, "src", "cpp11.cpp")),
+          x = readLines(file.path(p, "src", "cpp4r.cpp")),
           fixed = TRUE
         )
       )
@@ -618,7 +618,7 @@ describe("cpp_register", {
       any(
         grepl(
           pattern = '#include "testPkg_types.hpp"',
-          x = readLines(file.path(p, "src", "cpp11.cpp")),
+          x = readLines(file.path(p, "src", "cpp4r.cpp")),
           fixed = TRUE
         )
       )
@@ -665,7 +665,7 @@ describe("generate_init_functions", {
     funs <- tibble::tibble(
       file = "foo.cpp",
       line = 1L,
-      decoration = "cpp11",
+      decoration = "cpp4r",
       params = list(NA),
       context = list(NA_character_),
       name = "foo",
@@ -680,7 +680,7 @@ describe("generate_init_functions", {
     funs <- tibble::tibble(
       file = c("foo.cpp", "bar.cpp"),
       line = c(1L, 3L),
-      decoration = c("cpp11", "cpp11"),
+      decoration = c("cpp4r", "cpp4r"),
       params = list(NA, NA),
       context = list(NA_character_, NA_character_),
       name = c("foo", "bar"),

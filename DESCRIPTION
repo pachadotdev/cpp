@@ -1,5 +1,5 @@
-Package: cpp11
-Title: A C++11 Interface for R's C Interface
+Package: cpp4r
+Title: A C++ Interface for R's C Interface
 Version: 0.5.2.9000
 Authors@R:
     c(
@@ -9,14 +9,14 @@ Authors@R:
       person("Benjamin", "Kietzman", role = "ctb"),
       person("Posit Software, PBC", role = c("cph", "fnd"))
     )
-Description: Provides a header only, C++11 interface to R's C
-    interface.  Compared to other approaches 'cpp11' strives to be safe
+Description: Provides a header only, C++ interface to R's C
+    interface.  Compared to other approaches 'cpp4r' strives to be safe
     against long jumps from the C API as well as C++ exceptions, conform
     to normal R function semantics and supports interaction with 'ALTREP'
     vectors.
 License: MIT + file LICENSE
-URL: https://cpp11.r-lib.org, https://github.com/r-lib/cpp11
-BugReports: https://github.com/r-lib/cpp11/issues
+URL: https://cpp4r.r-lib.org, https://github.com/r-lib/cpp4r
+BugReports: https://github.com/r-lib/cpp4r/issues
 Depends:
     R (>= 4.0.0)
 Suggests:
@@ -35,7 +35,6 @@ Suggests:
     progress,
     rmarkdown,
     scales,
-    Rcpp,
     testthat (>= 3.2.0),
     tibble,
     utils,
@@ -45,7 +44,7 @@ VignetteBuilder:
     knitr
 Config/Needs/website: tidyverse/tidytemplate
 Config/testthat/edition: 3
-Config/Needs/cpp11/cpp_register:
+Config/Needs/cpp4r/cpp_register:
     brio,
     cli,
     decor,

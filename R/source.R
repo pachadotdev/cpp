@@ -4,7 +4,7 @@
 #' [cpp_function()] compiles and loads a single function for use in R.
 #' [cpp_eval()] evaluates a single C++ expression and returns the result.
 #'
-#' Within C++ code you can use `[[cpp11::linking_to("pkgxyz")]]` to link to
+#' Within C++ code you can use `[[cpp4r::linking_to("pkgxyz")]]` to link to
 #' external packages. This is equivalent to putting those packages in the
 #' `LinkingTo` field in a package DESCRIPTION.
 #'
@@ -31,10 +31,10 @@
 #' @examples
 #'
 #' cpp_source(
-#'   code = '#include "cpp11/integers.hpp"
+#'   code = '#include "cpp4r/integers.hpp"
 #'
-#'   [[cpp11::register]]
-#'   int num_odd(cpp11::integers x) {
+#'   [[cpp4r::register]]
+#'   int num_odd(cpp4r::integers x) {
 #'     int total = 0;
 #'     for (int val : x) {
 #'       if ((val % 2) == 1) {
@@ -51,12 +51,12 @@
 #'
 #' cpp_source(
 #'   code = '
-#' #include <cpp11/R.hpp>
+#' #include <cpp4r/R.hpp>
 #' #include <RProgress.h>
 #'
-#' [[cpp11::linking_to("progress")]]
+#' [[cpp4r::linking_to("progress")]]
 #'
-#' [[cpp11::register]] void
+#' [[cpp4r::register]] void
 #' show_progress() {
 #'   RProgress::RProgress pb("Processing [:bar] ETA: :eta");
 #'
@@ -116,13 +116,13 @@ cpp_source <- function(file, code = NULL, env = parent.frame(), clean = TRUE, qu
   #provide original path for error messages
   check_valid_attributes(all_decorations, file = orig_file_path)
 
-  funs <- get_registered_functions(all_decorations, "cpp11::register", quiet = quiet)
+  funs <- get_registered_functions(all_decorations, "cpp4r::register", quiet = quiet)
   cpp_functions_definitions <- generate_cpp_functions(funs, package = package)
 
-  cpp_path <- file.path(dirname(new_file_path), "cpp11.cpp")
-  brio::write_lines(c('#include "cpp11/declarations.hpp"', "using namespace ::cpp11;", cpp_functions_definitions), cpp_path)
+  cpp_path <- file.path(dirname(new_file_path), "cpp4r.cpp")
+  brio::write_lines(c('#include "cpp4r/declarations.hpp"', "using namespace ::cpp4r;", cpp_functions_definitions), cpp_path)
 
-  linking_to <- union(get_linking_to(all_decorations), "cpp11")
+  linking_to <- union(get_linking_to(all_decorations), "cpp4r")
 
   includes <- generate_include_paths(linking_to)
 
@@ -148,7 +148,7 @@ cpp_source <- function(file, code = NULL, env = parent.frame(), clean = TRUE, qu
   }
 
   shared_lib <- file.path(dir, "src", paste0(tools::file_path_sans_ext(new_file_name), .Platform$dynlib.ext))
-  r_path <- file.path(dir, "R", "cpp11.R")
+  r_path <- file.path(dir, "R", "cpp4r.R")
   brio::write_lines(r_functions, r_path)
   source(r_path, local = env)
 
@@ -158,7 +158,7 @@ cpp_source <- function(file, code = NULL, env = parent.frame(), clean = TRUE, qu
 the <- new.env(parent = emptyenv())
 the$count <- 0L
 
-generate_cpp_name <- function(name, loaded_dlls = c("cpp11", names(getLoadedDLLs()))) {
+generate_cpp_name <- function(name, loaded_dlls = c("cpp4r", names(getLoadedDLLs()))) {
   ext <- tools::file_ext(name)
   root <- tools::file_path_sans_ext(basename(name))
   count <- 2
@@ -191,10 +191,10 @@ generate_makevars <- function(includes, cxx_std) {
 #' @rdname cpp_source
 #' @export
 cpp_function <- function(code, env = parent.frame(), clean = TRUE, quiet = TRUE, cxx_std = Sys.getenv("CXX_STD", "CXX11"), local = TRUE) {
-  cpp_source(code = paste(c('#include "cpp11.hpp"',
-        "using namespace ::cpp11;",
-        "namespace writable = ::cpp11::writable;",
-        "[[cpp11::register]]",
+  cpp_source(code = paste(c('#include "cpp4r.hpp"',
+        "using namespace ::cpp4r;",
+        "namespace writable = ::cpp4r::writable;",
+        "[[cpp4r::register]]",
         code),
       collapse = "\n"),
     env = env,
@@ -210,10 +210,10 @@ utils::globalVariables("f")
 #' @rdname cpp_source
 #' @export
 cpp_eval <- function(code, env = parent.frame(), clean = TRUE, quiet = TRUE, cxx_std = Sys.getenv("CXX_STD", "CXX11"), local = TRUE) {
-  cpp_source(code = paste(c('#include "cpp11.hpp"',
-        "using namespace ::cpp11;",
-        "namespace writable = ::cpp11::writable;",
-        "[[cpp11::register]]",
+  cpp_source(code = paste(c('#include "cpp4r.hpp"',
+        "using namespace ::cpp4r;",
+        "namespace writable = ::cpp4r::writable;",
+        "[[cpp4r::register]]",
         "SEXP f() { return as_sexp(",
         code,
         ");",
@@ -229,7 +229,7 @@ cpp_eval <- function(code, env = parent.frame(), clean = TRUE, quiet = TRUE, cxx
 }
 
 get_linking_to <- function(decorations) {
-  out <- decorations[decorations$decoration == "cpp11::linking_to", ]
+  out <- decorations[decorations$decoration == "cpp4r::linking_to", ]
 
   if (NROW(decorations) == 0) {
     return(character())

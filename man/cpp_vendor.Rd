@@ -2,7 +2,7 @@
 % Please edit documentation in R/vendor.R
 \name{cpp_vendor}
 \alias{cpp_vendor}
-\title{Vendor the cpp11 dependency}
+\title{Vendor the cpp4r dependency}
 \usage{
 cpp_vendor(path = ".")
 }
@@ -17,15 +17,15 @@ Vendoring is the act of making your own copy of the 3rd party packages your
 project is using. It is often used in the go language community.
 }
 \details{
-This function vendors cpp11 into your package by copying the cpp11
+This function vendors cpp4r into your package by copying the cpp4r
 headers into the \code{inst/include} folder of your package and adding
-'cpp11 version: XYZ' to the top of the files, where XYZ is the version of
-cpp11 currently installed on your machine.
+'cpp4r version: XYZ' to the top of the files, where XYZ is the version of
+cpp4r currently installed on your machine.
 
-If you choose to vendor the headers you should \emph{remove} \code{LinkingTo: cpp11} from your DESCRIPTION.
+If you choose to vendor the headers you should \emph{remove} \code{LinkingTo: cpp4r} from your DESCRIPTION.
 
 \strong{Note}: vendoring places the responsibility of updating the code on
-\strong{you}. Bugfixes and new features in cpp11 will not be available for your
+\strong{you}. Bugfixes and new features in cpp4r will not be available for your
 code until you run \code{cpp_vendor()} again.
 }
 \examples{
@@ -33,10 +33,10 @@ code until you run \code{cpp_vendor()} again.
 dir <- tempfile()
 dir.create(dir)
 
-# vendor the cpp11 headers into the directory
+# vendor the cpp4r headers into the directory
 cpp_vendor(dir)
 
-list.files(file.path(dir, "inst", "include", "cpp11"))
+list.files(file.path(dir, "inst", "include", "cpp4r"))
 
 # cleanup
 unlink(dir, recursive = TRUE)

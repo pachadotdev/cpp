@@ -13,7 +13,7 @@ script.R
 ^\.clangd$
 ^compile_flags\.txt$
 ^compile_commands\.json$
-^cpp11test$
+^cpp4rtest$
 ^codecov\.yml$
 ^R/coverage\.R$
 ^book$

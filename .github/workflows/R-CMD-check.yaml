@@ -34,7 +34,7 @@ jobs:
           # Use older ubuntu to maximise backward compatibility
           - {os: ubuntu-22.04,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-22.04,   r: 'release'}
-          - {os: ubuntu-22.04,   r: 'release', custom: 'no-cpp11test'}
+          - {os: ubuntu-22.04,   r: 'release', custom: 'no-cpp4rtest'}
           - {os: ubuntu-22.04,   r: 'oldrel-1'}
           - {os: ubuntu-22.04,   r: 'oldrel-2'}
           - {os: ubuntu-22.04,   r: 'oldrel-3'}
@@ -65,13 +65,13 @@ jobs:
           pak-version: devel
           needs: check
 
-      - name: Install cpp11test
-        if: matrix.config.custom != 'no-cpp11test'
+      - name: Install cpp4rtest
+        if: matrix.config.custom != 'no-cpp4rtest'
         run: |
           options(warn = 2)
-          pak::local_install_dev_deps("cpp11test", dependencies = TRUE)
+          pak::local_install_dev_deps("cpp4rtest", dependencies = TRUE)
           install.packages(".", repos = NULL, type = "source")
-          install.packages("cpp11test", repos = NULL, INSTALL_opts = "--install-tests", type = "source")
+          install.packages("cpp4rtest", repos = NULL, INSTALL_opts = "--install-tests", type = "source")
         shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
@@ -79,11 +79,11 @@ jobs:
           upload-snapshots: true
           build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
 
-      - name: Run cpp11test tests
-        if: matrix.config.custom != 'no-cpp11test'
+      - name: Run cpp4rtest tests
+        if: matrix.config.custom != 'no-cpp4rtest'
         run: |
-          setwd("cpp11test/tests")
+          setwd("cpp4rtest/tests")
           library(testthat)
-          library(cpp11test)
-          test_check("cpp11test", reporter = "progress")
+          library(cpp4rtest)
+          test_check("cpp4rtest", reporter = "progress")
         shell: Rscript {0}

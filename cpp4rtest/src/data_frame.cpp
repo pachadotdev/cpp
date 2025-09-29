@@ -1,0 +1,16 @@
+#include "cpp4r/integers.hpp"
+#include "cpp4r/list.hpp"
+#include "cpp4r/strings.hpp"
+
+[[cpp4r::register]] SEXP data_frame_() {
+  using namespace cpp4r::literals;
+  cpp4r::writable::list out({
+      "nums"_nm = {1, 2, 3},
+      "letters"_nm = {"x", "y", "z"},
+  });
+
+  out.attr("class") = "data.frame";
+  out.attr("row.names") = {NA_INTEGER, -3};
+
+  return out;
+}

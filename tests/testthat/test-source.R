@@ -2,10 +2,10 @@ test_that("cpp_source works with the `code` parameter", {
   skip_on_os("solaris")
   dll_info <- cpp_source(
     code = '
-    #include "cpp11/integers.hpp"
+    #include "cpp4r/integers.hpp"
 
-    [[cpp11::register]]
-    int num_odd(cpp11::integers x) {
+    [[cpp4r::register]]
+    int num_odd(cpp4r::integers x) {
       int total = 0;
       for (int val : x) {
         if ((val % 2) == 1) {
@@ -24,7 +24,7 @@ test_that("cpp_source works with the `file` parameter", {
   skip_on_os("solaris")
   tf <- tempfile(fileext = ".cpp")
   writeLines(
-    "[[cpp11::register]]
+    "[[cpp4r::register]]
     bool always_true() {
       return true;
     }
@@ -37,11 +37,11 @@ test_that("cpp_source works with the `file` parameter", {
   expect_true(always_true())
 })
 
-test_that("cpp_source works with files called `cpp11.cpp`", {
+test_that("cpp_source works with files called `cpp4r.cpp`", {
   skip_on_os("solaris")
-  tf <- file.path(tempdir(), "cpp11.cpp")
+  tf <- file.path(tempdir(), "cpp4r.cpp")
   writeLines(
-    "[[cpp11::register]]
+    "[[cpp4r::register]]
     bool always_true() {
       return true;
     }
@@ -72,7 +72,7 @@ test_that("cpp_source lets you set the C++ standard", {
   writeLines(
     '#include <string>
     using namespace std::string_literals;
-    [[cpp11::register]]
+    [[cpp4r::register]]
     std::string fun() {
       auto str = "hello_world"s;
       return str;
@@ -105,38 +105,38 @@ expect_equal(
 
 test_that("generate_include_paths handles paths with spaces", {
   if (is_windows()) {
-    mockery::stub(generate_include_paths, "system.file", "C:\\a path with spaces\\cpp11")
-    expect_equal(generate_include_paths("cpp11"), "-I\"C:\\a path with spaces\\cpp11\"")
+    mockery::stub(generate_include_paths, "system.file", "C:\\a path with spaces\\cpp4r")
+    expect_equal(generate_include_paths("cpp4r"), "-I\"C:\\a path with spaces\\cpp4r\"")
   } else {
-    mockery::stub(generate_include_paths, "system.file", "/a path with spaces/cpp11")
-    expect_equal(generate_include_paths("cpp11"), "-I'/a path with spaces/cpp11'")
+    mockery::stub(generate_include_paths, "system.file", "/a path with spaces/cpp4r")
+    expect_equal(generate_include_paths("cpp4r"), "-I'/a path with spaces/cpp4r'")
   }
 })
 
 test_that("check_valid_attributes does not return an error if all registers are correct", {
   expect_error_free(
-    cpp11::cpp_source(clean = TRUE, code = '#include <cpp11.hpp>
-  using namespace cpp11::literals;
-  [[cpp11::register]]
-  cpp11::list fn() {
-    cpp11::writable::list x;
+    cpp4r::cpp_source(clean = TRUE, code = '#include <cpp4r.hpp>
+  using namespace cpp4r::literals;
+  [[cpp4r::register]]
+  cpp4r::list fn() {
+    cpp4r::writable::list x;
     x.push_back({"foo"_nm = 1});
     return x;
   }
- [[cpp11::register]]
-  cpp11::list fn2() {
-    cpp11::writable::list x;
+ [[cpp4r::register]]
+  cpp4r::list fn2() {
+    cpp4r::writable::list x;
     x.push_back({"foo"_nm = 1});
     return x;
   }'))
   expect_error_free(
-    cpp11::cpp_source(clean = TRUE,
-      code = '#include <cpp11/R.hpp>
+    cpp4r::cpp_source(clean = TRUE,
+      code = '#include <cpp4r/R.hpp>
               #include <RProgress.h>
 
-              [[cpp11::linking_to("progress")]]
+              [[cpp4r::linking_to("progress")]]
 
-              [[cpp11::register]] void show_progress() {
+              [[cpp4r::register]] void show_progress() {
                 RProgress::RProgress pb("Processing [:bar] ETA: :eta");
 
                 pb.tick(0);
@@ -151,43 +151,43 @@ test_that("check_valid_attributes does not return an error if all registers are 
 
 test_that("check_valid_attributes returns an error if one or more registers is incorrect", {
   expect_error(
-    cpp11::cpp_source(code = '#include <cpp11.hpp>
-  using namespace cpp11::literals;
-  [[cpp11::reg]]
-  cpp11::list fn() {
-    cpp11::writable::list x;
+    cpp4r::cpp_source(code = '#include <cpp4r.hpp>
+  using namespace cpp4r::literals;
+  [[cpp4r::reg]]
+  cpp4r::list fn() {
+    cpp4r::writable::list x;
     x.push_back({"foo"_nm = 1});
     return x;
   }
- [[cpp11::register]]
-  cpp11::list fn2() {
-    cpp11::writable::list x;
+ [[cpp4r::register]]
+  cpp4r::list fn2() {
+    cpp4r::writable::list x;
     x.push_back({"foo"_nm = 1});
     return x;
   }'))
 
   expect_error(
-    cpp11::cpp_source(code = '#include <cpp11.hpp>
-  using namespace cpp11::literals;
-  [[cpp11::reg]]
-  cpp11::list fn() {
-    cpp11::writable::list x;
+    cpp4r::cpp_source(code = '#include <cpp4r.hpp>
+  using namespace cpp4r::literals;
+  [[cpp4r::reg]]
+  cpp4r::list fn() {
+    cpp4r::writable::list x;
     x.push_back({"foo"_nm = 1});
     return x;
   }'))
 
   expect_error(
-    cpp11::cpp_source(code = '#include <cpp11.hpp>
-  using namespace cpp11::literals;
-  [[cpp11::reg]]
-  cpp11::list fn() {
-    cpp11::writable::list x;
+    cpp4r::cpp_source(code = '#include <cpp4r.hpp>
+  using namespace cpp4r::literals;
+  [[cpp4r::reg]]
+  cpp4r::list fn() {
+    cpp4r::writable::list x;
     x.push_back({"foo"_nm = 1});
     return x;
   }
- [[cpp11::egister]]
-  cpp11::list fn2() {
-    cpp11::writable::list x;
+ [[cpp4r::egister]]
+  cpp4r::list fn2() {
+    cpp4r::writable::list x;
     x.push_back({"foo"_nm = 1});
     return x;
   }'))
@@ -195,12 +195,12 @@ test_that("check_valid_attributes returns an error if one or more registers is i
 
 
   expect_error(
-    cpp11::cpp_source(
+    cpp4r::cpp_source(
       code = '
-      #include <cpp11/R.hpp>
+      #include <cpp4r/R.hpp>
       #include <RProgress.h>
-      [[cpp11::link_to("progress")]]
-      [[cpp11::register]] void show_progress() {
+      [[cpp4r::link_to("progress")]]
+      [[cpp4r::register]] void show_progress() {
         RProgress::RProgress pb("Processing [:bar] ETA: :eta");
         pb.tick(0);
         for (int i = 0; i < 100; i++) {
@@ -212,9 +212,9 @@ test_that("check_valid_attributes returns an error if one or more registers is i
 })
 
 test_that("cpp_source(d) functions work after sourcing file more than once", {
-  cpp11::cpp_source(test_path("single.cpp"), clean = TRUE)
+  cpp4r::cpp_source(test_path("single.cpp"), clean = TRUE)
   expect_equal(foo(), 1)
-  cpp11::cpp_source(test_path("single.cpp"), clean = TRUE)
+  cpp4r::cpp_source(test_path("single.cpp"), clean = TRUE)
   expect_equal(foo(), 1)
 })
 

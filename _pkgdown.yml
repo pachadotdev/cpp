@@ -1,4 +1,4 @@
-url: https://cpp11.r-lib.org
+url: https://cpp4r.r-lib.org
 
 authors:
   "Jim Hester":
@@ -10,7 +10,7 @@ template:
 
   includes:
     in_header: |
-      <script defer data-domain="cpp11.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
+      <script defer data-domain="cpp4r.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 
 development:
   mode: auto
@@ -22,7 +22,7 @@ reference:
   - title: Compiling C++ code interactively
     contents:
       - cpp_source
-  - title: Vendoring cpp11
+  - title: Vendoring cpp4r
     contents:
       - cpp_vendor
 
@@ -32,7 +32,7 @@ navbar:
     - text: Home
       href: index.html
     - text: Get started
-      href: articles/cpp11.html
+      href: articles/cpp4r.html
     - text: Motivations
       href: articles/motivations.html
     - text: Converting

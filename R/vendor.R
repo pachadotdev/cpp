@@ -1,18 +1,18 @@
-#' Vendor the cpp11 dependency
+#' Vendor the cpp4r dependency
 #'
 #' Vendoring is the act of making your own copy of the 3rd party packages your
 #' project is using. It is often used in the go language community.
 #'
-#' This function vendors cpp11 into your package by copying the cpp11
+#' This function vendors cpp4r into your package by copying the cpp4r
 #' headers into the `inst/include` folder of your package and adding
-#' 'cpp11 version: XYZ' to the top of the files, where XYZ is the version of
-#' cpp11 currently installed on your machine.
+#' 'cpp4r version: XYZ' to the top of the files, where XYZ is the version of
+#' cpp4r currently installed on your machine.
 #'
 #' If you choose to vendor the headers you should _remove_ `LinkingTo:
-#' cpp11` from your DESCRIPTION.
+#' cpp4r` from your DESCRIPTION.
 #'
 #' **Note**: vendoring places the responsibility of updating the code on
-#' **you**. Bugfixes and new features in cpp11 will not be available for your
+#' **you**. Bugfixes and new features in cpp4r will not be available for your
 #' code until you run `cpp_vendor()` again.
 #'
 #' @inheritParams cpp_register
@@ -23,15 +23,15 @@
 #' dir <- tempfile()
 #' dir.create(dir)
 #'
-#' # vendor the cpp11 headers into the directory
+#' # vendor the cpp4r headers into the directory
 #' cpp_vendor(dir)
 #'
-#' list.files(file.path(dir, "inst", "include", "cpp11"))
+#' list.files(file.path(dir, "inst", "include", "cpp4r"))
 #'
 #' # cleanup
 #' unlink(dir, recursive = TRUE)
 cpp_vendor <- function(path = ".") {
-  new <- file.path(path, "inst", "include", "cpp11")
+  new <- file.path(path, "inst", "include", "cpp4r")
 
   if (dir.exists(new)) {
     stop("'", new, "' already exists\n * run unlink('", new, "', recursive = TRUE)", call. = FALSE)
@@ -39,24 +39,24 @@ cpp_vendor <- function(path = ".") {
 
   dir.create(new , recursive = TRUE, showWarnings = FALSE)
 
-  current <- system.file("include", "cpp11", package = "cpp11")
+  current <- system.file("include", "cpp4r", package = "cpp4r")
   if (!nzchar(current)) {
-    stop("cpp11 is not installed", call. = FALSE)
+    stop("cpp4r is not installed", call. = FALSE)
   }
 
-  cpp11_version <- utils::packageVersion("cpp11")
+  cpp4r_version <- utils::packageVersion("cpp4r")
 
-  cpp11_header <- sprintf("// cpp11 version: %s\n// vendored on: %s", cpp11_version, Sys.Date())
+  cpp4r_header <- sprintf("// cpp4r version: %s\n// vendored on: %s", cpp4r_version, Sys.Date())
 
   files <- list.files(current, full.names = TRUE)
 
   writeLines(
-    c(cpp11_header, readLines(system.file("include", "cpp11.hpp", package = "cpp11"))),
-    file.path(dirname(new), "cpp11.hpp")
+    c(cpp4r_header, readLines(system.file("include", "cpp4r.hpp", package = "cpp4r"))),
+    file.path(dirname(new), "cpp4r.hpp")
   )
 
   for (f in files) {
-    writeLines(c(cpp11_header, readLines(f)), file.path(new, basename(f)))
+    writeLines(c(cpp4r_header, readLines(f)), file.path(new, basename(f)))
   }
 
   invisible(new)

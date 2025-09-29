@@ -69,7 +69,7 @@ expression.
 \code{\link[=cpp_eval]{cpp_eval()}} evaluates a single C++ expression and returns the result.
 }
 \details{
-Within C++ code you can use \verb{[[cpp11::linking_to("pkgxyz")]]} to link to
+Within C++ code you can use \verb{[[cpp4r::linking_to("pkgxyz")]]} to link to
 external packages. This is equivalent to putting those packages in the
 \code{LinkingTo} field in a package DESCRIPTION.
 }
@@ -81,10 +81,10 @@ the necessary symbols so separate shared objects can link against them).
 \examples{
 
 cpp_source(
-  code = '#include "cpp11/integers.hpp"
+  code = '#include "cpp4r/integers.hpp"
 
-  [[cpp11::register]]
-  int num_odd(cpp11::integers x) {
+  [[cpp4r::register]]
+  int num_odd(cpp4r::integers x) {
     int total = 0;
     for (int val : x) {
       if ((val \% 2) == 1) {
@@ -101,12 +101,12 @@ if (interactive() && require("progress")) {
 
 cpp_source(
   code = '
-#include <cpp11/R.hpp>
+#include <cpp4r/R.hpp>
 #include <RProgress.h>
 
-[[cpp11::linking_to("progress")]]
+[[cpp4r::linking_to("progress")]]
 
-[[cpp11::register]] void
+[[cpp4r::register]] void
 show_progress() {
   RProgress::RProgress pb("Processing [:bar] ETA: :eta");
 

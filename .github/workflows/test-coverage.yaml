@@ -28,12 +28,12 @@ jobs:
           extra-packages: any::covr, any::xml2
           needs: coverage
 
-      - name: Install cpp11test
+      - name: Install cpp4rtest
         run: |
           options(warn = 2)
-          pak::local_install_dev_deps("cpp11test", dependencies = TRUE)
+          pak::local_install_dev_deps("cpp4rtest", dependencies = TRUE)
           install.packages(".", repos = NULL, type = "source")
-          install.packages("cpp11test", repos = NULL, INSTALL_opts = "--install-tests", type = "source")
+          install.packages("cpp4rtest", repos = NULL, INSTALL_opts = "--install-tests", type = "source")
         shell: Rscript {0}
 
       - name: Test coverage

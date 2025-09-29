@@ -8,15 +8,15 @@ on_package_load <- function(pkg, expr) {
   }
 }
 
-# We need to set the cpp11 knitr engine when cpp11 is loaded.
+# We need to set the cpp4r knitr engine when cpp4r is loaded.
 .onLoad <- function(libname, pkgname) {
   on_package_load("knitr", {
-    knitr::knit_engines$set(cpp11 = eng_cpp11)
+    knitr::knit_engines$set(cpp4r = eng_cpp4r)
   })
 }
 
 release_bullets <- function() {
   c(
-    '`Sys.setenv("CPP11_EVAL" = "true"); devtools::submit_cran()`'
+    '`Sys.setenv("cpp4r_EVAL" = "true"); devtools::submit_cran()`'
   )
 }

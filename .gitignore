@@ -3,10 +3,10 @@ README.html
 .Rproj.user
 .Rhistory
 .clangd/
-cpp11test/compile_commands.json
-cpp11test/src/Makevars
-cpp11test/src/*.o
-cpp11test/src/*.so
+cpp4rtest/compile_commands.json
+cpp4rtest/src/Makevars
+cpp4rtest/src/*.o
+cpp4rtest/src/*.so
 compile_flags.txt
 inst/doc
 vignettes/*_cache

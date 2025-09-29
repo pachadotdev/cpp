@@ -1,6 +1,6 @@
-[[cpp11::linking_to("progress")]]
+[[cpp4r::linking_to("progress")]]
 
-[[cpp11::register]] void
+[[cpp4r::register]] void
 show_progress() {
   RProgress::RProgress pb("Processing [:bar] ETA: :eta");
 

@@ -1,4 +1,4 @@
 library(testthat)
-library(cpp11)
+library(cpp4r)
 
-test_check("cpp11")
+test_check("cpp4r")
