@@ -1,0 +1,269 @@
+---
+title: "Statistical Functions with Missing Values"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Statistical Functions with Missing Values}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+editor:
+  markdown:
+    wrap: sentence
+---
+
+# Motivation
+
+The previous functions ignore `NA` values, which is not ideal for real-world data. This chapter introduces an additional argument and checks to the functions that allow the user to remove missing values (including `NaN`) from the vector. These examples were adapted from @vaughan.
+
+# Load the Package
+
+You can load the `cpp4rexamples` package after adding the functions from the next sections to it with the following code:
+
+```{r 03-setup}
+load_all()
+```
+
+# Additional Packages
+
+You can use the `bench` package to compare the performance of the functions. You can load the package with the following code:
+
+```{r 03-bench}
+library(bench)
+```
+
+# Sum of Vector Elements (`sum()`)
+
+The next function returns the sum of the elements of a vector:
+
+```cpp
+[[cpp4r::register]] double sum2_cpp_(doubles x, bool na_rm = false) {
+  int n = x.size();
+  double total = 0;
+  for (int i = 0; i < n; ++i) {
+    if (na_rm && ISNAN(x[i])) {
+      continue;
+    } else {
+      total += x[i];
+    }
+  }
+  return total;
+}
+```
+
+Unlike the sum function from Chapter 3, this function has an additional argument `na_rm` that allows the user to remove missing values (including `NaN`) from the vector.
+
+The corresponding auxiliary function for documentation is:
+
+```r
+#' Return the sum of the elements of a vector (C++)
+#' @inheritParams sum_r
+#' @param na_rm logical. Should missing values (including `NaN`) be removed?
+#' @export
+sum2_cpp <- function(x, na_rm = FALSE) {
+  sum2_cpp_(as.double(x), na_rm = na_rm)
+}
+```
+
+To test the functions, you can run the following benchmark code in the R console:
+
+```{r 06-sum-test}
+set.seed(123) # for reproducibility
+x <- runif(1e3) # 1,000 elements
+x[sample(1:1e3, 1e2)] <- NA # randomly insert NA values
+
+sum(x, na.rm = FALSE)
+sum2_cpp(x, na_rm = FALSE)
+
+sum(x, na.rm = TRUE)
+sum2_cpp(x, na_rm = TRUE)
+
+mark(
+  sum(x, na.rm = TRUE),
+  sum2_cpp(x, na_rm = TRUE)
+)
+```
+
+# Arithmetic Mean (`mean()`)
+
+The next function calculates the mean of the elements of a vector:
+
+```cpp
+[[cpp4r::register]] double mean2_cpp_(doubles x, bool na_rm = false) {
+  int n = x.size();
+  int m = 0;
+  
+  for (int i = 0; i < n; ++i) {
+    if (na_rm && ISNAN(x[i])) {
+      continue;
+    } else {
+      ++m;
+    }
+  }
+
+  if (m == 0) {
+    return NA_REAL;
+  }
+
+  double total = 0;
+  for (int i = 0; i < n; ++i) {
+    if (na_rm && ISNAN(x[i])) {
+      continue;
+    } else {
+      total += x[i];
+    }
+  }
+
+  return total / m;
+}
+```
+
+Unlike the mean function from Chapter 3, this function has an additional argument `na_rm` that allows the user to remove missing values (including `NaN`) from the vector.
+
+The corresponding auxiliary function for documentation is:
+
+```r
+#' Return the mean of the elements of a vector (C++)
+#' @inheritParams sum2_cpp
+#' @export
+mean2_cpp <- function(x, na_rm = FALSE) {
+  mean2_cpp_(as.double(x), na_rm = na_rm)
+}
+```
+
+To test the functions, you can run the following benchmark code in the R console:
+
+```{r 06-mean-bench}
+mean(x)
+mean2_cpp(x)
+
+mean(x, na.rm = TRUE)
+mean2_cpp(x, na_rm = TRUE)
+
+mark(
+  mean(x, na.rm = TRUE),
+  mean2_cpp(x, na_rm = TRUE)
+)
+```
+
+# Variance (`var()`)
+
+The next function calculates the variance of a vector:
+
+```cpp
+[[cpp4r::register]] double var2_cpp_(doubles x, bool na_rm = false) {
+  int n = x.size();
+  int m = 0;
+  double total = 0, sq_total = 0;
+
+  for (int i = 0; i < n; ++i) {
+    if (na_rm && ISNAN(x[i])) {
+      continue;
+    } else {
+      ++m;
+      total += x[i];
+      sq_total += pow(x[i], 2);
+    }
+  }
+
+  if (m <= 1) {
+    return NA_REAL;
+  }
+
+  return (sq_total - total * total / m) / (m - 1);
+}
+```
+
+Unlike the variance function from Chapter 3, this function has an additional argument `na_rm` that allows the user to remove missing values (including `NaN`) from the vector.
+
+The corresponding auxiliary function for documentation is:
+
+```r
+#' Return the variance of the elements of a vector (C++)
+#' @inheritParams sum2_cpp
+#' @export
+var2_cpp <- function(x, na_rm = FALSE) {
+  var2_cpp_(as.double(x), na_rm = na_rm)
+}
+```
+
+To test the functions, you can run the following benchmark code in the R console:
+
+```{r 06-var-bench}
+var(x)
+var2_cpp(x)
+
+var(x, na.rm = TRUE)
+var2_cpp(x, na_rm = TRUE)
+
+mark(
+  var(x, na.rm = TRUE),
+  var2_cpp(x, na_rm = TRUE)
+)
+```
+
+# Root Mean Square Error (RMSE)
+
+The next function calculates the root mean square error between observed values ($x$) and the true value ($x_0$):
+
+```cpp
+[[cpp4r::register]] double rmse2_cpp_(doubles x, double x0, bool na_rm = false) {
+  int n = x.size();
+  int m = 0;
+  double total = 0;
+
+  for (int i = 0; i < n; ++i) {
+    if (na_rm && ISNAN(x[i])) {
+      continue;
+    } else {
+      ++m;
+      total += pow(x[i] - x0, 2);
+    }
+  }
+
+  if (m == 0) {
+    return NA_REAL;
+  }
+
+  return sqrt(total / m);
+}
+```
+
+Unlike the RMSE function from Chapter 3, this function has an additional argument `na_rm` that allows the user to remove missing values (including `NaN`) from the vector.
+
+The corresponding auxiliary function for documentation is:
+
+```r
+#' Return the root mean square error (C++)
+#' @inheritParams rmse_r
+#' @param na_rm logical. Should missing values (including `NaN`) be removed?
+#' @export
+rmse2_cpp <- function(x, x0, na_rm = FALSE) {
+  rmse2_cpp_(as.double(x), as.double(x0), na_rm = na_rm)
+}
+```
+
+To test the functions, you can run the following benchmark code in the R console:
+
+```{r 06-functions-bench}
+# create a list with 100 normal distributions with mean 0 and 1,000 elements each
+set.seed(123)
+x <- list()
+for (i in 1:1e3) {
+  x[[i]] <- rnorm(1e3)
+}
+
+# compute the mean of each distribution
+x <- sapply(x, mean)
+
+# insert NA values at random
+x[sample(1:1e3, 1e2)] <- NA
+
+rmse2_cpp(x, 0)
+rmse2_cpp(x, 0, na_rm = TRUE)
+
+mark(
+  sqrt(mean((x - 0)^2, na.rm = TRUE)),
+  rmse2_cpp(x, 0, na_rm = TRUE)
+)
+```
+
+# References

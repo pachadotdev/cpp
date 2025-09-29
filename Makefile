@@ -20,7 +20,7 @@ site:
 install:
 	@Rscript -e 'devtools::install()'
 
-clang_format=`which clang-format-14`
+clang_format=`which clang-format-20`
 
 format: $(shell find . -name '*.h') $(shell find . -name '*.hpp') $(shell find . -name '*.cpp')
 	@${clang_format} -i $?

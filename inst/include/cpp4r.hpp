@@ -1,7 +1,6 @@
 #pragma once
 
 #include "cpp4r/R.hpp"
-#include "cpp4r/altrep.hpp"
 #include "cpp4r/as.hpp"
 #include "cpp4r/attribute_proxy.hpp"
 #include "cpp4r/data_frame.hpp"

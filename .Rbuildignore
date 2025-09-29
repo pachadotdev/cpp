@@ -13,7 +13,6 @@ script.R
 ^\.clangd$
 ^compile_flags\.txt$
 ^compile_commands\.json$
-^cpp4rtest$
 ^codecov\.yml$
 ^R/coverage\.R$
 ^book$
@@ -32,3 +31,8 @@ script.R
 ^\.cache$
 ^docs$
 ^pkgdown$
+^cpp4rdummyols$
+^cpp4rgaussjordan$
+^cpp4romp$
+^cpp4rsimplexphase2$
+^cpp4rtest$

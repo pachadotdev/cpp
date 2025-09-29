@@ -1,0 +1,63 @@
+---
+title: "Read-only versus Writable R Objects"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Read-only versus Writable R Objects}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+editor:
+  markdown:
+    wrap: sentence
+---
+
+# Motivation
+
+@vaughan already provides some details. This chapter expands on the differences between `cpp4r` and `Rcpp`.
+
+# Read and write
+
+In `cpp4r`, when you declare a variable, it is read-only by default. This is different from `Rcpp`, where variables are read-write by default.
+
+The following code will not compile in `cpp4r`:
+
+```cpp
+[[cpp4r::register]] integers square_coordinates_(integers x) {
+  integers out = x;
+  for (int i = 0; i < x.size(); ++i) {
+    out[i] = x[i] * x[i];
+  }
+  return out;
+}
+```
+
+The error message is:
+
+```bash
+code.cpp:515:10: error: lvalue required as left operand of assignment
+  515 |     out[i] = x[i] * x[i];
+```
+
+To fix this, you need to explicitly declare the variable as writable:
+
+```cpp
+[[cpp4r::register]] integers square_coordinates_(integers x) {
+  writable::integers out = x;
+  for (int i = 0; i < x.size(); ++i) {
+    out[i] = x[i] * x[i];
+  }
+  return out;
+}
+```
+
+The arguments are also read-only by default in `cpp4r`, unless you declare them as writable, as in the following example:
+
+```cpp
+[[cpp4r::register]] integers square_coordinates2_(writable::integers x) {
+  for (int i = 0; i < x.size(); ++i) {
+    x[i] = x[i] * x[i];
+  }
+  return x;
+}
+```
+
+# References

@@ -33,7 +33,7 @@ jobs:
 
           # Use older ubuntu to maximise backward compatibility
           - {os: ubuntu-22.04,   r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-22.04,   r: 'release'}
+          - {os: ubuntu-22.04,   r: 'release', custom: 'clang-format'}
           - {os: ubuntu-22.04,   r: 'release', custom: 'no-cpp4rtest'}
           - {os: ubuntu-22.04,   r: 'oldrel-1'}
           - {os: ubuntu-22.04,   r: 'oldrel-2'}
@@ -46,6 +46,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - uses: pachadotdev/clang-format@v1
+        if: matrix.config.custom == 'clang-format'
+        with:
+          version: '20'
+          files: 'src/*.cpp src/*.h inst/include/*.h'
+          auto-commit: true
+          commit-message: 'style: format C++ code in R package'
 
       - uses: r-lib/actions/setup-pandoc@v2
 

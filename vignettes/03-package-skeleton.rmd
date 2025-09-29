@@ -1,0 +1,189 @@
+---
+title: "Package Skeleton"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Package Skeleton}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+editor:
+  markdown:
+    wrap: sentence
+---
+
+# Motivation
+
+@cpp4r is better used when adding C++ code to R packages, as it allows for proper script organization and documentation. The reference for this chapter is @usethis.
+
+# Loading the Required R Packages
+
+This chapter and the next use the following R packages:
+
+```r
+library(cpp4r)
+library(devtools)
+library(bench)
+library(usethis)
+```
+
+# Running a single function
+
+It is possible to run a single function in C++ using the `cpp4r::cpp_source()` function. For example, to create a function that adds one to a number, you can run:
+
+```{r}
+cpp4r::cpp_source(
+  code = "
+    #include <cpp4r.hpp>
+
+    using namespace cpp4r;
+
+    [[cpp4r::register]] int plusone(int x) {
+      return x + 1;
+    }",
+  quiet = FALSE
+)
+```
+
+This function can be called from R by running `plusone(2)`, which should return 3, or with any other integer.
+
+However, it is a much better practice to organize C++ code in an R package.
+
+# Creating a Dummy Package
+
+You can create a new package in RStudio (or VSCode) by running:
+
+```r
+create_package("~/github/cpp-for-r-users/cpp4rexamples")
+```
+
+This command will create a new folder named `cpp4rexamples`. Afterward, you can run `use_cpp4r()` to add the necessary files for using C++ code within R.
+
+# Print a Number
+
+You can create a new R script by running `use_r("cpp4rexamples-package")`. You should add the following code to the file:
+
+```r
+#' @useDynLib cpp4rexamples, .registration = TRUE
+NULL
+```
+
+The `usethis` package will automatically create the file `src/code.cpp`. You can modify it to include a simple function that prints the number 1:
+
+```cpp
+#include "cpp4r.hpp"
+
+using namespace cpp4r;
+
+[[cpp4r::register]] int one_cpp_() { 
+  return 1; 
+}
+```
+
+Within R, there is no need to create a `main()` function in C++.
+
+The R version of the function is as follows:
+
+```r
+#' Return 1 (R)
+#' @export
+one_r <- function() {
+    1L
+}
+```
+
+To export the C++ function, you can add the following lines to `cpp4rexamples-package.R`, which documents the function and allows for defining default argument values:
+
+```r
+#' Return 1 (C++)
+#' @export
+one_cpp <- function() {
+  one_cpp_()
+}
+```
+
+# Number's Sign
+
+A more complex function is one that returns the sign of a number:
+
+```cpp
+[[cpp4r::register]] int sign_cpp_(double x) {
+  if (x > 0) {
+    return 1;
+  } else if (x == 0) {
+    return 0;
+  } else {
+    return -1;
+  }
+}
+```
+
+Here is the R version of the function:
+
+```r
+#' Return the sign of a number (R)
+#' @param x integer
+#' @export
+sign_r <- function(x) {
+  if (x > 0) {
+    1
+  } else if (x == 0) {
+    0
+  } else {
+    -1
+  }
+}
+```
+
+You should also add the corresponding auxiliary function for documentation:
+
+```r
+#' Return the sign of a number (C++)
+#' @inheritParams sum_r
+#' @export
+sign_cpp <- function(x) {
+  sign_cpp_(x)
+}
+```
+
+# Installing the Package
+
+To document and install the package as an R library, you can run the following functions:
+
+```r
+cpp_register()
+document()
+install()
+```
+
+Afterward, you can access the functions by loading the package with `library(cpp4rexamples)`.
+
+For development and live testing, you can use the `load_all()` function:
+
+```{r pkg-load}
+load_all()
+```
+
+Each time you need to make changes to the C++ code, you can run `load_all()` again to test and then reinstall the package.
+
+# Good Practice
+
+It is good practice to include a license for your code. For example, you can use the Apache license by running:
+
+```r
+use_apache_license()
+```
+
+Additionally, it is recommended to use `use_build_ignore()` to ignore files that are unnecessary for package installation. For example, to ignore the `docs` folder, you can run:
+
+```r
+use_build_ignore("docs")
+```
+
+Your `.Rbuildignore` file can include the following lines, which you can edit manually to exclude specific files and directories:
+
+```
+^\.vscode$
+^LICENSE\.md$
+^cpp4rexamples\.Rproj$
+```
+
+# References

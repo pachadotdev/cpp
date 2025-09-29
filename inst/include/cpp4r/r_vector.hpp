@@ -346,6 +346,30 @@ class r_vector : public cpp4r::r_vector<T> {
   using cpp4r::r_vector<T>::get_sexptype;
   using cpp4r::r_vector<T>::valid_type;
   using cpp4r::r_vector<T>::valid_length;
+
+ private:
+  // Helper methods for C++11 compatibility (replaces if constexpr)
+  void assign_element_helper(R_xlen_t i, const underlying_type& elt, std::true_type) {
+    // For r_string types: Translate to UTF-8 before assigning
+    SEXP translated_elt = Rf_mkCharCE(Rf_translateCharUTF8(elt), CE_UTF8);
+
+    if (data_p_ != nullptr) {
+      data_p_[i] = translated_elt;
+    } else {
+      // Handles STRSXP case. VECSXP case has its own specialization.
+      // We don't expect any ALTREP cases since we just freshly allocated `data_`.
+      set_elt(data_, i, translated_elt);
+    }
+  }
+
+  void assign_element_helper(R_xlen_t i, const underlying_type& elt, std::false_type) {
+    // For non-r_string types: Direct assignment
+    if (data_p_ != nullptr) {
+      data_p_[i] = elt;
+    } else {
+      set_elt(data_, i, elt);
+    }
+  }
 };
 }  // namespace writable
 
@@ -888,24 +912,7 @@ inline r_vector<T>::r_vector(std::initializer_list<named_arg> il)
       // SAFETY: We've validated type and length ahead of this.
       const underlying_type elt = get_elt(value, 0);
 
-      if constexpr (std::is_same<T, cpp4r::r_string>::value) {
-        // Translate to UTF-8 before assigning for string types
-        SEXP translated_elt = Rf_mkCharCE(Rf_translateCharUTF8(elt), CE_UTF8);
-
-        if (data_p_ != nullptr) {
-          data_p_[i] = translated_elt;
-        } else {
-          // Handles STRSXP case. VECSXP case has its own specialization.
-          // We don't expect any ALTREP cases since we just freshly allocated `data_`.
-          set_elt(data_, i, translated_elt);
-        }
-      } else {
-        if (data_p_ != nullptr) {
-          data_p_[i] = elt;
-        } else {
-          set_elt(data_, i, elt);
-        }
-      }
+      assign_element_helper(i, elt, typename std::is_same<T, cpp4r::r_string>::type{});
 
       SEXP name = Rf_mkCharCE(it->name(), CE_UTF8);
       SET_STRING_ELT(names, i, name);

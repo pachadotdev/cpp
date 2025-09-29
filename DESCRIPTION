@@ -15,8 +15,8 @@ Description: Provides a header only, C++ interface to R's C
     to normal R function semantics and supports interaction with 'ALTREP'
     vectors.
 License: MIT + file LICENSE
-URL: https://cpp4r.r-lib.org, https://github.com/r-lib/cpp4r
-BugReports: https://github.com/r-lib/cpp4r/issues
+URL: https://cpp4r.org, https://github.com/pachadotdev/cpp4r
+BugReports: https://github.com/pachadotdev/cpp4r/issues
 Depends:
     R (>= 4.0.0)
 Suggests:

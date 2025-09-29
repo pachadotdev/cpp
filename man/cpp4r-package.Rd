@@ -11,9 +11,9 @@ Provides a header only, C++ interface to R's C interface. Compared to other appr
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://cpp4r.r-lib.org}
-  \item \url{https://github.com/r-lib/cpp4r}
-  \item Report bugs at \url{https://github.com/r-lib/cpp4r/issues}
+  \item \url{https://cpp4r.org}
+  \item \url{https://github.com/pachadotdev/cpp4r}
+  \item Report bugs at \url{https://github.com/pachadotdev/cpp4r/issues}
 }
 
 }
