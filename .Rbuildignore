@@ -31,6 +31,7 @@ script.R
 ^\.cache$
 ^docs$
 ^pkgdown$
+^cpp4rexamples$
 ^cpp4rdummyols$
 ^cpp4rgaussjordan$
 ^cpp4romp$

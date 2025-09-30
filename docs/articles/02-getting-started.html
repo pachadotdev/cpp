@@ -35,7 +35,7 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="active nav-item dropdown">
+<li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/00-motivations.html">Motivations for cpp4r</a></li>
@@ -43,20 +43,19 @@
     <li><a class="dropdown-item" href="../articles/02-getting-started.html">Get started with cpp4r</a></li>
     <li><a class="dropdown-item" href="../articles/03-package-skeleton.html">Package Skeleton</a></li>
     <li><a class="dropdown-item" href="../articles/04-read-only.html">Read-only versus Writable R Objects</a></li>
-    <li><a class="dropdown-item" href="../articles/05-converting.html">Converting from Rcpp</a></li>
-    <li><a class="dropdown-item" href="../articles/06-logical-functions.html">Logical Functions</a></li>
-    <li><a class="dropdown-item" href="../articles/07-rolling-functions.html">Rolling Functions</a></li>
-    <li><a class="dropdown-item" href="../articles/08-statistical-functions.html">Statistical Functions</a></li>
-    <li><a class="dropdown-item" href="../articles/09-logical-functions-2.html">Logical Functions with Missing Values</a></li>
-    <li><a class="dropdown-item" href="../articles/10-rolling-functions-2.html">Rolling Functions with Missing Values</a></li>
-    <li><a class="dropdown-item" href="../articles/11-statistical-functions-2.html">Statistical Functions with Missing Values</a></li>
-    <li><a class="dropdown-item" href="../articles/12-debugging.html">Debugging R Packages</a></li>
-    <li><a class="dropdown-item" href="../articles/13-external-pointers.html">External Pointers</a></li>
-    <li><a class="dropdown-item" href="../articles/14-compiler-optimization.html">Compiler Optimizations</a></li>
-    <li><a class="dropdown-item" href="../articles/15-linear-algebra.html">Linear Algebra</a></li>
-    <li><a class="dropdown-item" href="../articles/16-internals.html">cpp4r Internals</a></li>
-    <li><a class="dropdown-item" href="../articles/17-FAQ.html">FAQs</a></li>
-    <li><a class="dropdown-item" href="../articles/18-worked-examples.html">Worked Examples</a></li>
+    <li><a class="dropdown-item" href="../articles/05-logical-functions.html">Logical Functions</a></li>
+    <li><a class="dropdown-item" href="../articles/06-rolling-functions.html">Rolling Functions</a></li>
+    <li><a class="dropdown-item" href="../articles/07-statistical-functions.html">Statistical Functions</a></li>
+    <li><a class="dropdown-item" href="../articles/08-logical-functions-2.html">Logical Functions with Missing Values</a></li>
+    <li><a class="dropdown-item" href="../articles/09-rolling-functions-2.html">Rolling Functions with Missing Values</a></li>
+    <li><a class="dropdown-item" href="../articles/10-statistical-functions-2.html">Statistical Functions with Missing Values</a></li>
+    <li><a class="dropdown-item" href="../articles/11-debugging.html">Debugging R Packages</a></li>
+    <li><a class="dropdown-item" href="../articles/12-external-pointers.html">External Pointers</a></li>
+    <li><a class="dropdown-item" href="../articles/13-compiler-optimization.html">Compiler Optimizations</a></li>
+    <li><a class="dropdown-item" href="../articles/14-linear-algebra.html">Linear Algebra</a></li>
+    <li><a class="dropdown-item" href="../articles/15-internals.html">cpp4r Internals</a></li>
+    <li><a class="dropdown-item" href="../articles/16-FAQ.html">FAQs</a></li>
+    <li><a class="dropdown-item" href="../articles/17-worked-examples.html">Worked Examples</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -65,7 +64,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/pachadotdev/cpp4r/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="nav-link" href="https://github.com/pachadotdev/cpp4r/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -81,13 +80,13 @@
       <img src="../logo.svg" class="logo" alt=""><h1>Get started with cpp4r</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/pachadotdev/cpp4r/blob/HEAD/vignettes/02-getting-started.Rmd" class="external-link"><code>vignettes/02-getting-started.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/pachadotdev/cpp4r/blob/HEAD/vignettes/02-getting-started.Rmd"><code>vignettes/02-getting-started.Rmd</code></a></small>
       <div class="d-none name"><code>02-getting-started.Rmd</code></div>
     </div>
 
     
     
-<p><em>This content is adapted (with permission) from the <a href="https://adv-r.hadley.nz/rcpp.html" class="external-link">Rcpp chapter</a> of Hadley
+<p><em>This content is adapted (with permission) from the <a href="https://adv-r.hadley.nz/rcpp.html">Rcpp chapter</a> of Hadley
 Wickham’s book Advanced R <span class="citation">(Wickham
 2019)</span>.</em></p>
 <div class="section level3">
@@ -97,7 +96,7 @@ Wickham’s book Advanced R <span class="citation">(Wickham
 figure out where your bottlenecks are, and you have done everything you
 can in R, but your code still is not fast enough. In this vignette you
 will learn how to improve performance by rewriting key functions in C++.
-This magic comes by way of the <a href="https://github.com/r-lib/cpp4r" class="external-link">cpp4r</a> package.</p>
+This magic comes by way of the <a href="https://github.com/r-lib/cpp4r">cpp4r</a> package.</p>
 <p>cpp4r makes it simpler to connect C++ to R. While it is
 <em>possible</em> to write C or Fortran code for use in R, it will be
 harder by comparison. cpp4r provides a clean, approachable API that lets
@@ -121,17 +120,17 @@ your code. This vignette does not spend much time on advanced features
 like object-oriented programming or templates because the focus is on
 writing small, self-contained functions, not big programs. A working
 knowledge of C++ is helpful, but not essential. Many good tutorials and
-references are freely available, including <a href="https://learningcpp.org/cover.html" class="external-link">Khufu: Object-Oriented
+references are freely available, including <a href="https://learningcpp.org/cover.html">Khufu: Object-Oriented
 Programming using C++</a> by Prof. Dr. Salma Emara. For more advanced
 topics, the <em>Effective C++</em> series by Scott Meyers is a popular
 choice.</p>
 <div class="section level4">
 <h4 id="prerequisites">Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
 </h4>
-<p>You will use <a href="https://github.com/r-lib/cpp4r" class="external-link">cpp4r</a> to
+<p>You will use <a href="https://github.com/r-lib/cpp4r">cpp4r</a> to
 call C++ from R:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://cpp4r.org">cpp4r</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cpp4r.org">cpp4r</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
@@ -202,7 +201,7 @@ a value from a function.</p></li>
 <h4 id="scalar-input-scalar-output">Scalar input, scalar output<a class="anchor" aria-label="anchor" href="#scalar-input-scalar-output"></a>
 </h4>
 <p>The next example function implements a scalar version of the
-<code><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign()</a></code> function which returns 1 if the input is positive,
+<code><a href="https://rdrr.io/r/base/sign.html">sign()</a></code> function which returns 1 if the input is positive,
 and -1 if it is negative:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sign_r</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
@@ -231,9 +230,9 @@ it also makes clear the type of input the function needs.</p></li>
 <li><p>The <code>if</code> syntax is identical — while there are some
 big differences between R and C++, there are also lots of similarities!
 C++ also has a <code>while</code> statement that works the same way as
-R’s. As in R you can use <code><a href="https://rdrr.io/r/base/Control.html" class="external-link">break</a></code> to exit the loop, but to
+R’s. As in R you can use <code><a href="https://rdrr.io/r/base/Control.html">break</a></code> to exit the loop, but to
 skip one iteration you need to use <code>continue</code> instead of
-<code><a href="https://rdrr.io/r/base/Control.html" class="external-link">next</a></code>.</p></li>
+<code><a href="https://rdrr.io/r/base/Control.html">next</a></code>.</p></li>
 </ul>
 </div>
 <div class="section level4">
@@ -246,7 +245,7 @@ you will probably have a visceral reaction to this function!</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sum_r</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">total</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
-<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">total</span> <span class="op">&lt;-</span> <span class="va">total</span> <span class="op">+</span> <span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
 <span>  <span class="op">}</span></span>
 <span>  <span class="va">total</span></span>
@@ -290,12 +289,12 @@ functions to C++.</p></li>
 </ul>
 <p>This is a good example of where C++ is much more efficient than R. As
 shown by the following microbenchmark, <code>sum_cpp()</code> is
-competitive with the built-in (and highly optimised) <code><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum()</a></code>,
+competitive with the built-in (and highly optimised) <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code>,
 while <code>sum_r()</code> is several orders of magnitude slower.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1e3</span><span class="op">)</span></span>
-<span><span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">1e3</span><span class="op">)</span></span>
+<span><span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html">mark</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>  <span class="fu">sum_cpp</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>  <span class="fu">sum_r</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span></span></code></pre></div>
@@ -308,7 +307,7 @@ while <code>sum_r()</code> is several orders of magnitude slower.</p>
 between a value and a vector of values:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pdist_r</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">ys</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="va">ys</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="va">ys</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>In R, it is not obvious that you want <code>x</code> to be a scalar
 from the function definition, and you would need to make that clear in
@@ -338,8 +337,8 @@ exponentiation.</p></li>
 <p>Note that because the R version is fully vectorised, it is already
 going to be fast.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1e6</span><span class="op">)</span></span>
-<span><span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">1e6</span><span class="op">)</span></span>
+<span><span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html">mark</a></span><span class="op">(</span></span>
 <span>  <span class="fu">pdist_r</span><span class="op">(</span><span class="fl">0.5</span>, <span class="va">y</span><span class="op">)</span>,</span>
 <span>  <span class="fu">pdist_cpp</span><span class="op">(</span><span class="fl">0.5</span>, <span class="va">y</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span></span></code></pre></div>
@@ -394,7 +393,7 @@ double mean_cpp(doubles x) {
   return total / n;
 }</code></pre>
 <p>NB: if you run this code, you will notice that
-<code>mean_cpp()</code> is faster than the built-in <code><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean()</a></code>.
+<code>mean_cpp()</code> is faster than the built-in <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>.
 This is because it trades numerical accuracy for speed.</p>
 <p>For the remainder of this vignette C++ code will be presented
 stand-alone rather than wrapped in a call to <code>cpp_function</code>.
@@ -472,13 +471,13 @@ int f4(cpp4r::function pred, list x) {
 functions into C++. For now, assume the inputs have no missing
 values.</p>
 <ol style="list-style-type: decimal">
-<li><p><code><a href="https://rdrr.io/r/base/all.html" class="external-link">all()</a></code>.</p></li>
-<li><p><code><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumprod()</a></code>, <code><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cummin()</a></code>,
-<code><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cummax()</a></code>.</p></li>
-<li><p><code><a href="https://rdrr.io/r/base/diff.html" class="external-link">diff()</a></code>. Start by assuming lag 1, and then generalise
+<li><p><code><a href="https://rdrr.io/r/base/all.html">all()</a></code>.</p></li>
+<li><p><code><a href="https://rdrr.io/r/base/cumsum.html">cumprod()</a></code>, <code><a href="https://rdrr.io/r/base/cumsum.html">cummin()</a></code>,
+<code><a href="https://rdrr.io/r/base/cumsum.html">cummax()</a></code>.</p></li>
+<li><p><code><a href="https://rdrr.io/r/base/diff.html">diff()</a></code>. Start by assuming lag 1, and then generalise
 for lag <code>n</code>.</p></li>
-<li><p><code><a href="https://rdrr.io/r/base/range.html" class="external-link">range()</a></code>.</p></li>
-<li><p><code><a href="https://rdrr.io/r/stats/cor.html" class="external-link">var()</a></code>. Read about the approaches you can take on <a href="https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance" class="external-link">Wikipedia</a>.
+<li><p><code><a href="https://rdrr.io/r/base/range.html">range()</a></code>.</p></li>
+<li><p><code><a href="https://rdrr.io/r/stats/cor.html">var()</a></code>. Read about the approaches you can take on <a href="https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance">Wikipedia</a>.
 Whenever implementing a numerical algorithm, it is always good to check
 what is already known about the problem.</p></li>
 </ol>
@@ -505,13 +504,13 @@ lists and data frames can contain arbitrary classes but C++ needs to
 know their classes in advance. If the list has known structure (e.g.,
 it’s an S3 object), you can extract the components and manually convert
 them to their C++ equivalents with <code>as_cpp()</code>. For example,
-the object created by <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm()</a></code>, the function that fits a linear
+the object created by <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>, the function that fits a linear
 model, is a list whose components are always of the same type.</p>
 <p>The following code illustrates how you might extract the mean
 percentage error (<code>mpe()</code>) of a linear model. This is not a
 good example of when to use C++, because it is so easily implemented in
 R, but it shows how to work with an important S3 class. Note the use of
-<code>Rf_inherits()</code> and the <code><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop()</a></code> to check that the
+<code>Rf_inherits()</code> and the <code><a href="https://rdrr.io/r/base/stop.html">stop()</a></code> to check that the
 object really is a linear model.</p>
 <!-- FIXME: needs better motivation -->
 <pre class="cpp4r"><code>#include "cpp4r.hpp"
@@ -532,7 +531,7 @@ double mpe(list mod) {
   return err / n;
 }</code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">wt</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">wt</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
 <span><span class="fu">mpe</span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
@@ -568,7 +567,7 @@ sexp call_with_one(function f) {
 <p>All R objects have attributes, which can be queried and modified with
 <code>.attr()</code>. cpp4r also provides <code>.names()</code> as an
 alias for the <code>names</code> attribute. The following code snippet
-illustrates these methods. Note the use of <code><a href="https://rdrr.io/r/base/Paren.html" class="external-link">{}</a></code> <a href="https://en.cppreference.com/w/cpp/utility/initializer_list" class="external-link">initializer
+illustrates these methods. Note the use of <code><a href="https://rdrr.io/r/base/Paren.html">{}</a></code> <a href="https://en.cppreference.com/w/cpp/utility/initializer_list">initializer
 list</a> syntax. This allows you to create an R vector from C++ scalar
 values:</p>
 <pre class="cpp4r"><code>#include "cpp4r.hpp"
@@ -615,7 +614,7 @@ list scalar_missings() {
   return writable::list({as_sexp(int_s), as_sexp(chr_s), as_sexp(lgl_s), as_sexp(num_s)});
 }</code></pre>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu">scalar_missings</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="fu">scalar_missings</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>With the exception of <code>bool</code>, things look pretty good
 here: all of the missing values have been preserved. However, as you
 will see in the following sections, things are not quite as
@@ -696,7 +695,7 @@ list missing_sampler() {
   });
 }</code></pre>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu">missing_sampler</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="fu">missing_sampler</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="exercises-1">Exercises<a class="anchor" aria-label="anchor" href="#exercises-1"></a>
@@ -706,9 +705,9 @@ list missing_sampler() {
 missing values. If <code>na_rm</code> is true, ignore the missing
 values. If <code>na_rm</code> is false, return a missing value if the
 input contains any missing values. Some good functions to practice with
-are <code><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min()</a></code>, <code><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max()</a></code>, <code><a href="https://rdrr.io/r/base/range.html" class="external-link">range()</a></code>,
-<code><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean()</a></code>, and <code><a href="https://rdrr.io/r/stats/cor.html" class="external-link">var()</a></code>.</p></li>
-<li><p>Rewrite <code><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumsum()</a></code> and <code><a href="https://rdrr.io/r/base/diff.html" class="external-link">diff()</a></code> so they can
+are <code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code>, <code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code>, <code><a href="https://rdrr.io/r/base/range.html">range()</a></code>,
+<code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>, and <code><a href="https://rdrr.io/r/stats/cor.html">var()</a></code>.</p></li>
+<li><p>Rewrite <code><a href="https://rdrr.io/r/base/cumsum.html">cumsum()</a></code> and <code><a href="https://rdrr.io/r/base/diff.html">diff()</a></code> so they can
 handle missing values. Note that these functions have slightly more
 complicated behaviour.</p></li>
 </ol>
@@ -726,7 +725,7 @@ teach you everything you need to know about the STL, but hopefully the
 examples will show you the power of the STL, and persuade you that it is
 useful to learn more.</p>
 <p>If you need an algorithm or data structure that is not implemented in
-STL, one place to look is <a href="https://www.boost.org/doc/" class="external-link">boost</a>. Installing boost on your
+STL, one place to look is <a href="https://www.boost.org/doc/">boost</a>. Installing boost on your
 computer is beyond the scope of this vignette, but once you have it
 installed, you can use boost data structures and algorithms by including
 the appropriate header file with (e.g.)
@@ -785,7 +784,7 @@ double sum3(doubles xs) {
 }</code></pre>
 <p>Iterators also allow us to use the C++ equivalents of the apply
 family of functions. For example, you could again rewrite
-<code><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum()</a></code> to use the <code>accumulate()</code> function, which
+<code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> to use the <code>accumulate()</code> function, which
 takes a starting and an ending iterator, and adds up all the values in
 the vector. The third argument to <code>accumulate</code> gives the
 initial value: it is particularly important because this also determines
@@ -807,9 +806,9 @@ double sum4(doubles x) {
 <h4 id="algorithms">Algorithms<a class="anchor" aria-label="anchor" href="#algorithms"></a>
 </h4>
 <p>The <code>&lt;algorithm&gt;</code> header provides a large number of
-algorithms that work with iterators. A good reference is available at <a href="https://en.cppreference.com/w/cpp/algorithm" class="external-link uri">https://en.cppreference.com/w/cpp/algorithm</a>. For
+algorithms that work with iterators. A good reference is available at <a href="https://en.cppreference.com/w/cpp/algorithm" class="uri">https://en.cppreference.com/w/cpp/algorithm</a>. For
 example, you could write a basic cpp4r version of
-<code><a href="https://rdrr.io/r/base/findInterval.html" class="external-link">findInterval()</a></code> that takes two arguments, a vector of values
+<code><a href="https://rdrr.io/r/base/findInterval.html">findInterval()</a></code> that takes two arguments, a vector of values
 and a vector of breaks, and locates the bin that each x falls into. This
 shows off a few more advanced iterator features. Read the code below and
 see if you can figure out how it works.</p>
@@ -864,7 +863,7 @@ just have different performance trade-offs. For example, the
 <code>deque</code> (pronounced “deck”) has a very similar interface to
 vectors but a different underlying implementation that has different
 performance trade-offs. You may want to try it for your problem. A good
-reference for STL data structures is <a href="https://en.cppreference.com/w/cpp/container" class="external-link uri">https://en.cppreference.com/w/cpp/container</a> — you should
+reference for STL data structures is <a href="https://en.cppreference.com/w/cpp/container" class="uri">https://en.cppreference.com/w/cpp/container</a> — you should
 keep it open while working with the STL.</p>
 <p>cpp4r knows how to convert from many STL data structures to their R
 equivalents, so you can return them from your functions without
@@ -885,7 +884,7 @@ new element to the end of the vector using <code>.push_back()</code>. If
 you have some idea in advance how big the vector will be, you can use
 <code>.reserve()</code> to allocate sufficient storage.</p>
 <p>The following code implements run length encoding
-(<code><a href="https://rdrr.io/r/base/rle.html" class="external-link">rle()</a></code>). It produces two vectors of output: a vector of
+(<code><a href="https://rdrr.io/r/base/rle.html">rle()</a></code>). It produces two vectors of output: a vector of
 values, and a vector <code>lengths</code> giving how many times each
 element is repeated. It works by looping through the input vector
 <code>x</code> comparing each value to the previous: if it is the same,
@@ -927,7 +926,7 @@ list rle_cpp(doubles x) {
 with the iterator <code>lengths.rbegin()</code> which always points to
 the last element of the vector. You might want to try implementing
 that.)</p>
-<p>Other methods of a vector are described at <a href="https://en.cppreference.com/w/cpp/container/vector" class="external-link uri">https://en.cppreference.com/w/cpp/container/vector</a>.</p>
+<p>Other methods of a vector are described at <a href="https://en.cppreference.com/w/cpp/container/vector" class="uri">https://en.cppreference.com/w/cpp/container/vector</a>.</p>
 </div>
 <div class="section level4">
 <h4 id="sets">Sets<a class="anchor" aria-label="anchor" href="#sets"></a>
@@ -946,9 +945,9 @@ way to determine which is fastest for your data. Like vectors, sets are
 templated, so you need to request the appropriate type of set for your
 purpose: <code>unordered_set&lt;int&gt;</code>,
 <code>unordered_set&lt;bool&gt;</code>, etc. More details are available
-at <a href="https://en.cppreference.com/w/cpp/container/set" class="external-link uri">https://en.cppreference.com/w/cpp/container/set</a> and <a href="https://en.cppreference.com/w/cpp/container/unordered_set" class="external-link uri">https://en.cppreference.com/w/cpp/container/unordered_set</a>.</p>
+at <a href="https://en.cppreference.com/w/cpp/container/set" class="uri">https://en.cppreference.com/w/cpp/container/set</a> and <a href="https://en.cppreference.com/w/cpp/container/unordered_set" class="uri">https://en.cppreference.com/w/cpp/container/unordered_set</a>.</p>
 <p>The following function uses an unordered set to implement an
-equivalent to <code><a href="https://rdrr.io/r/base/duplicated.html" class="external-link">duplicated()</a></code> for integer vectors. Note the
+equivalent to <code><a href="https://rdrr.io/r/base/duplicated.html">duplicated()</a></code> for integer vectors. Note the
 use of <code>seen.insert(x[i]).second</code>. <code>insert()</code>
 returns a pair, the <code>.first</code> value is an iterator that points
 to element and the <code>.second</code> value is a Boolean that is true
@@ -974,14 +973,14 @@ logicals duplicated_cpp(integers x) {
 </h4>
 <p>A map is similar to a set, but instead of storing presence or
 absence, it can store additional data. It is useful for functions like
-<code><a href="https://rdrr.io/r/base/table.html" class="external-link">table()</a></code> or <code><a href="https://rdrr.io/r/base/match.html" class="external-link">match()</a></code> that need to look up a
+<code><a href="https://rdrr.io/r/base/table.html">table()</a></code> or <code><a href="https://rdrr.io/r/base/match.html">match()</a></code> that need to look up a
 value. As with sets, there are ordered (<code>std::map</code>) and
 unordered (<code>std::unordered_map</code>) versions. Since maps have a
 value and a key, you need to specify both types when initialising a map:
 <code>map&lt;double, int&gt;</code>,
 <code>unordered_map&lt;int, double&gt;</code>, and so on. The following
 example shows how you could use a <code>map</code> to implement
-<code><a href="https://rdrr.io/r/base/table.html" class="external-link">table()</a></code> for numeric vectors:</p>
+<code><a href="https://rdrr.io/r/base/table.html">table()</a></code> for numeric vectors:</p>
 <pre class="cpp4r"><code>#include &lt;map&gt;
 #include "cpp4r.hpp"
 using namespace cpp4r;
@@ -1002,18 +1001,18 @@ SEXP table_cpp(doubles x) {
 <p>To practice using the STL algorithms and data structures, implement
 the following using R functions in C++, using the hints provided:</p>
 <ol style="list-style-type: decimal">
-<li><p><code><a href="https://rdrr.io/r/stats/median.html" class="external-link">median.default()</a></code> using
+<li><p><code><a href="https://rdrr.io/r/stats/median.html">median.default()</a></code> using
 <code>partial_sort</code>.</p></li>
 <li><p><code>%in%</code> using <code>unordered_set</code> and the
-<code><a href="https://rdrr.io/r/utils/apropos.html" class="external-link">find()</a></code> or <code>count()</code> methods.</p></li>
-<li><p><code><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique()</a></code> using an <code>unordered_set</code>
+<code><a href="https://rdrr.io/r/utils/apropos.html">find()</a></code> or <code>count()</code> methods.</p></li>
+<li><p><code><a href="https://rdrr.io/r/base/unique.html">unique()</a></code> using an <code>unordered_set</code>
 (challenge: do it in one line!).</p></li>
-<li><p><code><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min()</a></code> using <code>std::min()</code>, or
-<code><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max()</a></code> using <code>std::max()</code>.</p></li>
-<li><p><code><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.min()</a></code> using <code>min_element</code>, or
-<code><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.max()</a></code> using <code>max_element</code>.</p></li>
-<li><p><code><a href="https://rdrr.io/r/base/sets.html" class="external-link">setdiff()</a></code>, <code><a href="https://rdrr.io/r/base/sets.html" class="external-link">union()</a></code>, and
-<code><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect()</a></code> for integers using sorted ranges and
+<li><p><code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code> using <code>std::min()</code>, or
+<code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code> using <code>std::max()</code>.</p></li>
+<li><p><code><a href="https://rdrr.io/r/base/which.min.html">which.min()</a></code> using <code>min_element</code>, or
+<code><a href="https://rdrr.io/r/base/which.min.html">which.max()</a></code> using <code>max_element</code>.</p></li>
+<li><p><code><a href="https://rdrr.io/r/base/sets.html">setdiff()</a></code>, <code><a href="https://rdrr.io/r/base/sets.html">union()</a></code>, and
+<code><a href="https://rdrr.io/r/base/sets.html">intersect()</a></code> for integers using sorted ranges and
 <code>set_union</code>, <code>set_intersection</code> and
 <code>set_difference</code>.</p></li>
 </ol>
@@ -1028,7 +1027,7 @@ replace slow R code.</p>
 <h4 id="gibbs-sampler">Gibbs sampler<a class="anchor" aria-label="anchor" href="#gibbs-sampler"></a>
 </h4>
 <!-- FIXME: needs more context? -->
-<p>The following case study updates an example <a href="http://dirk.eddelbuettel.com/blog/2011/07/14/" class="external-link">blogged about</a>
+<p>The following case study updates an example <a href="http://dirk.eddelbuettel.com/blog/2011/07/14/">blogged about</a>
 by Dirk Eddelbuettel, illustrating the conversion of a Gibbs sampler in
 R to C++. The R and C++ code shown below is very similar (it only took a
 few minutes to convert the R version to the C++ version), but runs about
@@ -1039,14 +1038,14 @@ another two to three times faster.</p>
 <p>The R code is as follows:</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gibbs_r</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">N</span>, <span class="va">thin</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="va">N</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>  <span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="va">N</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
 <span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">N</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">thin</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/GammaDist.html" class="external-link">rgamma</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="va">y</span> <span class="op">*</span> <span class="va">y</span> <span class="op">+</span> <span class="fl">4</span><span class="op">)</span></span>
-<span>      <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span> <span class="op">/</span> <span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span>, <span class="fl">1</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>      <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/GammaDist.html">rgamma</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="va">y</span> <span class="op">*</span> <span class="va">y</span> <span class="op">+</span> <span class="fl">4</span><span class="op">)</span></span>
+<span>      <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span> <span class="op">/</span> <span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span>, <span class="fl">1</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">}</span></span>
-<span>    <span class="va">mat</span><span class="op">[</span><span class="va">i</span>, <span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
+<span>    <span class="va">mat</span><span class="op">[</span><span class="va">i</span>, <span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
 <span>  <span class="va">mat</span></span>
 <span><span class="op">}</span></span></code></pre></div>
@@ -1080,13 +1079,13 @@ namespace writable = cpp4r::writable;
 <p>Benchmarking the two implementations yields a significant speedup for
 running the loops in C++:</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html">mark</a></span><span class="op">(</span></span>
 <span>  r <span class="op">=</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
 <span>    <span class="fu">gibbs_r</span><span class="op">(</span><span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span>  <span class="op">}</span>,</span>
 <span>  cpp <span class="op">=</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
 <span>    <span class="fu">gibbs_cpp</span><span class="op">(</span><span class="fl">100</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span>  <span class="op">}</span>,</span>
 <span>  check <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -1097,25 +1096,25 @@ running the loops in C++:</p>
 <h4 id="r-vectorisation-versus-c-vectorisation">R vectorisation versus C++ vectorisation<a class="anchor" aria-label="anchor" href="#r-vectorisation-versus-c-vectorisation"></a>
 </h4>
 <!-- FIXME: needs more context? -->
-<p>This example is adapted from <a href="https://gweissman.github.io/post/rcpp-is-smoking-fast-for-agent-based-models-in-data-frames/" class="external-link">“Rcpp
+<p>This example is adapted from <a href="https://gweissman.github.io/post/rcpp-is-smoking-fast-for-agent-based-models-in-data-frames/">“Rcpp
 is smoking fast for agent-based models in data frames”</a>. The
 challenge is to predict a model response from three inputs. The basic R
 version of the predictor looks like:</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">vacc1a</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">0.25</span> <span class="op">+</span> <span class="fl">0.3</span> <span class="op">*</span> <span class="fl">1</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fl">0.04</span> <span class="op">*</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.1</span> <span class="op">*</span> <span class="va">ily</span></span>
+<span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">0.25</span> <span class="op">+</span> <span class="fl">0.3</span> <span class="op">*</span> <span class="fl">1</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fl">0.04</span> <span class="op">*</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.1</span> <span class="op">*</span> <span class="va">ily</span></span>
 <span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">*</span> <span class="kw">if</span> <span class="op">(</span><span class="va">female</span><span class="op">)</span> <span class="fl">1.25</span> <span class="kw">else</span> <span class="fl">0.75</span></span>
-<span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">p</span><span class="op">)</span></span>
-<span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">p</span><span class="op">)</span></span>
+<span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">p</span><span class="op">)</span></span>
+<span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">p</span><span class="op">)</span></span>
 <span>  <span class="va">p</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>To apply this function to many inputs, you might write a vector-input
 version using a for loop.</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">vacc1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span></span>
-<span>  <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
-<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span></span>
+<span>  <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">out</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">vacc1a</span><span class="op">(</span><span class="va">age</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="va">female</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="va">ily</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
 <span>  <span class="va">out</span></span>
@@ -1123,18 +1122,18 @@ version using a for loop.</p>
 <p>If you are familiar with R, you will have a gut feeling that this
 will be slow, and indeed it is. There are two ways you could attack this
 problem. If you have a good R vocabulary, you might immediately see how
-to vectorise the function (using <code><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse()</a></code>,
-<code><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">pmin()</a></code>, and <code><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">pmax()</a></code>). Alternatively, you could
+to vectorise the function (using <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code>,
+<code><a href="https://rdrr.io/r/base/Extremes.html">pmin()</a></code>, and <code><a href="https://rdrr.io/r/base/Extremes.html">pmax()</a></code>). Alternatively, you could
 rewrite <code>vacc1a()</code> and <code>vacc1()</code> in C++, using the
 knowledge that loops and function calls have much lower overhead in
 C++.</p>
 <p>Either approach is fairly straightforward. In R:</p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">vacc2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">0.25</span> <span class="op">+</span> <span class="fl">0.3</span> <span class="op">*</span> <span class="fl">1</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fl">0.04</span> <span class="op">*</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.1</span> <span class="op">*</span> <span class="va">ily</span></span>
-<span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">female</span>, <span class="fl">1.25</span>, <span class="fl">0.75</span><span class="op">)</span></span>
-<span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">pmax</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">p</span><span class="op">)</span></span>
-<span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">pmin</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">p</span><span class="op">)</span></span>
+<span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">0.25</span> <span class="op">+</span> <span class="fl">0.3</span> <span class="op">*</span> <span class="fl">1</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fl">0.04</span> <span class="op">*</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.1</span> <span class="op">*</span> <span class="va">ily</span></span>
+<span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">female</span>, <span class="fl">1.25</span>, <span class="fl">0.75</span><span class="op">)</span></span>
+<span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">pmax</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">p</span><span class="op">)</span></span>
+<span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">pmin</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">p</span><span class="op">)</span></span>
 <span>  <span class="va">p</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>(If you have worked with R a lot you might recognise some potential
@@ -1171,18 +1170,18 @@ doubles vacc3(doubles age, logicals female,
 return the same values:</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span>
-<span><span class="va">age</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n</span>, mean <span class="op">=</span> <span class="fl">50</span>, sd <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
-<span><span class="va">female</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">T</span>, <span class="cn">F</span><span class="op">)</span>, <span class="va">n</span>, rep <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">ily</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">T</span>, <span class="cn">F</span><span class="op">)</span>, <span class="va">n</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">0.2</span><span class="op">)</span>, rep <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="fu">vacc1</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span>, <span class="fu">vacc2</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="fu">vacc1</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span>, <span class="fu">vacc3</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">age</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span>, mean <span class="op">=</span> <span class="fl">50</span>, sd <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="va">female</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">T</span>, <span class="cn">F</span><span class="op">)</span>, <span class="va">n</span>, rep <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">ily</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">T</span>, <span class="cn">F</span><span class="op">)</span>, <span class="va">n</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">0.2</span><span class="op">)</span>, rep <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="fu">vacc1</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span>, <span class="fu">vacc2</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="fu">vacc1</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span>, <span class="fu">vacc3</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>The original blog post forgot to do this, and introduced a bug in the
 C++ version: it used <code>0.004</code> instead of <code>0.04</code>.
 Finally, we can benchmark our three approaches:</p>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html">mark</a></span><span class="op">(</span></span>
 <span>  vacc1 <span class="op">=</span> <span class="fu">vacc1</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span>,</span>
 <span>  vacc2 <span class="op">=</span> <span class="fu">vacc2</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span>,</span>
 <span>  vacc3 <span class="op">=</span> <span class="fu">vacc3</span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">ily</span><span class="op">)</span></span>
@@ -1218,17 +1217,17 @@ files in the <code>src/</code> directory of your package.</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="fu">LinkingTo</span><span class="kw">:</span><span class="at"> cpp4r</span></span></code></pre></div>
 </li>
 <li>
-<p>And add the following <a href="https://roxygen2.r-lib.org/" class="external-link">roxygen</a> directive somewhere in
+<p>And add the following <a href="https://roxygen2.r-lib.org/">roxygen</a> directive somewhere in
 your package’s R files. (A common location is
 <code>R/pkgname-package.R</code>)</p>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#' @useDynLib pkgname, .registration = TRUE</span></span></code></pre></div>
 </li>
-<li><p>You will then need to run <a href="https://devtools.r-lib.org/reference/document.html" class="external-link"><code>devtools::document()</code></a>
+<li><p>You will then need to run <a href="https://devtools.r-lib.org/reference/document.html"><code>devtools::document()</code></a>
 to update your <code>NAMESPACE</code> file to include the
 <code>useDynLib</code> statement.</p></li>
 </ul>
-<p>If you do not use <code><a href="https://devtools.r-lib.org/reference/load_all.html" class="external-link">devtools::load_all()</a></code>, you will also
+<p>If you do not use <code><a href="https://devtools.r-lib.org/reference/load_all.html">devtools::load_all()</a></code>, you will also
 need to run <code>cpp4r::cpp_register()</code> before building the
 package. This function scans the C++ files for
 <code>[[cpp4r::register]]</code> attributes and generates the binding
@@ -1243,14 +1242,14 @@ removed, or have their signatures changed.</p>
 would like to dive deeper or write more complex functions, other helpful
 resources for learning C++ are:</p>
 <ul>
-<li><p><a href="https://www.aristeia.com/books.html" class="external-link"><em>Effective
-C++</em></a> and <a href="https://www.aristeia.com/books.html" class="external-link"><em>Effective
+<li><p><a href="https://www.aristeia.com/books.html"><em>Effective
+C++</em></a> and <a href="https://www.aristeia.com/books.html"><em>Effective
 STL</em></a></p></li>
-<li><p><a href="http://www.icce.rug.nl/documents/cplusplus/cplusplus.html" class="external-link"><em>C++
+<li><p><a href="http://www.icce.rug.nl/documents/cplusplus/cplusplus.html"><em>C++
 Annotations</em></a>, aimed at knowledgeable users of C (or any other
 language using a C-like grammar, like Perl or Java) who would like to
 know more about, or make the transition to, C++.</p></li>
-<li><p><a href="https://www.cs.helsinki.fi/u/tpkarkka/alglib/k06/" class="external-link"><em>Algorithm
+<li><p><a href="https://www.cs.helsinki.fi/u/tpkarkka/alglib/k06/"><em>Algorithm
 Libraries</em></a>, which provides a more technical, but still concise,
 description of important STL concepts. (Follow the links under
 notes.)</p></li>
@@ -1258,10 +1257,10 @@ notes.)</p></li>
 <p>Writing performant code may also require you to rethink your basic
 approach: a solid understanding of basic data structures and algorithms
 is very helpful here. That is beyond the scope of this vignette, but
-useful resources include the <em>Algorithm Design Manual</em>, MIT’s <a href="https://web.archive.org/web/20200604134756/https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-introduction-to-algorithms-sma-5503-fall-2005/" class="external-link"><em>Introduction
+useful resources include the <em>Algorithm Design Manual</em>, MIT’s <a href="https://web.archive.org/web/20200604134756/https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-introduction-to-algorithms-sma-5503-fall-2005/"><em>Introduction
 to Algorithms</em></a>, <em>Algorithms</em> by Robert Sedgewick and
-Kevin Wayne which has a free <a href="http://algs4.cs.princeton.edu/home/" class="external-link">online textbook</a> and a
-matching <a href="https://www.coursera.org/learn/algorithms-part1" class="external-link">Coursera
+Kevin Wayne which has a free <a href="http://algs4.cs.princeton.edu/home/">online textbook</a> and a
+matching <a href="https://www.coursera.org/learn/algorithms-part1">Coursera
 course</a>.</p>
 </div>
 <div class="section level2">
@@ -1270,7 +1269,7 @@ course</a>.</p>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-wickham2" class="csl-entry">
 Wickham, Hadley. 2019. <em>Advanced <span>R</span></em>. 2nd ed. Boca
-Raton. <a href="https://adv-r.hadley.nz/rcpp.html" class="external-link">https://adv-r.hadley.nz/rcpp.html</a>.
+Raton. <a href="https://adv-r.hadley.nz/rcpp.html">https://adv-r.hadley.nz/rcpp.html</a>.
 </div>
 </div>
 </div>
@@ -1285,7 +1284,7 @@ Raton. <a href="https://adv-r.hadley.nz/rcpp.html" class="external-link">https:/
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>

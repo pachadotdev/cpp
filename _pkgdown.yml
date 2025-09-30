@@ -1,5 +1,5 @@
 template:
   bootstrap: 5
 
-url: https://cpp4r.org
+url: "./"
 destination: docs

@@ -24,7 +24,13 @@ After discussing some [pull requests](https://github.com/r-lib/cpp11/pulls/pacha
 - [x] Provide flexibility with data types (e.g., cpp4r's `as_integers()` and `as_doubles()` accept logical inputs while cpp11's do not).
 - [x] Some internal optimizations for better speed (e.g., https://github.com/r-lib/cpp11/pull/463 and https://github.com/r-lib/cpp11/pull/430).
 
+## Getting started
+
+Check the [documentation](https://cpp4r.org/) to get started using cpp4r in your scripts, particularly if you are new to C++ programming.
+
 ## Using cpp4r in a package
+
+Create a new package with `cpp4r::pkg_template("~/path/to/mypkg")` and then edit the generated files.
 
 To add cpp4r to an existing package, put your C++ files in the `src/` directory and add the following to your DESCRIPTION file:
 
@@ -32,16 +38,23 @@ To add cpp4r to an existing package, put your C++ files in the `src/` directory 
 LinkingTo: cpp4r
 ```
 
+Then add a roxygen header, for example, to `R/mypkg-package.R`:
+
+```r
+#' @useDynLib mypkg, .registration = TRUE
+#' @keywords internal
+"_PACKAGE"
+```
+
 Then decorate C++ functions you want to expose to R with `[[cpp4r::register]]`.
 
-cpp4r is a header only library with no hard dependencies and does not use a shared library, so it is straightforward and reliable to use in packages without fear of compile-time and run-time mismatches.
+cpp4r is a header only library with no hard dependencies and does not use a shared library. It is straightforward and reliable to use in packages without fear of compile-time and run-time mismatches.
 
-Alternatively, you can [vendor](https://cpp4r.org/articles/motivations.html#vendoring) the current installed version of cpp4r headers into your package with `cpp4r::vendor_cpp4r()`.
+## Vendoring
+
+You can [vendor](https://cpp4r.org/articles/motivations.html#vendoring) the current installed version of cpp4r headers into your package with `cpp4r::vendor_cpp4r()`.
+
 This ensures the headers will remain unchanged until you explicitly update them.
-
-## Getting started
-
-See [vignette("cpp4r")](https://cpp4r.org/articles/cpp4r.html) to get started using cpp4r in your scripts, particularly if you are new to C++ programming.
 
 ## Getting help
 

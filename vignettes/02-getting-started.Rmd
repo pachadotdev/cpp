@@ -273,57 +273,6 @@ The C++ function avoids this overhead because it uses an intermediate scalar.
 600 / (5e-3 - 2e-3)
 ```
 
-### Using cpp_source {#cpp-source}
-
-So far, you have used inline C++ with `cpp_function()`.
-This makes presentation simpler, but for real problems, it is usually easier to use stand-alone C++ files and then source them into R using `cpp_source()`.
-This lets you take advantage of text editor support for C++ files (e.g., syntax highlighting) as well as making it easier to identify the line numbers in compilation errors.
-
-Your stand-alone C++ file should have extension `.cpp`, and needs to start with:
-
-``` cpp
-#include "cpp4r.hpp"
-using namespace cpp4r;
-```
-
-And for each function that you want available within R, you need to prefix it with:
-
-``` cpp
-[[cpp4r::register]]
-```
-
-If you are familiar with roxygen2, you might wonder how this relates to `@export`.
-`cpp4r::register` registers a C++ function to be called from R.
-`@export` controls whether a function is exported from a package and made available to the user.
-
-To compile the C++ code, use `cpp_source("path/to/file.cpp")`.
-This will create the matching R functions and add them to your current session.
-Note that these functions can not be saved in a `.Rdata` file and reloaded in a later session; they must be recreated each time you restart R.
-
-This example also illustrates a different kind of a `for` loop, a for-each loop.
-
-```{cpp4r}
-#include "cpp4r/doubles.hpp"
-using namespace cpp4r;
-
-[[cpp4r::register]]
-double mean_cpp(doubles x) {
-  int n = x.size();
-  double total = 0;
-  for(double value : x) {
-    total += value;
-  }
-  return total / n;
-}
-```
-
-NB: if you run this code, you will notice that `mean_cpp()` is faster than the built-in `mean()`.
-This is because it trades numerical accuracy for speed.
-
-For the remainder of this vignette C++ code will be presented stand-alone rather than wrapped in a call to `cpp_function`.
-If you want to try compiling and/or modifying the examples you should paste them into a C++ source file that includes the elements described above.
-This is easy to do in RMarkdown by using `{cpp4r}` instead of `{r}` at the beginning of your code blocks.
-
 ### Exercises
 
 1.  With the basics of C++ in hand, it is now a great time to practice by reading and writing some simple C++ functions. For each of the following functions, read the code and figure out what the corresponding base R function is. You might not understand every part of the code yet, but you should be able to figure out the basics of what the function does.
@@ -1078,15 +1027,6 @@ Vectorising in R gives a huge speedup, and you can eke out even more performance
 The C++ is so much faster because the R version has to create 11 vectors to store intermediate results, where the C++ code only needs to create 1.
 
 ## Using cpp4r in a package {#package}
-
-The same C++ code that is used with `cpp_source()` can also be bundled into a package.
-There are several benefits of moving code from a stand-alone C++ source file to a package:
-
-1.  Your code can be made available to users without C++ development tools.
-
-2.  Multiple source files and their dependencies are handled automatically by the R package build system.
-
-3.  Packages provide additional infrastructure for testing, documentation, and consistency.
 
 To add `cpp4r` to an existing package first put your C++ files in the `src/` directory of your package.
 

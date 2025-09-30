@@ -345,6 +345,55 @@ extern "C" SEXP _cpp4rtest_rcpp_release_(SEXP n) {
     return R_NilValue;
   END_cpp4r
 }
+// roxygen1.cpp
+double notroxcpp1_(double x);
+extern "C" SEXP _cpp4rtest_notroxcpp1_(SEXP x) {
+  BEGIN_cpp4r
+    return cpp4r::as_sexp(notroxcpp1_(cpp4r::as_cpp<cpp4r::decay_t<double>>(x)));
+  END_cpp4r
+}
+// roxygen1.cpp
+double roxcpp2(double x);
+extern "C" SEXP _cpp4rtest_roxcpp2(SEXP x) {
+  BEGIN_cpp4r
+    return cpp4r::as_sexp(roxcpp2(cpp4r::as_cpp<cpp4r::decay_t<double>>(x)));
+  END_cpp4r
+}
+// roxygen2.cpp
+double roxcpp3(double x);
+extern "C" SEXP _cpp4rtest_roxcpp3(SEXP x) {
+  BEGIN_cpp4r
+    return cpp4r::as_sexp(roxcpp3(cpp4r::as_cpp<cpp4r::decay_t<double>>(x)));
+  END_cpp4r
+}
+// roxygen2.cpp
+double roxcpp4(double x);
+extern "C" SEXP _cpp4rtest_roxcpp4(SEXP x) {
+  BEGIN_cpp4r
+    return cpp4r::as_sexp(roxcpp4(cpp4r::as_cpp<cpp4r::decay_t<double>>(x)));
+  END_cpp4r
+}
+// roxygen3.cpp
+double roxcpp5(double x);
+extern "C" SEXP _cpp4rtest_roxcpp5(SEXP x) {
+  BEGIN_cpp4r
+    return cpp4r::as_sexp(roxcpp5(cpp4r::as_cpp<cpp4r::decay_t<double>>(x)));
+  END_cpp4r
+}
+// roxygen3.cpp
+double notroxcpp6_(double x);
+extern "C" SEXP _cpp4rtest_notroxcpp6_(SEXP x) {
+  BEGIN_cpp4r
+    return cpp4r::as_sexp(notroxcpp6_(cpp4r::as_cpp<cpp4r::decay_t<double>>(x)));
+  END_cpp4r
+}
+// roxygen3.cpp
+double roxcpp7(double x);
+extern "C" SEXP _cpp4rtest_roxcpp7(SEXP x) {
+  BEGIN_cpp4r
+    return cpp4r::as_sexp(roxcpp7(cpp4r::as_cpp<cpp4r::decay_t<double>>(x)));
+  END_cpp4r
+}
 // safe.cpp
 SEXP cpp4r_safe_(SEXP x_sxp);
 extern "C" SEXP _cpp4rtest_cpp4r_safe_(SEXP x_sxp) {
@@ -663,6 +712,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_cpp4rtest_my_warning_n1",            (DL_FUNC) &_cpp4rtest_my_warning_n1,            1},
     {"_cpp4rtest_my_warning_n1fmt",         (DL_FUNC) &_cpp4rtest_my_warning_n1fmt,         1},
     {"_cpp4rtest_my_warning_n2fmt",         (DL_FUNC) &_cpp4rtest_my_warning_n2fmt,         2},
+    {"_cpp4rtest_notroxcpp1_",              (DL_FUNC) &_cpp4rtest_notroxcpp1_,              1},
+    {"_cpp4rtest_notroxcpp6_",              (DL_FUNC) &_cpp4rtest_notroxcpp6_,              1},
     {"_cpp4rtest_nullable_extptr_1",        (DL_FUNC) &_cpp4rtest_nullable_extptr_1,        0},
     {"_cpp4rtest_nullable_extptr_2",        (DL_FUNC) &_cpp4rtest_nullable_extptr_2,        0},
     {"_cpp4rtest_ordered_map_to_list_",     (DL_FUNC) &_cpp4rtest_ordered_map_to_list_,     1},
@@ -684,6 +735,11 @@ static const R_CallMethodDef CallEntries[] = {
     {"_cpp4rtest_rcpp_sum_int_for_",        (DL_FUNC) &_cpp4rtest_rcpp_sum_int_for_,        1},
     {"_cpp4rtest_remove_altrep",            (DL_FUNC) &_cpp4rtest_remove_altrep,            1},
     {"_cpp4rtest_row_sums",                 (DL_FUNC) &_cpp4rtest_row_sums,                 1},
+    {"_cpp4rtest_roxcpp2",                  (DL_FUNC) &_cpp4rtest_roxcpp2,                  1},
+    {"_cpp4rtest_roxcpp3",                  (DL_FUNC) &_cpp4rtest_roxcpp3,                  1},
+    {"_cpp4rtest_roxcpp4",                  (DL_FUNC) &_cpp4rtest_roxcpp4,                  1},
+    {"_cpp4rtest_roxcpp5",                  (DL_FUNC) &_cpp4rtest_roxcpp5,                  1},
+    {"_cpp4rtest_roxcpp7",                  (DL_FUNC) &_cpp4rtest_roxcpp7,                  1},
     {"_cpp4rtest_string_proxy_assignment_", (DL_FUNC) &_cpp4rtest_string_proxy_assignment_, 0},
     {"_cpp4rtest_string_push_back_",        (DL_FUNC) &_cpp4rtest_string_push_back_,        0},
     {"_cpp4rtest_sum_cplx_accumulate_",     (DL_FUNC) &_cpp4rtest_sum_cplx_accumulate_,     1},

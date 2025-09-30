@@ -18,7 +18,7 @@
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="A C++ Interface for R's C Interface">
 <meta name="description" content="Provides a header only, C++ interface to Rs C interface. Compared to other approaches cpp4r strives to be safe against long jumps from the C API as well as C++ exceptions, conform to normal R function semantics and supports interaction with ALTREP' vectors.">
 <meta property="og:description" content="Provides a header only, C++ interface to Rs C interface. Compared to other approaches cpp4r strives to be safe against long jumps from the C API as well as C++ exceptions, conform to normal R function semantics and supports interaction with ALTREP' vectors.">
-<meta property="og:image" content="https://cpp4r.org/logo.svg">
+<meta property="og:image" content="./logo.svg">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -46,20 +46,19 @@
     <li><a class="dropdown-item" href="articles/02-getting-started.html">Get started with cpp4r</a></li>
     <li><a class="dropdown-item" href="articles/03-package-skeleton.html">Package Skeleton</a></li>
     <li><a class="dropdown-item" href="articles/04-read-only.html">Read-only versus Writable R Objects</a></li>
-    <li><a class="dropdown-item" href="articles/05-converting.html">Converting from Rcpp</a></li>
-    <li><a class="dropdown-item" href="articles/06-logical-functions.html">Logical Functions</a></li>
-    <li><a class="dropdown-item" href="articles/07-rolling-functions.html">Rolling Functions</a></li>
-    <li><a class="dropdown-item" href="articles/08-statistical-functions.html">Statistical Functions</a></li>
-    <li><a class="dropdown-item" href="articles/09-logical-functions-2.html">Logical Functions with Missing Values</a></li>
-    <li><a class="dropdown-item" href="articles/10-rolling-functions-2.html">Rolling Functions with Missing Values</a></li>
-    <li><a class="dropdown-item" href="articles/11-statistical-functions-2.html">Statistical Functions with Missing Values</a></li>
-    <li><a class="dropdown-item" href="articles/12-debugging.html">Debugging R Packages</a></li>
-    <li><a class="dropdown-item" href="articles/13-external-pointers.html">External Pointers</a></li>
-    <li><a class="dropdown-item" href="articles/14-compiler-optimization.html">Compiler Optimizations</a></li>
-    <li><a class="dropdown-item" href="articles/15-linear-algebra.html">Linear Algebra</a></li>
-    <li><a class="dropdown-item" href="articles/16-internals.html">cpp4r Internals</a></li>
-    <li><a class="dropdown-item" href="articles/17-FAQ.html">FAQs</a></li>
-    <li><a class="dropdown-item" href="articles/18-worked-examples.html">Worked Examples</a></li>
+    <li><a class="dropdown-item" href="articles/05-logical-functions.html">Logical Functions</a></li>
+    <li><a class="dropdown-item" href="articles/06-rolling-functions.html">Rolling Functions</a></li>
+    <li><a class="dropdown-item" href="articles/07-statistical-functions.html">Statistical Functions</a></li>
+    <li><a class="dropdown-item" href="articles/08-logical-functions-2.html">Logical Functions with Missing Values</a></li>
+    <li><a class="dropdown-item" href="articles/09-rolling-functions-2.html">Rolling Functions with Missing Values</a></li>
+    <li><a class="dropdown-item" href="articles/10-statistical-functions-2.html">Statistical Functions with Missing Values</a></li>
+    <li><a class="dropdown-item" href="articles/11-debugging.html">Debugging R Packages</a></li>
+    <li><a class="dropdown-item" href="articles/12-external-pointers.html">External Pointers</a></li>
+    <li><a class="dropdown-item" href="articles/13-compiler-optimization.html">Compiler Optimizations</a></li>
+    <li><a class="dropdown-item" href="articles/14-linear-algebra.html">Linear Algebra</a></li>
+    <li><a class="dropdown-item" href="articles/15-internals.html">cpp4r Internals</a></li>
+    <li><a class="dropdown-item" href="articles/16-FAQ.html">FAQs</a></li>
+    <li><a class="dropdown-item" href="articles/17-worked-examples.html">Worked Examples</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
@@ -68,7 +67,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/pachadotdev/cpp4r/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="nav-link" href="https://github.com/pachadotdev/cpp4r/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -83,9 +82,9 @@
 </div>
 <!-- badges: start -->
 
-<p>cpp4r helps you to interact with R objects using C++ code. It is a fork of the <a href="https://cran.r-project.org/package=cpp" class="external-link">cpp11</a> package with identical syntax and similar goals.</p>
+<p>cpp4r helps you to interact with R objects using C++ code. It is a fork of the <a href="https://cran.r-project.org/package=cpp">cpp11</a> package with identical syntax and similar goals.</p>
 <p>cpp4r can be used as a replacement for cpp11 in existing or new packages. Think of cpp11 and cpp4r as MySQL and MariaDB: they are almost identical, but cpp4r has some extra features.</p>
-<p>After discussing some <a href="https://github.com/r-lib/cpp11/pulls/pachadotdev" class="external-link">pull requests</a> with Hadley Wickham from Posit, it was mentioned that I should create my own fork to add the following features:</p>
+<p>After discussing some <a href="https://github.com/r-lib/cpp11/pulls/pachadotdev">pull requests</a> with Hadley Wickham from Posit, it was mentioned that I should create my own fork to add the following features:</p>
 <ul class="task-list">
 <li><label><input type="checkbox" checked>Convert ordered and unordered C++ maps to R lists.</label></li>
 <li><label><input type="checkbox" checked>Roxygen support on C++ side.</label></li>
@@ -94,7 +93,7 @@
 <li><label><input type="checkbox" checked>Use values added to a vector with <code>push_back()</code> immediately.</label></li>
 <li><label><input type="checkbox" checked>Support bidirectional passing of complex numbers/vectors.</label></li>
 <li><label><input type="checkbox" checked>Provide flexibility with data types (e.g., cpp4r’s <code>as_integers()</code> and <code>as_doubles()</code> accept logical inputs while cpp11’s do not).</label></li>
-<li><label><input type="checkbox" checked>Some internal optimizations for better speed (e.g., <a href="https://github.com/r-lib/cpp11/pull/463" class="external-link uri">https://github.com/r-lib/cpp11/pull/463</a> and <a href="https://github.com/r-lib/cpp11/pull/430" class="external-link uri">https://github.com/r-lib/cpp11/pull/430</a>).</label></li>
+<li><label><input type="checkbox" checked>Some internal optimizations for better speed (e.g., <a href="https://github.com/r-lib/cpp11/pull/463" class="uri">https://github.com/r-lib/cpp11/pull/463</a> and <a href="https://github.com/r-lib/cpp11/pull/430" class="uri">https://github.com/r-lib/cpp11/pull/430</a>).</label></li>
 </ul>
 <div class="section level2">
 <h2 id="using-cpp4r-in-a-package">Using cpp4r in a package<a class="anchor" aria-label="anchor" href="#using-cpp4r-in-a-package"></a>
@@ -129,8 +128,8 @@
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/pachadotdev/cpp4r/" class="external-link">Browse source code</a></li>
-<li><a href="https://github.com/pachadotdev/cpp4r/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://github.com/pachadotdev/cpp4r/">Browse source code</a></li>
+<li><a href="https://github.com/pachadotdev/cpp4r/issues">Report a bug</a></li>
 </ul>
 </div>
 
@@ -161,7 +160,7 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Mauricio Vargas Sepulveda <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-1017-7574" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
+<li>Mauricio Vargas Sepulveda <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-1017-7574" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 <li> Posit Software, PBC <br><small class="roles"> Author </small>   </li>
 <li><a href="authors.html">More about authors...</a></li>
 </ul>
@@ -170,11 +169,11 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://lifecycle.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
-<li><a href="https://github.com/r-lib/cpp4r/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/r-lib/cpp4r/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://CRAN.R-project.org/package=cpp4r" class="external-link"><img src="https://www.r-pkg.org/badges/version/cpp4r" alt="CRAN status"></a></li>
-<li><a href="https://app.codecov.io/gh/r-lib/cpp4r?branch=main" class="external-link"><img src="https://codecov.io/gh/r-lib/cpp4r/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://www.buymeacoffee.com/pacha" class="external-link"><img src="https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-yellow.svg" alt="BuyMeACoffee"></a></li>
+<li><a href="https://lifecycle.org/articles/stages.html#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
+<li><a href="https://github.com/r-lib/cpp4r/actions/workflows/R-CMD-check.yaml"><img src="https://github.com/r-lib/cpp4r/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://CRAN.R-project.org/package=cpp4r"><img src="https://www.r-pkg.org/badges/version/cpp4r" alt="CRAN status"></a></li>
+<li><a href="https://app.codecov.io/gh/r-lib/cpp4r?branch=main"><img src="https://codecov.io/gh/r-lib/cpp4r/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://www.buymeacoffee.com/pacha"><img src="https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-yellow.svg" alt="BuyMeACoffee"></a></li>
 </ul>
 </div>
 
@@ -187,7 +186,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>

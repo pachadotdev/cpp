@@ -180,6 +180,58 @@ rcpp_release_ <- function(n) {
   invisible(.Call(`_cpp4rtest_rcpp_release_`, n))
 }
 
+notroxcpp1_ <- function(x) {
+  .Call(`_cpp4rtest_notroxcpp1_`, x)
+}
+
+#' @title Roxygenise C++ function II
+#' @param x numeric value
+#' @description Dummy function to test roxygen2. It adds 2.0 to a double.
+#' @export
+#' @examples roxcpp2(1.0)
+roxcpp2 <- function(x) {
+	.Call(`_cpp4rtest_roxcpp2`, x)
+}
+
+roxcpp3 <- function(x) {
+  .Call(`_cpp4rtest_roxcpp3`, x)
+}
+
+#' @title Roxygenise C++ function IV
+#' @param x numeric value
+#' @description Dummy function to test roxygen2. It adds 4.0 to a double.
+#' @export
+#' @examples roxcpp4(1.0)
+roxcpp4 <- function(x) {
+	.Call(`_cpp4rtest_roxcpp4`, x)
+}
+
+#' @title Roxygenise C++ function V
+#' @param x numeric value
+#' @description Dummy function to test roxygen2. It adds 5.0 to a double.
+#' @export
+#' @examples roxcpp5(1.0)
+roxcpp5 <- function(x) {
+	.Call(`_cpp4rtest_roxcpp5`, x)
+}
+
+notroxcpp6_ <- function(x) {
+  .Call(`_cpp4rtest_notroxcpp6_`, x)
+}
+
+#' @title Roxygenise C++ function VII
+#' @param x numeric value
+#' @description Dummy function to test roxygen2. It adds 7.0 to a double.
+#' @export
+#' @examples
+#' my_fun <- function(x) {
+#'   roxcpp7(x)
+#' }
+#' @seealso \code{\link{roxcpp1}}
+roxcpp7 <- function(x) {
+	.Call(`_cpp4rtest_roxcpp7`, x)
+}
+
 cpp4r_safe_ <- function(x_sxp) {
   .Call(`_cpp4rtest_cpp4r_safe_`, x_sxp)
 }
