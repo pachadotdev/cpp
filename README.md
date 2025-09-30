@@ -2,9 +2,9 @@
 
 <!-- badges: start -->
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.org/articles/stages.html#stable)
-[![R-CMD-check](https://github.com/r-lib/cpp4r/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r-lib/cpp4r/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/pachadotdev/cpp4r/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pachadotdev/cpp4r/actions/workflows/R-CMD-check.yaml)
 [![CRAN status](https://www.r-pkg.org/badges/version/cpp4r)](https://CRAN.R-project.org/package=cpp4r)
-[![Codecov test coverage](https://codecov.io/gh/r-lib/cpp4r/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r-lib/cpp4r?branch=main)
+[![Codecov test coverage](https://codecov.io/gh/pachadotdev/cpp4r/branch/main/graph/badge.svg)](https://app.codecov.io/gh/pachadotdev/cpp4r?branch=main)
 [![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-yellow.svg)](https://www.buymeacoffee.com/pacha)
 <!-- badges: end -->
 
@@ -13,7 +13,7 @@ It is a fork of the [cpp11](https://cran.r-project.org/package=cpp) package with
 
 cpp4r can be used as a replacement for cpp11 in existing or new packages. Think of cpp11 and cpp4r as MySQL and MariaDB: they are almost identical, but cpp4r has some extra features.
 
-After discussing some [pull requests](https://github.com/r-lib/cpp11/pulls/pachadotdev) with Hadley Wickham from Posit, it was mentioned that I should create my own fork to add the following features:
+After discussing some [pull requests](https://github.com/pachadotdev/cpp11/pulls/pachadotdev) with Hadley Wickham from Posit, it was mentioned that I should create my own fork to add the following features:
 
 - [x] Convert ordered and unordered C++ maps to R lists.
 - [x] Roxygen support on C++ side.
@@ -22,7 +22,7 @@ After discussing some [pull requests](https://github.com/r-lib/cpp11/pulls/pacha
 - [x] Use values added to a vector with `push_back()` immediately.
 - [x] Support bidirectional passing of complex numbers/vectors.
 - [x] Provide flexibility with data types (e.g., cpp4r's `as_integers()` and `as_doubles()` accept logical inputs while cpp11's do not).
-- [x] Some internal optimizations for better speed (e.g., https://github.com/r-lib/cpp11/pull/463 and https://github.com/r-lib/cpp11/pull/430).
+- [x] Some internal optimizations for better speed (e.g., https://github.com/pachadotdev/cpp11/pull/463 and https://github.com/pachadotdev/cpp11/pull/430).
 
 ## Getting started
 
