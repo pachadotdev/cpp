@@ -32,7 +32,7 @@ script.R
 ^docs$
 ^pkgdown$
 ^cpp4rexamples$
-^cpp4rdummyols$
+^cpp4rols$
 ^cpp4rgaussjordan$
 ^cpp4romp$
 ^cpp4rsimplexphase2$
