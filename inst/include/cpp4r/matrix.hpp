@@ -4,12 +4,12 @@
 #include <iterator>
 #include <string>  // for string
 
-#include "cpp4r/R.hpp"                // for SEXP, SEXPREC, R_xlen_t, INT...
-#include "cpp4r/attribute_proxy.hpp"  // for attribute_proxy
-#include "cpp4r/r_bool.hpp"           // for r_bool
-#include "cpp4r/r_string.hpp"         // for r_string
-#include "cpp4r/r_vector.hpp"         // for r_vector
-#include "cpp4r/sexp.hpp"             // for sexp
+#include "cpp4r/R.hpp"          // for SEXP, SEXPREC, R_xlen_t, INT...
+#include "cpp4r/r_bool.hpp"     // for r_bool
+#include "cpp4r/r_complex.hpp"  // for r_complex
+#include "cpp4r/r_string.hpp"   // for r_string
+#include "cpp4r/r_vector.hpp"   // for r_vector
+#include "cpp4r/sexp.hpp"       // for sexp
 
 namespace cpp4r {
 
@@ -254,6 +254,8 @@ template <typename S = by_column>
 using logicals_matrix = matrix<r_vector<r_bool>, r_bool, S>;
 template <typename S = by_column>
 using strings_matrix = matrix<r_vector<r_string>, r_string, S>;
+template <typename S = by_column>
+using complexes_matrix = matrix<r_vector<r_complex>, r_complex, S>;
 
 namespace writable {
 template <typename S = by_column>
@@ -264,6 +266,8 @@ template <typename S = by_column>
 using logicals_matrix = matrix<r_vector<r_bool>, r_vector<r_bool>::proxy, S>;
 template <typename S = by_column>
 using strings_matrix = matrix<r_vector<r_string>, r_vector<r_string>::proxy, S>;
+template <typename S = by_column>
+using complexes_matrix = matrix<r_vector<r_complex>, r_vector<r_complex>::proxy, S>;
 }  // namespace writable
 
 // TODO: Add tests for Matrix class

@@ -18,6 +18,7 @@
 #include "cpp4r/attribute_proxy.hpp"  // for attribute_proxy
 #include "cpp4r/named_arg.hpp"        // for named_arg
 #include "cpp4r/protect.hpp"          // for store
+#include "cpp4r/r_complex.hpp" // for r_complex
 #include "cpp4r/r_string.hpp"         // for r_string
 #include "cpp4r/sexp.hpp"             // for sexp
 
