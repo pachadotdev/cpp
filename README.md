@@ -4,7 +4,7 @@
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.org/articles/stages.html#stable)
 [![R-CMD-check](https://github.com/pachadotdev/cpp4r/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pachadotdev/cpp4r/actions/workflows/R-CMD-check.yaml)
 [![CRAN status](https://www.r-pkg.org/badges/version/cpp4r)](https://CRAN.R-project.org/package=cpp4r)
-[![Codecov test coverage](https://codecov.io/gh/pachadotdev/cpp4r/branch/main/graph/badge.svg)](https://app.codecov.io/gh/pachadotdev/cpp4r?branch=main)
+[![Test coverage](https://raw.githubusercontent.com/pachadotdev/cpp4r/main/badges/coverage.svg)](https://github.com/pachadotdev/cpp4r/actions/workflows/test-coverage.yaml)
 [![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-yellow.svg)](https://www.buymeacoffee.com/pacha)
 <!-- badges: end -->
 

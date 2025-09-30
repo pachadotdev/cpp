@@ -35,5 +35,41 @@ jobs:
         shell: Rscript {0}
 
       - name: Test coverage
-        run: covr::codecov(quiet = FALSE)
+        run: |
+          coverage <- covr::package_coverage(quiet = FALSE)
+          percent <- round(covr::percent_coverage(coverage))
+          cat("Coverage:", percent, "%\n")
+          
+          # Create badge color based on coverage
+          if (percent >= 90) {
+            color <- "brightgreen"
+          } else if (percent >= 80) {
+            color <- "green"  
+          } else if (percent >= 70) {
+            color <- "yellowgreen"
+          } else if (percent >= 60) {
+            color <- "yellow"
+          } else if (percent >= 50) {
+            color <- "orange"
+          } else {
+            color <- "red"
+          }
+          
+          # Write coverage info to environment
+          writeLines(paste0("COVERAGE=", percent), Sys.getenv("GITHUB_ENV"))
+          writeLines(paste0("COVERAGE_COLOR=", color), Sys.getenv("GITHUB_ENV"))
         shell: Rscript {0}
+
+      - name: Generate coverage badge
+        run: |
+          mkdir -p badges
+          curl -s "https://img.shields.io/badge/coverage-${{ env.COVERAGE }}%25-${{ env.COVERAGE_COLOR }}" > badges/coverage.svg
+        
+      - name: Commit coverage badge
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add badges/coverage.svg
+          git diff --staged --quiet || git commit -m "Update coverage badge [skip ci]" || true
+          git push || true
