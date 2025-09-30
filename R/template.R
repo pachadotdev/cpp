@@ -78,7 +78,7 @@ pkg_template <- function(path = NULL, pkgname = NULL) {
     "Suggests: ",
     "    knitr,",
     "    rmarkdown",
-    "Depends: R(>= 3.5.0)",
+    "Depends: R(>= 4.0.0)",
     "Description: ADD DESCRIPTION. TWO OR MORE LINES",
     "License: ADD LICENSE",
     "BugReports: https://github.com/USERNAME/PKGNAME/issues",
