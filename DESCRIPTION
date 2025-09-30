@@ -38,6 +38,8 @@ Suggests:
     mockery,
     progress,
     rmarkdown,
+    roxygen2,
+    Rcpp,
     scales,
     testthat (>= 3.2.0),
     tibble,

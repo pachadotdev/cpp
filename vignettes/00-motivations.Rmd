@@ -29,16 +29,38 @@ should_run_benchmarks <- function(x) {
 }
 ```
 
-# Motivations
+# Motivation
 
 R and S have a long history of interacting with compiled languages.
-In fact the original version of S written in the late 1970s was mainly a wrapper around FORTRAN routines [(History-of-S)](https://www.r-project.org/conferences/useR-2006/Slides/Chambers.pdf).
-Released in 2000, the [cxx](https://cran.r-project.org/package=cxx) package was an early prototype of C++ bindings to R.
-[Rcpp](https://cran.r-project.org/package=Rcpp) was first published to CRAN in 2008, and [Rcpp11](https://cran.r-project.org/package=Rcpp11) in 2014.
-Of these `Rcpp` has by far the widest adoption, with over 2000 reverse dependencies as of 2020.
+In fact the original version of S written in the late 1970s was mainly a wrapper around FORTRAN routines
+[(History-of-S)](https://www.r-project.org/conferences/useR-2006/Slides/Chambers.pdf).
 
-Rcpp has been a widely successful project, however over the years a number of issues and additional C++ features have arisen.
-Adding these features to Rcpp would require a great deal of work, or in some cases would be impossible without severely breaking backwards compatibility.
+Sometimes R code just is not fast enough. After checking that your code does not unnecesarily rewrite objects and it
+is vectorised, there can still be bottlenecks.
+
+cpp4r makes it simpler to connect C++ to R. While it is possible to write C or FORTRAN code for use in R, it will be
+harder by comparison as it requires more setup time.
+
+cpp4r provides a clean, approachable API that lets you write high-performance code, insulated from R's more complex C
+API.
+
+Typical bottlenecks that C++ can address include [@wickham2]:
+
+-   Loops that cannot be easily vectorised because subsequent iterations depend on previous ones.
+-   Recursive functions, or problems which involve calling functions millions of times.
+    The overhead of calling a function in C++ is much lower than in R.
+-   Problems that require advanced data structures and algorithms that R does not provide.
+    Through the standard template library (STL), C++ has efficient implementations of many important data structures,
+    from ordered maps to double-ended queues.
+
+Released in 2000, the [cxx](https://cran.r-project.org/package=cxx) package was an early prototype of C++ bindings to R.
+[Rcpp](https://cran.r-project.org/package=Rcpp) was first published to CRAN in 2008, and
+[Rcpp11](https://cran.r-project.org/package=Rcpp11) in 2014. Of these `Rcpp` has by far the widest adoption, with over
+2,000 reverse dependencies as of 2020.
+
+Rcpp has been a widely successful project, however over the years a number of issues and additional C++ features have
+arisen. Adding these features to Rcpp would require a great deal of work, or in some cases would be impossible without
+severely breaking backwards compatibility.
 
 cpp4r is a fork of cpp11, a ground up rewrite of C++ bindings to R with different design trade-offs and features.
 
@@ -61,7 +83,7 @@ Changes that motivated cpp4r include:
 R uses [copy-on-write](https://adv-r.hadley.nz/names-values.html#copy-on-modify) (also called copy-on-modify) semantics.
 Consider that you have two variables `x` and `y` that both point to the same underlying data.
 
-```{r}
+```r
 x <- c(1, 2, 3)
 y <- x
 ```
@@ -69,7 +91,7 @@ y <- x
 If you modify `y`, R will first copy the values of `x` to a new position, then point `y` to the new location and only after the copy modify `y`.
 This allows `x` to retain the original values.
 
-```{r}
+```r
 y[[3]] <- 4
 y
 
@@ -103,7 +125,7 @@ This gives Rcpp functions completely different semantics from normal R functions
 
 You can illustrate this by creating a Rcpp function that multiples its input vector by 2.
 
-```{Rcpp}
+```cpp
 #include "Rcpp.h"
 using namespace Rcpp;
 
@@ -118,7 +140,7 @@ NumericVector times_two_rcpp(NumericVector x) {
 
 If you do this with regular R functions, you will see the value of `y` is `x` \* 2, but the value of `x` is unchanged.
 
-```{r}
+```r
 x <- c(1, 2, 3)
 y <- x * 2
 y
@@ -128,7 +150,7 @@ x
 
 However if you now call the `times_two_rcpp()` function you get the right output value, but now `x` is *also changed*.
 
-```{r}
+```r
 z <- times_two_rcpp(x)
 z
 
@@ -138,7 +160,7 @@ x
 cpp4r strives to make its functions behave similarly to normal R functions, while preserving the speed of Rcpp when read only access is needed.
 Each of the r_vector classes in cpp4r has a normal *read only* version that uses copy-by-reference, and a *writable* version which uses copy-by-value.
 
-```{cpp4r}
+```cpp
 #include "cpp4r/doubles.hpp"
 
 [[cpp4r::register]]
@@ -152,7 +174,7 @@ cpp4r::doubles times_two_cpp4r(cpp4r::writable::doubles x) {
 
 Using `cpp4r::writable::doubles` first *copies* the input vector, so when you do the multiplication you do not modify the original data.
 
-```{r}
+```r
 x <- c(1, 2, 3)
 
 z <- times_two_cpp4r(x)
@@ -242,7 +264,7 @@ This saves memory and excution time, and allows users to use sequences which wou
 Because Rcpp predates the introduction of ALTREP, it does not support the interfaces needed to access ALTREP objects.
 This means the objects must be converted to normal R objects as soon as they are used by Rcpp.
 
-```{Rcpp}
+```cpp
 #include "Rcpp.h"
 
 // [[Rcpp::export]]
@@ -251,14 +273,14 @@ Rcpp::IntegerVector identity_rcpp(Rcpp::IntegerVector x) {
 }
 ```
 
-```{r}
+```r
 x <- identity_rcpp(1:100000)
 lobstr::obj_size(x)
 ```
 
 Whereas cpp4r objects preserve the ALTREP object.
 
-```{cpp4r}
+```cpp
 #include "cpp4r/integers.hpp"
 
 [[cpp4r::register]]
@@ -267,7 +289,7 @@ cpp4r::integers identity_cpp4r(cpp4r::integers x) {
 }
 ```
 
-```{r}
+```r
 y <- identity_cpp4r(1:100000)
 lobstr::obj_size(y)
 ```
@@ -292,7 +314,7 @@ cases <- expand.grid(
   len = 3e6,
   vector = c("normal", "altrep"),
   method = c("for", "foreach", "accumulate"),
-  pkg = c("cpp4r", "rcpp"),
+  pkg = c("cpp4r", "Rcpp"),
   stringsAsFactors = FALSE
 )
 
@@ -315,7 +337,7 @@ b_sum <- bench::press(
 saveRDS(b_sum, "sum.Rds", version = 2)
 ```
 
-```{r}
+```r
 knitr::kable(readRDS("sum.Rds"))
 ```
 
@@ -433,7 +455,7 @@ This structure is much more efficient for large numbers of objects than using `R
 
 ```{r, message = FALSE, eval = should_run_benchmarks()}
 library(cpp4rtest)
-grid <- expand.grid(len = c(10 ^ (2:5), 2e5), pkg = c("cpp4r", "rcpp"), stringsAsFactors = FALSE)
+grid <- expand.grid(len = c(10 ^ (2:5), 2e5), pkg = c("cpp4r", "Rcpp"), stringsAsFactors = FALSE)
 b_release <- bench::press(.grid = grid,
   {
     fun = match.fun(sprintf("%s_release_", pkg))
@@ -482,7 +504,7 @@ Because of this you can do \~10,000,000 vector appends with cpp4r in approximate
 grid <- expand.grid(len = 10 ^ (0:7), pkg = "cpp4r", stringsAsFactors = FALSE)
 grid <- rbind(
   grid,
-  expand.grid(len = 10 ^ (0:4), pkg = "rcpp", stringsAsFactors = FALSE)
+  expand.grid(len = 10 ^ (0:4), pkg = "Rcpp", stringsAsFactors = FALSE)
 )
 b_grow <- bench::press(.grid = grid,
   {

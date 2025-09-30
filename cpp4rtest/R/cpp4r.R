@@ -108,12 +108,12 @@ gibbs_cpp2 <- function(N, thin) {
   .Call(`_cpp4rtest_gibbs_cpp2`, N, thin)
 }
 
-gibbs_rcpp <- function(N, thin) {
-  .Call(`_cpp4rtest_gibbs_rcpp`, N, thin)
+gibbs_Rcpp <- function(N, thin) {
+  .Call(`_cpp4rtest_gibbs_Rcpp`, N, thin)
 }
 
-gibbs_rcpp2 <- function(N, thin) {
-  .Call(`_cpp4rtest_gibbs_rcpp2`, N, thin)
+gibbs_Rcpp2 <- function(N, thin) {
+  .Call(`_cpp4rtest_gibbs_Rcpp2`, N, thin)
 }
 
 row_sums <- function(x) {
@@ -168,16 +168,16 @@ protect_many_preserve_ <- function(n) {
   invisible(.Call(`_cpp4rtest_protect_many_preserve_`, n))
 }
 
-protect_many_rcpp_ <- function(n) {
-  invisible(.Call(`_cpp4rtest_protect_many_rcpp_`, n))
+protect_many_Rcpp_ <- function(n) {
+  invisible(.Call(`_cpp4rtest_protect_many_Rcpp_`, n))
 }
 
 cpp4r_release_ <- function(n) {
   invisible(.Call(`_cpp4rtest_cpp4r_release_`, n))
 }
 
-rcpp_release_ <- function(n) {
-  invisible(.Call(`_cpp4rtest_rcpp_release_`, n))
+Rcpp_release_ <- function(n) {
+  invisible(.Call(`_cpp4rtest_Rcpp_release_`, n))
 }
 
 notroxcpp1_ <- function(x) {
@@ -193,8 +193,13 @@ roxcpp2 <- function(x) {
 	.Call(`_cpp4rtest_roxcpp2`, x)
 }
 
+#' @title Roxygenise C++ function III
+#' @param x numeric value
+#' @description Dummy function to test roxygen2. It adds 3.0 to a double.
+#' @export
+#' @examples roxcpp3(1.0)
 roxcpp3 <- function(x) {
-  .Call(`_cpp4rtest_roxcpp3`, x)
+	.Call(`_cpp4rtest_roxcpp3`, x)
 }
 
 #' @title Roxygenise C++ function IV
@@ -227,7 +232,7 @@ notroxcpp6_ <- function(x) {
 #' my_fun <- function(x) {
 #'   roxcpp7(x)
 #' }
-#' @seealso \code{\link{roxcpp1}}
+#' @seealso \code{\link{roxcpp3}}
 roxcpp7 <- function(x) {
 	.Call(`_cpp4rtest_roxcpp7`, x)
 }
@@ -248,8 +253,8 @@ grow_strings_cpp4r_ <- function(n, seed) {
   .Call(`_cpp4rtest_grow_strings_cpp4r_`, n, seed)
 }
 
-grow_strings_rcpp_ <- function(n, seed) {
-  .Call(`_cpp4rtest_grow_strings_rcpp_`, n, seed)
+grow_strings_Rcpp_ <- function(n, seed) {
+  .Call(`_cpp4rtest_grow_strings_Rcpp_`, n, seed)
 }
 
 grow_strings_manual_ <- function(n, seed) {
@@ -260,8 +265,8 @@ assign_cpp4r_ <- function(n, seed) {
   .Call(`_cpp4rtest_assign_cpp4r_`, n, seed)
 }
 
-assign_rcpp_ <- function(n, seed) {
-  .Call(`_cpp4rtest_assign_rcpp_`, n, seed)
+assign_Rcpp_ <- function(n, seed) {
+  .Call(`_cpp4rtest_assign_Rcpp_`, n, seed)
 }
 
 sum_dbl_for_ <- function(x) {
@@ -328,6 +333,30 @@ sum_cplx_for2_ <- function(x_sxp) {
   .Call(`_cpp4rtest_sum_cplx_for2_`, x_sxp)
 }
 
+Rcpp_sum_dbl_for_ <- function(x_sxp) {
+  .Call(`_cpp4rtest_Rcpp_sum_dbl_for_`, x_sxp)
+}
+
+Rcpp_sum_int_for_ <- function(x_sxp) {
+  .Call(`_cpp4rtest_Rcpp_sum_int_for_`, x_sxp)
+}
+
+Rcpp_sum_dbl_foreach_ <- function(x_sxp) {
+  .Call(`_cpp4rtest_Rcpp_sum_dbl_foreach_`, x_sxp)
+}
+
+Rcpp_sum_dbl_accumulate_ <- function(x_sxp) {
+  .Call(`_cpp4rtest_Rcpp_sum_dbl_accumulate_`, x_sxp)
+}
+
+Rcpp_grow_ <- function(n_sxp) {
+  .Call(`_cpp4rtest_Rcpp_grow_`, n_sxp)
+}
+
+Rcpp_push_and_truncate_ <- function(size_sxp) {
+  .Call(`_cpp4rtest_Rcpp_push_and_truncate_`, size_sxp)
+}
+
 sum_int_for_ <- function(x) {
   .Call(`_cpp4rtest_sum_int_for_`, x)
 }
@@ -342,30 +371,6 @@ sum_int_foreach_ <- function(x) {
 
 sum_int_accumulate_ <- function(x) {
   .Call(`_cpp4rtest_sum_int_accumulate_`, x)
-}
-
-rcpp_sum_dbl_for_ <- function(x_sxp) {
-  .Call(`_cpp4rtest_rcpp_sum_dbl_for_`, x_sxp)
-}
-
-rcpp_sum_int_for_ <- function(x_sxp) {
-  .Call(`_cpp4rtest_rcpp_sum_int_for_`, x_sxp)
-}
-
-rcpp_sum_dbl_foreach_ <- function(x_sxp) {
-  .Call(`_cpp4rtest_rcpp_sum_dbl_foreach_`, x_sxp)
-}
-
-rcpp_sum_dbl_accumulate_ <- function(x_sxp) {
-  .Call(`_cpp4rtest_rcpp_sum_dbl_accumulate_`, x_sxp)
-}
-
-rcpp_grow_ <- function(n_sxp) {
-  .Call(`_cpp4rtest_rcpp_grow_`, n_sxp)
-}
-
-rcpp_push_and_truncate_ <- function(size_sxp) {
-  .Call(`_cpp4rtest_rcpp_push_and_truncate_`, size_sxp)
 }
 
 nullable_extptr_1 <- function() {

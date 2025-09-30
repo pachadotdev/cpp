@@ -60,7 +60,11 @@ pkg_template <- function(path = NULL, pkgname = NULL) {
   writeLines(lines, con = paste0(path, "/R/", pkgname, "-package.R"))
 
   # get roxygen version
-  roxyver <- as.character(utils::packageVersion("roxygen2"))
+  if (!requireNamespace("roxygen2", quietly = TRUE)) {
+    stop("You must install the roxygen2 package to use this function", call. = FALSE)
+  } else {
+    roxyver <- as.character(utils::packageVersion("roxygen2"))
+  }
 
   lines <- c(
     paste("Package:", pkgname),

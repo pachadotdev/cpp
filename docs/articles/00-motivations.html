@@ -40,22 +40,21 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/00-motivations.html">Motivations for cpp4r</a></li>
     <li><a class="dropdown-item" href="../articles/01-setup.html">Setup</a></li>
-    <li><a class="dropdown-item" href="../articles/02-getting-started.html">Get started with cpp4r</a></li>
-    <li><a class="dropdown-item" href="../articles/03-package-skeleton.html">Package Skeleton</a></li>
-    <li><a class="dropdown-item" href="../articles/04-read-only.html">Read-only versus Writable R Objects</a></li>
-    <li><a class="dropdown-item" href="../articles/05-logical-functions.html">Logical Functions</a></li>
-    <li><a class="dropdown-item" href="../articles/06-rolling-functions.html">Rolling Functions</a></li>
-    <li><a class="dropdown-item" href="../articles/07-statistical-functions.html">Statistical Functions</a></li>
-    <li><a class="dropdown-item" href="../articles/08-logical-functions-2.html">Logical Functions with Missing Values</a></li>
-    <li><a class="dropdown-item" href="../articles/09-rolling-functions-2.html">Rolling Functions with Missing Values</a></li>
-    <li><a class="dropdown-item" href="../articles/10-statistical-functions-2.html">Statistical Functions with Missing Values</a></li>
-    <li><a class="dropdown-item" href="../articles/11-debugging.html">Debugging R Packages</a></li>
-    <li><a class="dropdown-item" href="../articles/12-external-pointers.html">External Pointers</a></li>
-    <li><a class="dropdown-item" href="../articles/13-compiler-optimization.html">Compiler Optimizations</a></li>
-    <li><a class="dropdown-item" href="../articles/14-linear-algebra.html">Linear Algebra</a></li>
-    <li><a class="dropdown-item" href="../articles/15-internals.html">cpp4r Internals</a></li>
-    <li><a class="dropdown-item" href="../articles/16-FAQ.html">FAQs</a></li>
-    <li><a class="dropdown-item" href="../articles/17-worked-examples.html">Worked Examples</a></li>
+    <li><a class="dropdown-item" href="../articles/02-package-skeleton.html">Package Skeleton</a></li>
+    <li><a class="dropdown-item" href="../articles/03-read-only.html">Read-only versus Writable R Objects</a></li>
+    <li><a class="dropdown-item" href="../articles/04-logical-functions.html">Logical Functions</a></li>
+    <li><a class="dropdown-item" href="../articles/05-rolling-functions.html">Rolling Functions</a></li>
+    <li><a class="dropdown-item" href="../articles/06-statistical-functions.html">Statistical Functions</a></li>
+    <li><a class="dropdown-item" href="../articles/07-logical-functions-2.html">Logical Functions with Missing Values</a></li>
+    <li><a class="dropdown-item" href="../articles/08-rolling-functions-2.html">Rolling Functions with Missing Values</a></li>
+    <li><a class="dropdown-item" href="../articles/09-statistical-functions-2.html">Statistical Functions with Missing Values</a></li>
+    <li><a class="dropdown-item" href="../articles/10-debugging.html">Debugging R Packages</a></li>
+    <li><a class="dropdown-item" href="../articles/11-external-pointers.html">External Pointers</a></li>
+    <li><a class="dropdown-item" href="../articles/12-compiler-optimization.html">Compiler Optimizations</a></li>
+    <li><a class="dropdown-item" href="../articles/13-linear-algebra.html">Linear Algebra</a></li>
+    <li><a class="dropdown-item" href="../articles/14-internals.html">Internals</a></li>
+    <li><a class="dropdown-item" href="../articles/15-FAQ.html">FAQs</a></li>
+    <li><a class="dropdown-item" href="../articles/16-worked-examples.html">Worked Examples</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -87,15 +86,35 @@
     
     
 <div class="section level2">
-<h2 id="motivations">Motivations<a class="anchor" aria-label="anchor" href="#motivations"></a>
+<h2 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
 </h2>
 <p>R and S have a long history of interacting with compiled languages.
 In fact the original version of S written in the late 1970s was mainly a
-wrapper around FORTRAN routines <a href="https://www.r-project.org/conferences/useR-2006/Slides/Chambers.pdf">(History-of-S)</a>.
-Released in 2000, the <a href="https://cran.r-project.org/package=cxx">cxx</a> package was an
+wrapper around FORTRAN routines <a href="https://www.r-project.org/conferences/useR-2006/Slides/Chambers.pdf">(History-of-S)</a>.</p>
+<p>Sometimes R code just is not fast enough. After checking that your
+code does not unnecesarily rewrite objects and it is vectorised, there
+can still be bottlenecks.</p>
+<p>cpp4r makes it simpler to connect C++ to R. While it is possible to
+write C or FORTRAN code for use in R, it will be harder by comparison as
+it requires more setup time.</p>
+<p>cpp4r provides a clean, approachable API that lets you write
+high-performance code, insulated from R’s more complex C API.</p>
+<p>Typical bottlenecks that C++ can address include <span class="citation">(Wickham 2019)</span>:</p>
+<ul>
+<li>Loops that cannot be easily vectorised because subsequent iterations
+depend on previous ones.</li>
+<li>Recursive functions, or problems which involve calling functions
+millions of times. The overhead of calling a function in C++ is much
+lower than in R.</li>
+<li>Problems that require advanced data structures and algorithms that R
+does not provide. Through the standard template library (STL), C++ has
+efficient implementations of many important data structures, from
+ordered maps to double-ended queues.</li>
+</ul>
+<p>Released in 2000, the <a href="https://cran.r-project.org/package=cxx">cxx</a> package was an
 early prototype of C++ bindings to R. <a href="https://cran.r-project.org/package=Rcpp">Rcpp</a> was first
 published to CRAN in 2008, and <a href="https://cran.r-project.org/package=Rcpp11">Rcpp11</a> in 2014. Of
-these <code>Rcpp</code> has by far the widest adoption, with over 2000
+these <code>Rcpp</code> has by far the widest adoption, with over 2,000
 reverse dependencies as of 2020.</p>
 <p>Rcpp has been a widely successful project, however over the years a
 number of issues and additional C++ features have arisen. Adding these
@@ -199,15 +218,15 @@ functions, while preserving the speed of Rcpp when read only access is
 needed. Each of the r_vector classes in cpp4r has a normal <em>read
 only</em> version that uses copy-by-reference, and a <em>writable</em>
 version which uses copy-by-value.</p>
-<pre class="cpp4r"><code>#include "cpp4r/doubles.hpp"
-
-[[cpp4r::register]]
-cpp4r::doubles times_two_cpp4r(cpp4r::writable::doubles x) {
-  for (int i = 0; i &lt; x.size(); ++i) {
-    x[i] = x[i] * 2;
-  }
-  return x;
-}</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="pp">#include </span><span class="im">"cpp4r/doubles.hpp"</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="op">[[</span><span class="at">cpp4r</span><span class="op">::</span><span class="at">register</span><span class="op">]]</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>cpp4r<span class="op">::</span>doubles times_two_cpp4r<span class="op">(</span>cpp4r<span class="op">::</span>writable<span class="op">::</span>doubles x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> x<span class="op">.</span>size<span class="op">();</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>    x<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> x<span class="op">[</span>i<span class="op">]</span> <span class="op">*</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>  <span class="cf">return</span> x<span class="op">;</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>Using <code>cpp4r::writable::doubles</code> first <em>copies</em> the
 input vector, so when you do the multiplication you do not modify the
 original data.</p>
@@ -323,17 +342,17 @@ Rcpp.</p>
 <span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">identity_rcpp</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100000</span><span class="op">)</span></span>
-<span><span class="fu">lobstr</span><span class="fu">::</span><span class="fu">obj_size</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://lobstr.r-lib.org/reference/obj_size.html">obj_size</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
 <p>Whereas cpp4r objects preserve the ALTREP object.</p>
-<pre class="cpp4r"><code>#include "cpp4r/integers.hpp"
-
-[[cpp4r::register]]
-cpp4r::integers identity_cpp4r(cpp4r::integers x) {
-  return x;
-}</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="pp">#include </span><span class="im">"cpp4r/integers.hpp"</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="op">[[</span><span class="at">cpp4r</span><span class="op">::</span><span class="at">register</span><span class="op">]]</span></span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>cpp4r<span class="op">::</span>integers identity_cpp4r<span class="op">(</span>cpp4r<span class="op">::</span>integers x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>  <span class="cf">return</span> x<span class="op">;</span></span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">identity_cpp4r</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100000</span><span class="op">)</span></span>
-<span><span class="fu">lobstr</span><span class="fu">::</span><span class="fu">obj_size</span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://lobstr.r-lib.org/reference/obj_size.html">obj_size</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="altrep-benchmarks">Altrep benchmarks<a class="anchor" aria-label="anchor" href="#altrep-benchmarks"></a>
 </h4>
@@ -358,7 +377,7 @@ unrolling (and speeds) identical to that generated by Rcpp.</p>
 <span>  len <span class="op">=</span> <span class="fl">3e6</span>,</span>
 <span>  vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"normal"</span>, <span class="st">"altrep"</span><span class="op">)</span>,</span>
 <span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"for"</span>, <span class="st">"foreach"</span>, <span class="st">"accumulate"</span><span class="op">)</span>,</span>
-<span>  pkg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cpp4r"</span>, <span class="st">"rcpp"</span><span class="op">)</span>,</span>
+<span>  pkg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cpp4r"</span>, <span class="st">"Rcpp"</span><span class="op">)</span>,</span>
 <span>  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -559,7 +578,7 @@ numbers of objects than using <code>R_PreserveObject()</code> /
 <code>R_ReleaseObjects()</code> as is done in Rcpp.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">cpp4rtest</span><span class="op">)</span></span>
-<span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span>len <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span> <span class="op">^</span> <span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>, <span class="fl">2e5</span><span class="op">)</span>, pkg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cpp4r"</span>, <span class="st">"rcpp"</span><span class="op">)</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span>len <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span> <span class="op">^</span> <span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>, <span class="fl">2e5</span><span class="op">)</span>, pkg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cpp4r"</span>, <span class="st">"Rcpp"</span><span class="op">)</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">b_release</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/press.html">press</a></span><span class="op">(</span>.grid <span class="op">=</span> <span class="va">grid</span>,</span>
 <span>  <span class="op">{</span></span>
 <span>    <span class="va">fun</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/match.fun.html">match.fun</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"%s_release_"</span>, <span class="va">pkg</span><span class="op">)</span><span class="op">)</span></span>
@@ -570,7 +589,7 @@ numbers of objects than using <code>R_PreserveObject()</code> /
 <span>  <span class="op">}</span></span>
 <span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"len"</span>, <span class="st">"pkg"</span>, <span class="st">"min"</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op">(</span><span class="va">b_release</span>, <span class="st">"release.Rds"</span>, version <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="00-motivations_files/figure-html/unnamed-chunk-19-1.svg" width="700"></p>
+<p><img src="00-motivations_files/figure-html/unnamed-chunk-7-1.svg" width="700"></p>
 <p>This plot shows the average time to protect and release a given
 object is essentially constant for cpp4r. Whereas it is linear or worse
 with the number of objects being tracked for Rcpp.</p>
@@ -591,7 +610,7 @@ this benchmark demonstrates.</p>
 <code class="sourceCode R"><span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span>len <span class="op">=</span> <span class="fl">10</span> <span class="op">^</span> <span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span>, pkg <span class="op">=</span> <span class="st">"cpp4r"</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span></span>
 <span>  <span class="va">grid</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span>len <span class="op">=</span> <span class="fl">10</span> <span class="op">^</span> <span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span>, pkg <span class="op">=</span> <span class="st">"rcpp"</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span>len <span class="op">=</span> <span class="fl">10</span> <span class="op">^</span> <span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span>, pkg <span class="op">=</span> <span class="st">"Rcpp"</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">b_grow</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/press.html">press</a></span><span class="op">(</span>.grid <span class="op">=</span> <span class="va">grid</span>,</span>
 <span>  <span class="op">{</span></span>
@@ -603,7 +622,7 @@ this benchmark demonstrates.</p>
 <span>  <span class="op">}</span></span>
 <span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"len"</span>, <span class="st">"pkg"</span>, <span class="st">"min"</span>, <span class="st">"mem_alloc"</span>, <span class="st">"n_itr"</span>, <span class="st">"n_gc"</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op">(</span><span class="va">b_grow</span>, <span class="st">"growth.Rds"</span>, version <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="00-motivations_files/figure-html/unnamed-chunk-22-1.svg" width="700"></p>
+<p><img src="00-motivations_files/figure-html/unnamed-chunk-10-1.svg" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
@@ -612,6 +631,12 @@ this benchmark demonstrates.</p>
 alternative implementation of C++ bindings to R that chooses different
 design trade-offs and features. Both packages can co-exist (even be used
 in the same package!) and continue to enrich the R community.</p>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-wickham2" class="csl-entry">
+Wickham, Hadley. 2019. <em>Advanced <span>R</span></em>. 2nd ed. Boca
+Raton. <a href="https://adv-r.hadley.nz/rcpp.html">https://adv-r.hadley.nz/rcpp.html</a>.
+</div>
+</div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

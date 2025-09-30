@@ -30,8 +30,8 @@ code until you run \code{cpp_vendor()} again.
 }
 \examples{
 # create a new directory
-dir <- tempfile()
-dir.create(dir)
+dir <- paste0(tempdir(), "/", gsub("\\\\s+|[[:punct:]]", "", Sys.time()))
+dir.create(dir, recursive = TRUE)
 
 # vendor the cpp4r headers into the directory
 vendor(dir)

@@ -4,23 +4,22 @@ pkgdown_sha: ~
 articles:
   00-motivations: 00-motivations.html
   01-setup: 01-setup.html
-  02-getting-started: 02-getting-started.html
-  03-package-skeleton: 03-package-skeleton.html
-  04-read-only: 04-read-only.html
-  05-logical-functions: 05-logical-functions.html
-  06-rolling-functions: 06-rolling-functions.html
-  07-statistical-functions: 07-statistical-functions.html
-  08-logical-functions-2: 08-logical-functions-2.html
-  09-rolling-functions-2: 09-rolling-functions-2.html
-  10-statistical-functions-2: 10-statistical-functions-2.html
-  11-debugging: 11-debugging.html
-  12-external-pointers: 12-external-pointers.html
-  13-compiler-optimization: 13-compiler-optimization.html
-  14-linear-algebra: 14-linear-algebra.html
-  15-internals: 15-internals.html
-  16-FAQ: 16-FAQ.html
-  17-worked-examples: 17-worked-examples.html
-last_built: 2025-09-30T16:21Z
+  02-package-skeleton: 02-package-skeleton.html
+  03-read-only: 03-read-only.html
+  04-logical-functions: 04-logical-functions.html
+  05-rolling-functions: 05-rolling-functions.html
+  06-statistical-functions: 06-statistical-functions.html
+  07-logical-functions-2: 07-logical-functions-2.html
+  08-rolling-functions-2: 08-rolling-functions-2.html
+  09-statistical-functions-2: 09-statistical-functions-2.html
+  10-debugging: 10-debugging.html
+  11-external-pointers: 11-external-pointers.html
+  12-compiler-optimization: 12-compiler-optimization.html
+  13-linear-algebra: 13-linear-algebra.html
+  14-internals: 14-internals.html
+  15-FAQ: 15-FAQ.html
+  16-worked-examples: 16-worked-examples.html
+last_built: 2025-09-30T20:00Z
 urls:
   reference: ./reference
   article: ./articles

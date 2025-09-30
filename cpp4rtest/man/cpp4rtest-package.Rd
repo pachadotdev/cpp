@@ -9,12 +9,7 @@
 Provides a test suite and benchmarking code for the 'cpp4r' package.
 }
 \author{
-\strong{Maintainer}: Jim Hester \email{james.f.hester@gmail.com} (\href{https://orcid.org/0000-0002-2739-7082}{ORCID})
-
-Other contributors:
-\itemize{
-  \item RStudio [copyright holder, funder]
-}
+\strong{Maintainer}: Mauricio Vargas Sepulveda \email{m.vargas.sepulveda@gmail.com} (\href{https://orcid.org/0000-0003-1017-7574}{ORCID})
 
 }
 \keyword{internal}

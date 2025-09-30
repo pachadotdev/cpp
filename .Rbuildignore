@@ -26,6 +26,7 @@ script.R
 ^MAINTENANCE\.md$
 ^doc$
 ^Meta$
+^inst/doc/.*\.Rmd$
 ^CRAN-SUBMISSION$
 .vscode
 ^\.cache$

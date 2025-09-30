@@ -43,22 +43,21 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="articles/00-motivations.html">Motivations for cpp4r</a></li>
     <li><a class="dropdown-item" href="articles/01-setup.html">Setup</a></li>
-    <li><a class="dropdown-item" href="articles/02-getting-started.html">Get started with cpp4r</a></li>
-    <li><a class="dropdown-item" href="articles/03-package-skeleton.html">Package Skeleton</a></li>
-    <li><a class="dropdown-item" href="articles/04-read-only.html">Read-only versus Writable R Objects</a></li>
-    <li><a class="dropdown-item" href="articles/05-logical-functions.html">Logical Functions</a></li>
-    <li><a class="dropdown-item" href="articles/06-rolling-functions.html">Rolling Functions</a></li>
-    <li><a class="dropdown-item" href="articles/07-statistical-functions.html">Statistical Functions</a></li>
-    <li><a class="dropdown-item" href="articles/08-logical-functions-2.html">Logical Functions with Missing Values</a></li>
-    <li><a class="dropdown-item" href="articles/09-rolling-functions-2.html">Rolling Functions with Missing Values</a></li>
-    <li><a class="dropdown-item" href="articles/10-statistical-functions-2.html">Statistical Functions with Missing Values</a></li>
-    <li><a class="dropdown-item" href="articles/11-debugging.html">Debugging R Packages</a></li>
-    <li><a class="dropdown-item" href="articles/12-external-pointers.html">External Pointers</a></li>
-    <li><a class="dropdown-item" href="articles/13-compiler-optimization.html">Compiler Optimizations</a></li>
-    <li><a class="dropdown-item" href="articles/14-linear-algebra.html">Linear Algebra</a></li>
-    <li><a class="dropdown-item" href="articles/15-internals.html">cpp4r Internals</a></li>
-    <li><a class="dropdown-item" href="articles/16-FAQ.html">FAQs</a></li>
-    <li><a class="dropdown-item" href="articles/17-worked-examples.html">Worked Examples</a></li>
+    <li><a class="dropdown-item" href="articles/02-package-skeleton.html">Package Skeleton</a></li>
+    <li><a class="dropdown-item" href="articles/03-read-only.html">Read-only versus Writable R Objects</a></li>
+    <li><a class="dropdown-item" href="articles/04-logical-functions.html">Logical Functions</a></li>
+    <li><a class="dropdown-item" href="articles/05-rolling-functions.html">Rolling Functions</a></li>
+    <li><a class="dropdown-item" href="articles/06-statistical-functions.html">Statistical Functions</a></li>
+    <li><a class="dropdown-item" href="articles/07-logical-functions-2.html">Logical Functions with Missing Values</a></li>
+    <li><a class="dropdown-item" href="articles/08-rolling-functions-2.html">Rolling Functions with Missing Values</a></li>
+    <li><a class="dropdown-item" href="articles/09-statistical-functions-2.html">Statistical Functions with Missing Values</a></li>
+    <li><a class="dropdown-item" href="articles/10-debugging.html">Debugging R Packages</a></li>
+    <li><a class="dropdown-item" href="articles/11-external-pointers.html">External Pointers</a></li>
+    <li><a class="dropdown-item" href="articles/12-compiler-optimization.html">Compiler Optimizations</a></li>
+    <li><a class="dropdown-item" href="articles/13-linear-algebra.html">Linear Algebra</a></li>
+    <li><a class="dropdown-item" href="articles/14-internals.html">Internals</a></li>
+    <li><a class="dropdown-item" href="articles/15-FAQ.html">FAQs</a></li>
+    <li><a class="dropdown-item" href="articles/16-worked-examples.html">Worked Examples</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
@@ -96,18 +95,29 @@
 <li><label><input type="checkbox" checked>Some internal optimizations for better speed (e.g., <a href="https://github.com/r-lib/cpp11/pull/463" class="uri">https://github.com/r-lib/cpp11/pull/463</a> and <a href="https://github.com/r-lib/cpp11/pull/430" class="uri">https://github.com/r-lib/cpp11/pull/430</a>).</label></li>
 </ul>
 <div class="section level2">
-<h2 id="using-cpp4r-in-a-package">Using cpp4r in a package<a class="anchor" aria-label="anchor" href="#using-cpp4r-in-a-package"></a>
-</h2>
-<p>To add cpp4r to an existing package, put your C++ files in the <code>src/</code> directory and add the following to your DESCRIPTION file:</p>
-<pre><code><span><span class="va">LinkingTo</span><span class="op">:</span> <span class="va">cpp4r</span></span></code></pre>
-<p>Then decorate C++ functions you want to expose to R with <code>[[cpp4r::register]]</code>.</p>
-<p>cpp4r is a header only library with no hard dependencies and does not use a shared library, so it is straightforward and reliable to use in packages without fear of compile-time and run-time mismatches.</p>
-<p>Alternatively, you can <a href="https://cpp4r.org/articles/motivations.html#vendoring">vendor</a> the current installed version of cpp4r headers into your package with <code>cpp4r::vendor_cpp4r()</code>. This ensures the headers will remain unchanged until you explicitly update them.</p>
-</div>
-<div class="section level2">
 <h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
-<p>See <a href="https://cpp4r.org/articles/cpp4r.html">vignette(“cpp4r”)</a> to get started using cpp4r in your scripts, particularly if you are new to C++ programming.</p>
+<p>Check the <a href="https://cpp4r.org/">documentation</a> to get started using cpp4r in your scripts, particularly if you are new to C++ programming.</p>
+</div>
+<div class="section level2">
+<h2 id="using-cpp4r-in-a-package">Using cpp4r in a package<a class="anchor" aria-label="anchor" href="#using-cpp4r-in-a-package"></a>
+</h2>
+<p>Create a new package with <code>cpp4r::pkg_template("~/path/to/mypkg")</code> and then edit the generated files.</p>
+<p>To add cpp4r to an existing package, put your C++ files in the <code>src/</code> directory and add the following to your DESCRIPTION file:</p>
+<pre><code><span><span class="va">LinkingTo</span><span class="op">:</span> <span class="va">cpp4r</span></span></code></pre>
+<p>Then add a roxygen header, for example, to <code>R/mypkg-package.R</code>:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#' @useDynLib mypkg, .registration = TRUE</span></span>
+<span><span class="co">#' @keywords internal</span></span>
+<span><span class="st">"_PACKAGE"</span></span></code></pre></div>
+<p>Then decorate C++ functions you want to expose to R with <code>[[cpp4r::register]]</code>.</p>
+<p>cpp4r is a header only library with no hard dependencies and does not use a shared library. It is straightforward and reliable to use in packages without fear of compile-time and run-time mismatches.</p>
+</div>
+<div class="section level2">
+<h2 id="vendoring">Vendoring<a class="anchor" aria-label="anchor" href="#vendoring"></a>
+</h2>
+<p>You can <a href="https://cpp4r.org/articles/motivations.html#vendoring">vendor</a> the current installed version of cpp4r headers into your package with <code>cpp4r::vendor_cpp4r()</code>.</p>
+<p>This ensures the headers will remain unchanged until you explicitly update them.</p>
 </div>
 <div class="section level2">
 <h2 id="getting-help">Getting help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
