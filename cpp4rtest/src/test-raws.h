@@ -1,5 +1,5 @@
-#include "Rversion.h"
 #include <testthat.h>
+#include "Rversion.h"
 
 context("raws-C++") {
   test_that("raws.push_back()") {

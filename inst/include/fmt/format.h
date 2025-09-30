@@ -364,8 +364,7 @@ template <typename Container, FMT_ENABLE_IF(is_contiguous<Container>::value)>
 #if FMT_CLANG_VERSION >= 307 && !FMT_ICC_VERSION
 __attribute__((no_sanitize("undefined")))
 #endif
-inline auto
-reserve(std::back_insert_iterator<Container> it, size_t n)
+inline auto reserve(std::back_insert_iterator<Container> it, size_t n)
     -> checked_ptr<typename Container::value_type> {
   Container& c = get_container(it);
   size_t size = c.size();
@@ -687,7 +686,7 @@ class basic_memory_buffer final : public detail::buffer<T> {
     Moves the content of the other ``basic_memory_buffer`` object to this one.
     \endrst
    */
-  auto operator=(basic_memory_buffer&& other) FMT_NOEXCEPT -> basic_memory_buffer& {
+  auto operator=(basic_memory_buffer&& other) FMT_NOEXCEPT->basic_memory_buffer& {
     FMT_ASSERT(this != &other, "");
     deallocate();
     move(other);
@@ -848,9 +847,10 @@ using uint32_or_64_or_128_t =
 template <typename T>
 using uint64_or_128_t = conditional_t<num_bits<T>() <= 64, uint64_t, uint128_t>;
 
-#define FMT_POWERS_OF_10(factor)                                             \
-  factor * 10, (factor)*100, (factor)*1000, (factor)*10000, (factor)*100000, \
-      (factor)*1000000, (factor)*10000000, (factor)*100000000, (factor)*1000000000
+#define FMT_POWERS_OF_10(factor)                                                     \
+  factor * 10, (factor) * 100, (factor) * 1000, (factor) * 10000, (factor) * 100000, \
+      (factor) * 1000000, (factor) * 10000000, (factor) * 100000000,                 \
+      (factor) * 1000000000
 
 // Static data is placed in this class template for the header-only config.
 template <typename T = void>

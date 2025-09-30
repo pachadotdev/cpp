@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cmath>             // for modf
+#include <cmath>  // for modf
 #include <complex>
 #include <initializer_list>  // for initializer_list
 #include <map>               // for std::map
