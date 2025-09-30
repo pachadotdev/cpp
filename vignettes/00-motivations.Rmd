@@ -8,6 +8,7 @@ vignette: >
 editor:
   markdown:
     wrap: sentence
+bibliography: ["references.bib"]
 ---
 
 ```{r, include = FALSE}
@@ -33,7 +34,7 @@ should_run_benchmarks <- function(x) {
 R and S have a long history of interacting with compiled languages.
 In fact the original version of S written in the late 1970s was mainly a wrapper around FORTRAN routines [(History-of-S)](https://www.r-project.org/conferences/useR-2006/Slides/Chambers.pdf).
 Released in 2000, the [cxx](https://cran.r-project.org/package=cxx) package was an early prototype of C++ bindings to R.
-[Rcpp](https://cran.r-project.org/package=Rcpp) was first published to CRAN in 2008, and [Rcpp4r](https://cran.r-project.org/package=Rcpp4r) in 2014.
+[Rcpp](https://cran.r-project.org/package=Rcpp) was first published to CRAN in 2008, and [Rcpp11](https://cran.r-project.org/package=Rcpp11) in 2014.
 Of these `Rcpp` has by far the widest adoption, with over 2000 reverse dependencies as of 2020.
 
 Rcpp has been a widely successful project, however over the years a number of issues and additional C++ features have arisen.
@@ -387,7 +388,7 @@ Rcpp always bundles all of its headers together, which causes slow compilation t
 The headers in cpp4r are more easily decoupled, so you only can include only the particular headers you actually use in a source file.
 This can significantly improve the compilation speed and memory usage to compile your package.
 
-Here are some real examples of the reduction in compile time and peak memory usage after converting packages to cpp4r.
+Here are some real examples of the reduction in compile time and peak memory usage after converting packages to cpp11, which has the same header structure as cpp4r.
 
 ```{r, eval = FALSE, include = FALSE}
 # brew install gtime
@@ -395,7 +396,7 @@ Here are some real examples of the reduction in compile time and peak memory usa
 gtime -f %M:%e R CMD INSTALL --libs-only --use-vanilla .
 ```
 
-| package | Rcpp compile time | cpp4r compile time | Rcpp peak memory | cpp4r peak memory | Rcpp commit | cpp4r commit |
+| package | Rcpp compile time | cpp11 compile time | Rcpp peak memory | cpp11 peak memory | Rcpp commit | cpp11 commit |
 |-----------|-----------|-----------|-----------|-----------|-----------|-----------|
 | haven | 17.42s | 7.13s | 428MB | 204MB | [a3cf75a4](https://github.com/tidyverse/haven/compare/a3cf75a4...978cb034) | [978cb034](https://github.com/tidyverse/haven/compare/a3cf75a4...978cb034) |
 | readr | 124.13s | 81.08s | 969MB | 684MB | [ec0d8989](https://github.com/tidyverse/readr/compare/ec0d8989...aa89ff72) | [aa89ff72](https://github.com/tidyverse/readr/compare/ec0d8989...aa89ff72) |
@@ -454,10 +455,11 @@ ggplot(b_release, aes(x = len, y = min / len, color = pkg)) +
   bench::scale_y_bench_time(base = NULL) +
   scale_x_continuous(labels = scales::comma)+
   labs(
-    tite = "cpp4r uses constant time protection",
+    title = "cpp4r uses constant time protection",
     x = "Number of protected objects",
     y = "Average time to release protection on one object"
-  )
+  ) +
+  theme_minimal(base_size = 13)
 ```
 
 This plot shows the average time to protect and release a given object is essentially constant for cpp4r.
@@ -506,8 +508,8 @@ ggplot(b_grow, aes(x = len, y = min, color = pkg)) +
     labels = scales::trans_format("log10", scales::math_format(10^.x))
   ) +
   coord_fixed() +
-  theme(panel.grid.minor = element_blank()) +
-  labs(title = "log-log plot of vector size vs construction time", x = NULL, y = NULL)
+  labs(title = "log-log plot of vector size vs construction time", x = NULL, y = NULL) +
+  theme_minimal(base_size = 13)
 ```
 
 ```{r, echo = FALSE}

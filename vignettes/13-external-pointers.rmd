@@ -8,6 +8,7 @@ vignette: >
 editor:
   markdown:
     wrap: sentence
+bibliography: ["references.bib"]
 ---
 
 In `cpp4r`, you can use `external_pointer`. In `Rcpp`, you can use `XPtr` to create external pointers. These have significantly different syntax, and `cpp4r` does not provide an `attr` method for external pointers.

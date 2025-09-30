@@ -8,6 +8,7 @@ vignette: >
 editor:
   markdown:
     wrap: sentence
+bibliography: ["references.bib"]
 ---
 
 # Motivation
@@ -17,6 +18,10 @@ This vignette expands vignette 5 by using the same methods from vignette 5. Thes
 # Load the Package
 
 You can load the `cpp4rexamples` package after adding the functions from the next sections to it with the following code:
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
 
 ```{r 03-setup}
 load_all()

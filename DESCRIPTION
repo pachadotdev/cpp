@@ -46,7 +46,6 @@ Suggests:
     withr
 VignetteBuilder:
     knitr
-Config/Needs/website: tidyverse/tidytemplate
 Config/testthat/edition: 3
 Config/Needs/cpp4r/cpp_register:
     brio,

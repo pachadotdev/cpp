@@ -8,6 +8,7 @@ vignette: >
 editor:
   markdown:
     wrap: sentence
+bibliography: ["references.bib"]
 ---
 
 ```{r, include = FALSE}

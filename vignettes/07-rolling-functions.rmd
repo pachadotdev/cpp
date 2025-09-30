@@ -8,6 +8,7 @@ vignette: >
 editor:
   markdown:
     wrap: sentence
+bibliography: ["references.bib"]
 ---
 
 # Motivation
@@ -23,6 +24,10 @@ R already provides efficient versions of the functions covered here. Code optimi
 # Load the Package
 
 You can load the `cpp4rexamples` package after adding the functions from the next sections to it with the following code:
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
 
 ```{r 03-setup}
 load_all()

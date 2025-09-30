@@ -1,5 +1,5 @@
 ---
-title: "cpp4r internals"
+title: "cpp4r Internals"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{cpp4r internals}
@@ -8,6 +8,7 @@ vignette: >
 editor:
   markdown:
     wrap: sentence
+bibliography: ["references.bib"]
 ---
 
 ```{r, include = FALSE}

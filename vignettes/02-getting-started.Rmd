@@ -8,6 +8,7 @@ vignette: >
 editor:
   markdown:
     wrap: sentence
+bibliography: ["references.bib"]
 ---
 
 ```{r, include = FALSE}
@@ -19,7 +20,7 @@ knitr::opts_chunk$set(
 library(cpp4r)
 ```
 
-*This content is adapted (with permission) from the [Rcpp chapter](https://adv-r.hadley.nz/rcpp.html) of Hadley Wickham's book Advanced R.*
+*This content is adapted (with permission) from the [Rcpp chapter](https://adv-r.hadley.nz/rcpp.html) of Hadley Wickham's book Advanced R [@wickham2].*
 
 ## Introduction
 
@@ -1125,3 +1126,5 @@ If you would like to dive deeper or write more complex functions, other helpful 
 
 Writing performant code may also require you to rethink your basic approach: a solid understanding of basic data structures and algorithms is very helpful here.
 That is beyond the scope of this vignette, but useful resources include the *Algorithm Design Manual*, MIT's [*Introduction to Algorithms*](https://web.archive.org/web/20200604134756/https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-introduction-to-algorithms-sma-5503-fall-2005/), *Algorithms* by Robert Sedgewick and Kevin Wayne which has a free [online textbook](http://algs4.cs.princeton.edu/home/) and a matching [Coursera course](https://www.coursera.org/learn/algorithms-part1).
+
+# References
