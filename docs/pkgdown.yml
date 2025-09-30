@@ -1,0 +1,27 @@
+pandoc: 3.2.1
+pkgdown: 2.1.3
+pkgdown_sha: ~
+articles:
+  00-motivations: 00-motivations.html
+  01-setup: 01-setup.html
+  02-getting-started: 02-getting-started.html
+  03-package-skeleton: 03-package-skeleton.html
+  04-read-only: 04-read-only.html
+  05-converting: 05-converting.html
+  06-logical-functions: 06-logical-functions.html
+  07-rolling-functions: 07-rolling-functions.html
+  08-statistical-functions: 08-statistical-functions.html
+  09-logical-functions-2: 09-logical-functions-2.html
+  10-rolling-functions-2: 10-rolling-functions-2.html
+  11-statistical-functions-2: 11-statistical-functions-2.html
+  12-debugging: 12-debugging.html
+  13-external-pointers: 13-external-pointers.html
+  14-compiler-optimization: 14-compiler-optimization.html
+  15-linear-algebra: 15-linear-algebra.html
+  16-internals: 16-internals.html
+  17-FAQ: 17-FAQ.html
+  18-worked-examples: 18-worked-examples.html
+last_built: 2025-09-30T01:45Z
+urls:
+  reference: https://cpp4r.org/reference
+  article: https://cpp4r.org/articles
