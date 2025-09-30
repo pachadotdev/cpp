@@ -12,11 +12,11 @@ editor:
 
 # Motivation
 
-@cpp4r is better used when adding C++ code to R packages, as it allows for proper script organization and documentation. The reference for this chapter is @usethis.
+@cpp4r is better used when adding C++ code to R packages, as it allows for proper script organization and documentation. The reference for this vignette is @usethis.
 
 # Loading the Required R Packages
 
-This chapter and the next use the following R packages:
+This vignette and the next use the following R packages:
 
 ```r
 library(cpp4r)

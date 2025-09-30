@@ -18,18 +18,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Davis Vaughan \email{davis@posit.co} (\href{https://orcid.org/0000-0003-4777-038X}{ORCID})
+\strong{Maintainer}: Mauricio Vargas Sepulveda \email{m.vargas.sepulveda@gmail.com} (\href{https://orcid.org/0000-0003-1017-7574}{ORCID})
 
 Authors:
 \itemize{
-  \item Jim Hester (\href{https://orcid.org/0000-0002-2739-7082}{ORCID})
-  \item Romain François (\href{https://orcid.org/0000-0002-2444-4226}{ORCID})
-}
-
-Other contributors:
-\itemize{
-  \item Benjamin Kietzman [contributor]
-  \item Posit Software, PBC [copyright holder, funder]
+  \item  Posit Software, PBC (Original cpp11 package)
 }
 
 }

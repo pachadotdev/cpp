@@ -12,7 +12,7 @@ editor:
 
 # Motivation
 
-The previous functions ignore `NA` values, which is not ideal for real-world data. This chapter introduces an additional argument and checks to the functions that allow the user to remove missing values (including `NaN`) from the vector. These examples were adapted from @vaughan.
+The previous functions ignore `NA` values, which is not ideal for real-world data. This vignette introduces an additional argument and checks to the functions that allow the user to remove missing values (including `NaN`) from the vector. These examples were adapted from @vaughan.
 
 # Load the Package
 
@@ -49,7 +49,7 @@ The next function returns the sum of the elements of a vector:
 }
 ```
 
-Unlike the sum function from Chapter 3, this function has an additional argument `na_rm` that allows the user to remove missing values (including `NaN`) from the vector.
+Unlike the sum function from vignette 3, this function has an additional argument `na_rm` that allows the user to remove missing values (including `NaN`) from the vector.
 
 The corresponding auxiliary function for documentation is:
 
@@ -116,7 +116,7 @@ The next function calculates the mean of the elements of a vector:
 }
 ```
 
-Unlike the mean function from Chapter 3, this function has an additional argument `na_rm` that allows the user to remove missing values (including `NaN`) from the vector.
+Unlike the mean function from vignette 3, this function has an additional argument `na_rm` that allows the user to remove missing values (including `NaN`) from the vector.
 
 The corresponding auxiliary function for documentation is:
 
@@ -172,7 +172,7 @@ The next function calculates the variance of a vector:
 }
 ```
 
-Unlike the variance function from Chapter 3, this function has an additional argument `na_rm` that allows the user to remove missing values (including `NaN`) from the vector.
+Unlike the variance function from vignette 3, this function has an additional argument `na_rm` that allows the user to remove missing values (including `NaN`) from the vector.
 
 The corresponding auxiliary function for documentation is:
 
@@ -227,7 +227,7 @@ The next function calculates the root mean square error between observed values 
 }
 ```
 
-Unlike the RMSE function from Chapter 3, this function has an additional argument `na_rm` that allows the user to remove missing values (including `NaN`) from the vector.
+Unlike the RMSE function from vignette 3, this function has an additional argument `na_rm` that allows the user to remove missing values (including `NaN`) from the vector.
 
 The corresponding auxiliary function for documentation is:
 

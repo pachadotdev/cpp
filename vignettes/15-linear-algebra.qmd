@@ -8,7 +8,7 @@ R provides out-of-box support for matrices and vectors. This is not the case for
 
 [cpp4rarmadillo](https://pacha.dev/cpp4rarmadillo/) provides a detailed R-specific documentation with worked examples.
 
-Because the examples in the cpp4rarmadillo are self-contained and with detailed explanations, this chapter will not repeat them here.
+Because the examples in the cpp4rarmadillo are self-contained and with detailed explanations, this vignette will not repeat them here.
 
 Here is one of the over five-hundred examples from the cpp4rarmadillo package to compute $\hat{\beta} = (X^TX)^{-1}X^Ty$ for a linear model using the cpp4r concepts already covered:
 

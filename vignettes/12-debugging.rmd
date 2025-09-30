@@ -12,7 +12,7 @@ editor:
 
 # Motivation
 
-The previous package skeleton left out some essential details, such as testing for memory leaks and debugging. This chapter will cover these aspects in more detail. The references for this chapter are @vaughan, @padgham, @vaughan2, @wickham, and @rpkgdevel.
+The previous package skeleton left out some essential details, such as testing for memory leaks and debugging. This vignette will cover these aspects in more detail. The references for this vignette are @vaughan, @padgham, @vaughan2, @wickham, and @rpkgdevel.
 
 # Load the Package
 

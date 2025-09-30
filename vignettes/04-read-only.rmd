@@ -12,7 +12,7 @@ editor:
 
 # Motivation
 
-@vaughan already provides some details. This chapter expands on the differences between `cpp4r` and `Rcpp`.
+@vaughan already provides some details. This vignette expands on the differences between `cpp4r` and `Rcpp`.
 
 # Read and write
 

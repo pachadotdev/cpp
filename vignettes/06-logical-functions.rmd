@@ -12,13 +12,13 @@ editor:
 
 # Motivation
 
-This chapter covers the implementation of simple logical functions in C++ and R. The goal is to show the syntax differences between the two languages and compare their performance. These examples were adapted from @vaughan.
+This vignette covers the implementation of simple logical functions in C++ and R. The goal is to show the syntax differences between the two languages and compare their performance. These examples were adapted from @vaughan.
 
 # Fair Warning
 
-These functions ignore `NA` values. Adjustments for handling `NA` values will be introduced in the sixth chapter.
+These functions ignore `NA` values. Adjustments for handling `NA` values will be introduced in the sixth vignette.
 
-R already provides efficient versions of the functions covered here. Code optimizations and improvements will be made in later chapters.
+R already provides efficient versions of the functions covered here. Code optimizations and improvements will be made in later vignettes.
 
 # Load the Package
 

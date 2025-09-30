@@ -12,7 +12,7 @@ editor:
 
 # Motivation
 
-This chapter expands Chapter 5 by using the same methods from Chapter 5. These examples were adapted from @vaughan.
+This vignette expands vignette 5 by using the same methods from vignette 5. These examples were adapted from @vaughan.
 
 # Load the Package
 
@@ -73,7 +73,7 @@ The next function returns the cumulative sum of the elements of a vector:
 }
 ```
 
-Unlike the `cumsum()` function from Chapter 5, this function has an additional argument `na_rm` that allows the user to remove missing values (including `NaN`) from the vector.
+Unlike the `cumsum()` function from vignette 5, this function has an additional argument `na_rm` that allows the user to remove missing values (including `NaN`) from the vector.
 
 The corresponding auxiliary function for documentation is:
 

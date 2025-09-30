@@ -12,9 +12,9 @@ editor:
 
 # Motivation
 
-This chapter expands Chapter 6 by using the same methods from Chapter 6. These examples were adapted from @vaughan.
+This vignette expands vignette 6 by using the same methods from vignette 6. These examples were adapted from @vaughan.
 
-R already provides efficient versions of the functions covered here. Code optimizations and improvements will be made in later chapters.
+R already provides efficient versions of the functions covered here. Code optimizations and improvements will be made in later vignettes.
 
 # Load the Package
 
@@ -61,7 +61,7 @@ The `any()` function returns `TRUE` if there is at least one `TRUE` element in a
 }
 ```
 
-Unlike the `any()` function from Chapter 6, this function has an additional argument `na_rm` that allows the user to remove missing values from the consideration.
+Unlike the `any()` function from vignette 6, this function has an additional argument `na_rm` that allows the user to remove missing values from the consideration.
 
 The corresponding auxiliary function for documentation is:
 
