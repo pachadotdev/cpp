@@ -120,10 +120,10 @@ from the <code>cpp4r</code> root directory.</p>
 <h2 id="code-formatting">Code formatting<a class="anchor" aria-label="anchor" href="#code-formatting"></a>
 </h2>
 <p>This project uses <a href="https://clang.llvm.org/docs/ClangFormat.html" class="external-link">clang-format</a>
-(version 20) to automatically format the c++ code.</p>
+(version 14) to automatically format the C++ code.</p>
 <p>You can run <code>make format</code> to re-format all code in the
 project. If your system does not have <code>clang-format</code> version
-20, you can install it from <a href="https://github.com/pachadotdev/clang-format" class="external-link uri">https://github.com/pachadotdev/clang-format</a>.</p>
+14, you can install it from <a href="https://github.com/pachadotdev/clang-format" class="external-link uri">https://github.com/pachadotdev/clang-format</a>.</p>
 <p>Alternatively many IDEs support automatically running
 <code>clang-format</code> every time files are written.</p>
 </div>
@@ -133,7 +133,7 @@ project. If your system does not have <code>clang-format</code> version
 <p>cpp4r is a header only library, so all source code exposed to users
 lives in <a href="https://github.com/r-lib/cpp4r/tree/main/inst/include" class="external-link">inst/include</a>.
 R code used to register functions and for
-<code><a href="../reference/cpp_source.html">cpp4r::cpp_source()</a></code> is in <a href="https://github.com/r-lib/cpp4r/tree/main/R" class="external-link">R/</a>. Tests for
+<code>cpp4r::cpp_source()</code> is in <a href="https://github.com/r-lib/cpp4r/tree/main/R" class="external-link">R/</a>. Tests for
 <em>only</em> the code in <code>R/</code> is in <a href="https://github.com/r-lib/cpp4r/tree/main/tests/testthat" class="external-link">tests/testthat/</a>.
 The rest of the code is in a separate <a href="https://github.com/r-lib/cpp4r/tree/main/cpp4rtest" class="external-link">cpp4rtest/</a>
 package included in the source tree. Inside <a href="https://github.com/r-lib/cpp4r/tree/main/cpp4rtest/src" class="external-link">cpp4rtest/src</a>

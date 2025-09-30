@@ -38,7 +38,7 @@ If you have a question that you think would fit well here please [open an issue]
 Use the `push_back()` method.
 You will need to use `cpp4r::as_sexp()` if you want to convert arbitrary C++ objects to `SEXP` before inserting them into the list.
 
-```{cpp4r}
+```cpp
 #include <cpp4r.hpp>
 #include <vector>
 
@@ -64,7 +64,7 @@ To create named lists, use the `push_back()` method with the named literal synta
 The named literal syntax is defined in the `cpp4r::literals` namespace.
 In this case, creating the named literal automatically calls `as_sexp()` for you.
 
-```{cpp4r}
+```cpp
 #include <cpp4r.hpp>
 
 [[cpp4r::register]]
@@ -80,7 +80,7 @@ cpp4r::writable::list foo_push_named() {
 
 Note that if you know the size of the list ahead of time (which you often do!), then it is more efficient to state that up front.
 
-```{cpp4r}
+```cpp
 #include <cpp4r.hpp>
 #include <vector>
 
@@ -105,7 +105,7 @@ cpp4r does not support default arguments, while convenient they would require mo
 If you need default argument support you can use a wrapper function around your cpp4r registered function.
 A common convention is to name the internal function with a trailing `_`.
 
-```{cpp4r}
+```cpp
 #include <cpp4r.hpp>
 [[cpp4r::register]]
 double add_some_(double x, double amount) {
@@ -113,7 +113,7 @@ double add_some_(double x, double amount) {
 }
 ```
 
-```{r}
+```r
 add_some <- function(x, amount = 1) {
   add_some_(x, amount)
 }
@@ -137,7 +137,7 @@ Use the `[]` accessor function.
 
 Use the `named()` method for vector classes.
 
-```{cpp4r}
+```cpp
 #include <cpp4r.hpp>
 
 [[cpp4r::register]]
@@ -146,7 +146,7 @@ bool is_named(cpp4r::strings x) {
 }
 ```
 
-```{r}
+```r
 is_named("foo")
 
 is_named(c(x = "foo"))
@@ -156,7 +156,7 @@ is_named(c(x = "foo"))
 
 You need to use [list initialization](https://en.cppreference.com/w/cpp/language/list_initialization) with `{}` to create the object.
 
-```{cpp4r}
+```cpp
 #include <cpp4r.hpp>
 
 [[cpp4r::register]]
@@ -175,7 +175,7 @@ cpp4r::writable::logicals my_both() {
 }
 ```
 
-```{r}
+```r
 my_false()
 
 my_true()
@@ -188,7 +188,7 @@ my_both()
 To do this you need to call the `base::new.env()` function from C++.
 This can be done by creating a `cpp4r::function` object and then calling it to generate the new environment.
 
-```{cpp4r}
+```cpp
 #include <cpp4r.hpp>
 
 [[cpp4r::register]]
@@ -204,7 +204,7 @@ Use `[]` to retrieve or assign values from an environment by name.
 If a value does not exist, it will error.
 To check for existence ahead of time, use the `exists()` method.
 
-```{cpp4r}
+```cpp
 #include <cpp4r.hpp>
 
 [[cpp4r::register]]
@@ -218,7 +218,7 @@ void set_foo(cpp4r::environment x, double value) {
 }
 ```
 
-```{r}
+```r
 x <- new.env()
 
 foo_exists(x)
@@ -233,7 +233,7 @@ foo_exists(x)
 There is no built in way to do this.
 One method would be to `push_back()` each element of the string individually.
 
-```{cpp4r}
+```cpp
 #include <cpp4r.hpp>
 
 [[cpp4r::register]]
@@ -249,7 +249,7 @@ cpp4r::raws push_raws() {
 }
 ```
 
-```{r}
+```r
 push_raws()
 ```
 
@@ -257,7 +257,7 @@ push_raws()
 
 Because C++ does not allow for two implicit cast, explicitly cast to `cpp4r::r_string` first.
 
-```{cpp4r}
+```cpp
 #include <cpp4r.hpp>
 #include <string>
 
@@ -295,7 +295,7 @@ string foobar() {
 
 But this will compile and work as intended
 
-```{cpp4r}
+```cpp
 #include <cpp4r.hpp>
 #include <string>
 
@@ -314,7 +314,7 @@ In general it should be avoided, which is why `cpp4r::writable` classes always c
 
 However, if you are *positive* in-place modification is necessary for your use case, you can use the move constructor to do this.
 
-```{cpp4r}
+```cpp
 #include <cpp4r.hpp>
 
 [[cpp4r::register]]
@@ -326,7 +326,7 @@ void add_one(cpp4r::sexp x_sexp) {
 }
 ```
 
-```{r}
+```r
 x <- c(1L, 2L, 3L, 4L)
 .Internal(inspect(x))
 add_one(x)
@@ -345,7 +345,7 @@ In general, this is advised against because this is an extremely advanced featur
 
 The following setup for `test_destructor_ok()` with a manual call to `unwind_protect()` would work:
 
-```{cpp4r}
+```cpp
 #include <cpp4r.hpp>
 
 class A {
@@ -393,7 +393,7 @@ If you mix complex C++ objects with R's C API within `unwind_protect()`, then an
 Another issue that can arise has to do with *nested* calls to `unwind_protect()`.
 It is very hard (if not impossible) to end up with invalidly nested `unwind_protect()` calls when using the typical cpp4r API, but you can manually create a scenario like the following:
 
-```{cpp4r}
+```cpp
 #include <cpp4r.hpp>
 
 [[cpp4r::register]]
@@ -416,7 +416,7 @@ If you were to run `test_nested()` from R, it would likely crash or hang your R 
 
 You might think that you'd never do this, but the same scenario can also occur with a combination of 1 call to `unwind_protect()` combined with usage of the cpp4r API:
 
-```{cpp4r}
+```cpp
 #include <cpp4r.hpp>
 
 [[cpp4r::register]]
@@ -478,7 +478,7 @@ One place you may want to do this is when working with long character vectors.
 Unfortunately, due to the way cpp4r must protect the individual CHARSXP objects that make up a character vector, it can currently be quite slow to use the cpp4r API for this.
 Consider this example of extracting out individual elements with `x[i]` vs using the native R API:
 
-```{cpp4r}
+```cpp
 #include <cpp4r.hpp>
 
 [[cpp4r::register]]
@@ -507,7 +507,7 @@ cpp4r::sexp test_extract_r_api(cpp4r::strings x) {
 }
 ```
 
-```{r}
+```r
 set.seed(123)
 x <- sample(letters, 1e6, replace = TRUE)
 

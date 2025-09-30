@@ -60,7 +60,7 @@
         R_forceSymbols(dll, TRUE);
       }
 
-# cpp_register: works with a package that registers a single c++ function
+# register: works with a package that registers a single c++ function
 
     Code
       cat(read_file(r_bindings))
@@ -104,10 +104,10 @@
         R_forceSymbols(dll, TRUE);
       }
 
-# cpp_register: can be run with messages
+# register: can be run with messages
 
     Code
-      cpp_register(p, quiet = FALSE)
+      register(p, quiet = FALSE)
     Message
       i 1 functions decorated with [[cpp4r::register]]
       v generated file 'cpp4r.R'

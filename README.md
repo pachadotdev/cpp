@@ -1,7 +1,7 @@
 # cpp4r  <img src="man/figures/logo.svg" align="right" height="139" alt="" />
 
 <!-- badges: start -->
-[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.org/articles/stages.html#stable)
 [![R-CMD-check](https://github.com/r-lib/cpp4r/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r-lib/cpp4r/actions/workflows/R-CMD-check.yaml)
 [![CRAN status](https://www.r-pkg.org/badges/version/cpp4r)](https://CRAN.R-project.org/package=cpp4r)
 [![Codecov test coverage](https://codecov.io/gh/r-lib/cpp4r/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r-lib/cpp4r?branch=main)
@@ -36,7 +36,7 @@ Then decorate C++ functions you want to expose to R with `[[cpp4r::register]]`.
 
 cpp4r is a header only library with no hard dependencies and does not use a shared library, so it is straightforward and reliable to use in packages without fear of compile-time and run-time mismatches.
 
-Alternatively, you can [vendor](https://cpp4r.r-lib.org/articles/motivations.html#vendoring) the current installed version of cpp4r headers into your package with `cpp4r::vendor_cpp4r()`.
+Alternatively, you can [vendor](https://cpp4r.org/articles/motivations.html#vendoring) the current installed version of cpp4r headers into your package with `cpp4r::vendor_cpp4r()`.
 This ensures the headers will remain unchanged until you explicitly update them.
 
 ## Getting started
@@ -49,8 +49,8 @@ Please open an issue or email me. I will do my best to respond before 48 hours.
 
 ## Contributing
 
-Contributions are welcome! Please see the [internals vignette](https://cpp4r.r-lib.org/articles/internals.html) for details about design choices and coding style.
+Contributions are welcome! Please see the [internals vignette](https://cpp4r.org/articles/internals.html) for details about design choices and coding style.
 
 ## Code of Conduct
 
-Please note that the cpp4r project is released with a [Contributor Code of Conduct](https://cpp4r.r-lib.org/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+Please note that the cpp4r project is released with a [Contributor Code of Conduct](https://cpp4r.org/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.

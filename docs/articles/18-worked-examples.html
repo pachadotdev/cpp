@@ -118,7 +118,7 @@
 <p>You can start with <code>create_package("~/github/cpp4rgaussjordan")</code>. You can use VSCode, but all the steps also apply to RStudio.</p>
 <p>After opening <code>~/github/cpp4rgaussjordan</code>, you can run <code>use_cpp4r()</code> to have a readily available skeleton in your project.</p>
 <p>You can run <code>use_apache_licence()</code> to have a <code>LICENSE</code> file and indicate in <code>DESCRIPTION</code> that your package is distributed under the Apache License.</p>
-<p>Then you can run <code><a href="../reference/cpp_vendor.html">cpp_vendor()</a></code> to copy the C++ headers into <code>inst/include</code>.</p>
+<p>Then you can run <code>cpp_vendor()</code> to copy the C++ headers into <code>inst/include</code>.</p>
 </section><section class="level3"><h4 id="building-and-testing">Building and testing<a class="anchor" aria-label="anchor" href="#building-and-testing"></a>
 </h4>
 <p>You can use <code>devtools</code> to build and test the package:</p>
@@ -259,7 +259,7 @@ x_1 &amp; x_2 &amp; x_3 &amp; x_4 &amp; -z \\
 <code class="sourceCode R"><span><span class="co"># build</span></span>
 <span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://pkgbuild.r-lib.org/reference/clean_dll.html" class="external-link">clean_dll</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu">cpp4r</span><span class="fu">::</span><span class="fu"><a href="../reference/cpp_register.html">cpp_register</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">cpp4r</span><span class="fu">::</span><span class="fu">cpp_register</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/document.html" class="external-link">document</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/load_all.html" class="external-link">load_all</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -400,7 +400,7 @@ CXX_STD = CXX11</code></pre>
 </h4>
 <p>You can use <code>devtools</code> to build and test the package:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">cpp4r</span><span class="fu">::</span><span class="fu"><a href="../reference/cpp_register.html">cpp_register</a></span><span class="op">(</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">cpp4r</span><span class="fu">::</span><span class="fu">cpp_register</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/document.html" class="external-link">document</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Then, you can test the package from a new R session:</p>

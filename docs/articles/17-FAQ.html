@@ -203,9 +203,7 @@ function with a trailing <code>_</code>.</p>
 <span>  <span class="fu">add_some_</span><span class="op">(</span><span class="va">x</span>, <span class="va">amount</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu">add_some</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 2</span></span>
-<span><span class="fu">add_some</span><span class="op">(</span><span class="fl">1</span>, amount <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 6</span></span></code></pre></div>
+<span><span class="fu">add_some</span><span class="op">(</span><span class="fl">1</span>, amount <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="how-do-i-create-a-new-empty-list">4. How do I create a new empty list?<a class="anchor" aria-label="anchor" href="#how-do-i-create-a-new-empty-list"></a>
@@ -231,10 +229,8 @@ function with a trailing <code>_</code>.</p>
 <span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">is_named</span><span class="op">(</span><span class="st">"foo"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] FALSE</span></span>
 <span></span>
-<span><span class="fu">is_named</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"foo"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+<span><span class="fu">is_named</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"foo"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="how-do-i-return-a-cpp4rwritablelogicals-object-with-only-a-false-value">7. How do I return a <code>cpp4r::writable::logicals</code> object
@@ -260,13 +256,10 @@ initialization</a> with <code><a href="https://rdrr.io/r/base/Paren.html" class=
 <span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">my_false</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] FALSE</span></span>
 <span></span>
 <span><span class="fu">my_true</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] TRUE</span></span>
 <span></span>
-<span><span class="fu">my_both</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1]  TRUE FALSE  TRUE</span></span></code></pre></div>
+<span><span class="fu">my_both</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="how-do-i-create-a-new-empty-environment">8. How do I create a new empty environment?<a class="anchor" aria-label="anchor" href="#how-do-i-create-a-new-empty-environment"></a>
@@ -304,12 +297,10 @@ existence ahead of time, use the <code><a href="https://rdrr.io/r/base/exists.ht
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">foo_exists</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] FALSE</span></span>
 <span></span>
 <span><span class="fu">set_foo</span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">foo_exists</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+<span><span class="fu">foo_exists</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="how-can-i-create-a-cpp4rraws-from-a-stdstring">10. How can I create a <code>cpp4r:raws</code> from a
@@ -331,8 +322,7 @@ existence ahead of time, use the <code><a href="https://rdrr.io/r/base/exists.ht
 <span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a>  <span class="cf">return</span> out<span class="op">;</span></span>
 <span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">push_raws</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 68 69</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">push_raws</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="how-can-i-create-a-stdstring-from-a-cpp4rwritablestring">11. How can I create a <code>std::string</code> from a
@@ -370,15 +360,15 @@ in the generated code of the function signatures, so they still need to
 be fully qualified. However you will <em>not</em> need to qualify the
 type names within those functions.</p>
 <p>The following will not compile</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cpp4r.hpp&gt;</span></span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;string&gt;</span></span>
-<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
-<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="op">[[</span><span class="at">cpp4r</span><span class="op">::</span><span class="at">register</span><span class="op">]]</span></span>
-<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>string foobar<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>  <span class="cf">return</span> string<span class="op">(</span><span class="st">"foo"</span><span class="op">)</span> <span class="op">+</span> <span class="st">"-bar"</span><span class="op">;</span></span>
-<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<pre class="cpp4r"><code>#include &lt;cpp4r.hpp&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+[[cpp4r::register]]
+string foobar() {
+  return string("foo") + "-bar";
+}</code></pre>
 <p>But this will compile and work as intended</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cpp4r.hpp&gt;</span></span>
 <span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;string&gt;</span></span>
@@ -411,12 +401,9 @@ this.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1L</span>, <span class="fl">2L</span>, <span class="fl">3L</span>, <span class="fl">4L</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Internal.html" class="external-link">.Internal</a></span><span class="op">(</span><span class="fu">inspect</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; @55c4ab3055d8 13 INTSXP g0c2 [REF(2)] (len=4, tl=0) 1,2,3,4</span></span>
 <span><span class="fu">add_one</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Internal.html" class="external-link">.Internal</a></span><span class="op">(</span><span class="fu">inspect</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; @55c4ab3055d8 13 INTSXP g0c2 [REF(5)] (len=4, tl=0) 2,3,4,5</span></span>
-<span><span class="va">x</span></span>
-<span><span class="co">#&gt; [1] 2 3 4 5</span></span></code></pre></div>
+<span><span class="va">x</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="should-i-call-cpp4runwind_protect-manually">15. Should I call <code>cpp4r::unwind_protect()</code>
@@ -466,7 +453,7 @@ manual call to <code>unwind_protect()</code> would work:</p>
 <span id="cb20-26"><a href="#cb20-26" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">test_destructor_ok</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error: oh no!</span></span></code></pre></div>
+<span><span class="co">#&gt; Error in test_destructor_ok(): could not find function "test_destructor_ok"</span></span></code></pre></div>
 <p>But if you happen to move <code>a</code> into the
 <code>unwind_protect()</code>, then it will not be destructed, and you
 will end up with a memory leak at best, and a much more sinister issue
@@ -542,18 +529,18 @@ must be very careful not to use any of the cpp4r API inside of the
 which then calls back into cpp4r is still safe, i.e. if the registered
 version of the imaginary <code>test_outer()</code> function below was
 called from R, then that would work:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cpp4r.hpp&gt;</span></span>
-<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a><span class="op">[[</span><span class="at">cpp4r</span><span class="op">::</span><span class="at">register</span><span class="op">]]</span></span>
-<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a><span class="dt">void</span> test_inner<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a>  cpp4r<span class="op">::</span>stop<span class="op">(</span><span class="st">"oh no!"</span><span class="op">)</span></span>
-<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb25-7"><a href="#cb25-7" tabindex="-1"></a></span>
-<span id="cb25-8"><a href="#cb25-8" tabindex="-1"></a><span class="op">[[</span><span class="at">cpp4r</span><span class="op">::</span><span class="at">register</span><span class="op">]]</span></span>
-<span id="cb25-9"><a href="#cb25-9" tabindex="-1"></a><span class="dt">void</span> test_outer<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb25-10"><a href="#cb25-10" tabindex="-1"></a>  <span class="kw">auto</span> fn <span class="op">=</span> cpp4r<span class="op">::</span>package<span class="op">(</span><span class="st">"mypackage"</span><span class="op">)[</span><span class="st">"test_inner"</span><span class="op">]</span></span>
-<span id="cb25-11"><a href="#cb25-11" tabindex="-1"></a>  fn<span class="op">();</span></span>
-<span id="cb25-12"><a href="#cb25-12" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<pre class="cpp4r"><code>#include &lt;cpp4r.hpp&gt;
+
+[[cpp4r::register]]
+void test_inner() {
+  cpp4r::stop("oh no!")
+}
+
+[[cpp4r::register]]
+void test_outer() {
+  auto fn = cpp4r::package("mypackage")["test_inner"]
+  fn();
+}</code></pre>
 <p>This might seem unsafe because <code>cpp4r::package()</code> uses
 <code>unwind_protect()</code> to call the R function for
 <code>test_inner()</code>, which then goes back into C++ to call
@@ -652,14 +639,7 @@ native R API:</p>
 <span><span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
 <span>  <span class="fu">test_extract_cpp4r</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>  <span class="fu">test_extract_r_api</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Some expressions had a GC in every iteration; so filtering is</span></span>
-<span><span class="co">#&gt; disabled.</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 6</span></span></span>
-<span><span class="co">#&gt;   expression                 min   median `itr/sec` mem_alloc `gc/sec`</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> test_extract_cpp4r(x)   48.1ms  50.16ms      17.5        0B     33.1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> test_extract_r_api(x)    2.1ms   2.34ms     427.         0B      0</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 <p>There are plans to improve on this in the future, but for now this is
 one of the only places where it is felt to be reasonable to call
 <code>unwind_protect()</code> manually.</p>

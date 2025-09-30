@@ -200,15 +200,15 @@ functions, while preserving the speed of Rcpp when read only access is
 needed. Each of the r_vector classes in cpp4r has a normal <em>read
 only</em> version that uses copy-by-reference, and a <em>writable</em>
 version which uses copy-by-value.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="pp">#include </span><span class="im">"cpp4r/doubles.hpp"</span></span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="op">[[</span><span class="at">cpp4r</span><span class="op">::</span><span class="at">register</span><span class="op">]]</span></span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>cpp4r<span class="op">::</span>doubles times_two_cpp4r<span class="op">(</span>cpp4r<span class="op">::</span>writable<span class="op">::</span>doubles x<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> x<span class="op">.</span>size<span class="op">();</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>    x<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> x<span class="op">[</span>i<span class="op">]</span> <span class="op">*</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>  <span class="cf">return</span> x<span class="op">;</span></span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<pre class="cpp4r"><code>#include "cpp4r/doubles.hpp"
+
+[[cpp4r::register]]
+cpp4r::doubles times_two_cpp4r(cpp4r::writable::doubles x) {
+  for (int i = 0; i &lt; x.size(); ++i) {
+    x[i] = x[i] * 2;
+  }
+  return x;
+}</code></pre>
 <p>Using <code>cpp4r::writable::doubles</code> first <em>copies</em> the
 input vector, so when you do the multiplication you do not modify the
 original data.</p>
@@ -326,12 +326,12 @@ Rcpp.</p>
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">identity_rcpp</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100000</span><span class="op">)</span></span>
 <span><span class="fu">lobstr</span><span class="fu">::</span><span class="fu">obj_size</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
 <p>Whereas cpp4r objects preserve the ALTREP object.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="pp">#include </span><span class="im">"cpp4r/integers.hpp"</span></span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="op">[[</span><span class="at">cpp4r</span><span class="op">::</span><span class="at">register</span><span class="op">]]</span></span>
-<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>cpp4r<span class="op">::</span>integers identity_cpp4r<span class="op">(</span>cpp4r<span class="op">::</span>integers x<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>  <span class="cf">return</span> x<span class="op">;</span></span>
-<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<pre class="cpp4r"><code>#include "cpp4r/integers.hpp"
+
+[[cpp4r::register]]
+cpp4r::integers identity_cpp4r(cpp4r::integers x) {
+  return x;
+}</code></pre>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">identity_cpp4r</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100000</span><span class="op">)</span></span>
 <span><span class="fu">lobstr</span><span class="fu">::</span><span class="fu">obj_size</span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></code></pre></div>

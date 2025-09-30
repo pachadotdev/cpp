@@ -26,28 +26,6 @@ library(bench)
 library(usethis)
 ```
 
-# Running a single function
-
-It is possible to run a single function in C++ using the `cpp4r::cpp_source()` function. For example, to create a function that adds one to a number, you can run:
-
-```{r}
-cpp4r::cpp_source(
-  code = "
-    #include <cpp4r.hpp>
-
-    using namespace cpp4r;
-
-    [[cpp4r::register]] int plusone(int x) {
-      return x + 1;
-    }",
-  quiet = FALSE
-)
-```
-
-This function can be called from R by running `plusone(2)`, which should return 3, or with any other integer.
-
-However, it is a much better practice to organize C++ code in an R package.
-
 # Creating a Dummy Package
 
 You can create a new package in RStudio (or VSCode) by running:

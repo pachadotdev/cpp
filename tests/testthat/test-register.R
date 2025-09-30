@@ -69,7 +69,7 @@ describe("get_call_entries", {
     dir.create(file.path(p, "src"))
     file.copy(test_path("multiple.cpp"), file.path(p, "src", "multiple.cpp"))
 
-    cpp_register(p)
+    register(p)
     cpp_bindings <- file.path(p, "src", "cpp4r.cpp")
     expect_snapshot(cat(read_file(cpp_bindings)))
   })
@@ -496,13 +496,13 @@ bar <- function(baz) {
   })
 })
 
-describe("cpp_register", {
+describe("register", {
   it("returns an invisible empty character if there are no decorations", {
     f <- tempfile()
-    expect_equal(cpp_register(f), character())
+    expect_equal(register(f), character())
 
     dir.create(f)
-    expect_equal(cpp_register(f), character())
+    expect_equal(register(f), character())
 
   })
   it("works with a package that registers a single c++ function", {
@@ -514,7 +514,7 @@ describe("cpp_register", {
     p <- pkg_path(pkg)
     dir.create(file.path(p, "src"))
     file.copy(test_path("single.cpp"), file.path(p, "src", "single.cpp"))
-    cpp_register(p)
+    register(p)
 
     r_bindings <- file.path(p, "R", "cpp4r.R")
     expect_true(file.exists(r_bindings))
@@ -530,7 +530,7 @@ describe("cpp_register", {
     p <- pkg_path(pkg)
     dir.create(file.path(p, "src"))
     file.copy(test_path("single.cpp"), file.path(p, "src", "single.cpp"))
-    expect_silent(cpp_register(p, quiet = TRUE))
+    expect_silent(register(p, quiet = TRUE))
   })
 
   it("can be run with messages", {
@@ -541,7 +541,7 @@ describe("cpp_register", {
     file.copy(test_path("single.cpp"), file.path(p, "src", "single.cpp"))
 
     expect_snapshot(
-      cpp_register(p, quiet = FALSE)
+      register(p, quiet = FALSE)
     )
   })
 
@@ -551,7 +551,7 @@ describe("cpp_register", {
     dir.create(file.path(p, "src"))
     file.copy(test_path("single.cpp"), file.path(p, "src", "single.cpp"))
     writeLines("#include <sstream>", file.path(p, "src", "testPkg_types.h"))
-    cpp_register(p)
+    register(p)
 
     expect_true(
       any(
@@ -570,7 +570,7 @@ describe("cpp_register", {
     dir.create(file.path(p, "src"))
     file.copy(test_path("single.cpp"), file.path(p, "src", "single.cpp"))
     writeLines("#include <sstream>", file.path(p, "src", "testPkg_types.hpp"))
-    cpp_register(p)
+    register(p)
 
     expect_true(
       any(
@@ -591,7 +591,7 @@ describe("cpp_register", {
 
     dir.create(file.path(p, "inst", "include"), recursive = TRUE)
     writeLines("#include <sstream>", file.path(p, "inst", "include", "testPkg_types.h"))
-    cpp_register(p)
+    register(p)
 
     expect_true(
       any(
@@ -612,7 +612,7 @@ describe("cpp_register", {
 
     dir.create(file.path(p, "inst", "include"), recursive = TRUE)
     writeLines("#include <sstream>", file.path(p, "inst", "include", "testPkg_types.hpp"))
-    cpp_register(p)
+    register(p)
 
     expect_true(
       any(
@@ -631,7 +631,7 @@ describe("cpp_register", {
     dir.create(file.path(p, "src"))
     writeLines("int foo(int x) { return x; }", file.path(p, "src", "foo.cpp"))
 
-    expect_error_free(cpp_register(p))
+    expect_error_free(register(p))
   })
 
   it("accepts .cc as an alternative value for extension=", {
@@ -639,7 +639,7 @@ describe("cpp_register", {
     p <- pkg_path(pkg)
     dir.create(file.path(p, "src"))
     file.copy(test_path("single.cpp"), file.path(p, "src", "single.cc"))
-    cpp_register(p, extension = ".cc")
+    register(p, extension = ".cc")
 
     expect_match(list.files(file.path(p, "src")), "\\.cc$")
   })
@@ -698,21 +698,21 @@ test_that("check_valid_attributes does not return an error if all registers are 
   dir.create(file.path(p, "src"))
   file.copy(test_path("single.cpp"), file.path(p, "src", "single.cpp"))
 
-  expect_error_free(cpp_register(p))
+  expect_error_free(register(p))
 
   pkg <- local_package()
   p <- pkg_path(pkg)
   dir.create(file.path(p, "src"))
   file.copy(test_path("multiple.cpp"), file.path(p, "src", "multiple.cpp"))
 
-  expect_error_free(cpp_register(p))
+  expect_error_free(register(p))
 
   pkg <- local_package()
   p <- pkg_path(pkg)
   dir.create(file.path(p, "src"))
   file.copy(test_path("linking_to_registers.cpp"), file.path(p, "src", "linking_to_registers.cpp"))
 
-  expect_error_free(cpp_register(p))
+  expect_error_free(register(p))
 })
 
 
@@ -722,19 +722,19 @@ test_that("check_valid_attributes returns an error if one or more registers is i
   dir.create(file.path(p, "src"))
   file.copy(test_path("single_incorrect.cpp"), file.path(p, "src", "single_incorrect.cpp"))
 
-  expect_error(cpp_register(p))
+  expect_error(register(p))
 
   pkg <- local_package()
   p <- pkg_path(pkg)
   dir.create(file.path(p, "src"))
   file.copy(test_path("multiple_incorrect.cpp"), file.path(p, "src", "multiple_incorrect.cpp"))
 
-  expect_error(cpp_register(p))
+  expect_error(register(p))
 
   pkg <- local_package()
   p <- pkg_path(pkg)
   dir.create(file.path(p, "src"))
   file.copy(test_path("linking_to_incorrect_registers.cpp"), file.path(p, "src", "linking_to_incorrect_registers.cpp"))
 
-  expect_error(cpp_register(p))
+  expect_error(register(p))
 })
