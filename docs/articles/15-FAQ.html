@@ -86,11 +86,11 @@
     
     
 <p>Below are some Frequently Asked Questions about cpp4r. If you have a
-question that you think would fit well here please <a href="https://github.com/r-lib/cpp4r/issues/new/choose">open an
+question that you think would fit well here please <a href="https://github.com/pachadotdev/cpp4r/issues/new/choose">open an
 issue</a>.</p>
-<div class="section level4">
-<h4 id="what-are-the-underlying-types-of-cpp4r-objects">1. What are the underlying types of cpp4r objects?<a class="anchor" aria-label="anchor" href="#what-are-the-underlying-types-of-cpp4r-objects"></a>
-</h4>
+<div class="section level2">
+<h2 id="what-are-the-underlying-types-of-cpp4r-objects">1. What are the underlying types of cpp4r objects?<a class="anchor" aria-label="anchor" href="#what-are-the-underlying-types-of-cpp4r-objects"></a>
+</h2>
 <table class="table">
 <thead><tr class="header">
 <th>vector</th>
@@ -124,9 +124,9 @@ issue</a>.</p>
 </tbody>
 </table>
 </div>
-<div class="section level4">
-<h4 id="how-do-i-add-elements-to-a-list">2. How do I add elements to a list?<a class="anchor" aria-label="anchor" href="#how-do-i-add-elements-to-a-list"></a>
-</h4>
+<div class="section level2">
+<h2 id="how-do-i-add-elements-to-a-list">2. How do I add elements to a list?<a class="anchor" aria-label="anchor" href="#how-do-i-add-elements-to-a-list"></a>
+</h2>
 <p>Use the <code>push_back()</code> method. You will need to use
 <code>cpp4r::as_sexp()</code> if you want to convert arbitrary C++
 objects to <code>SEXP</code> before inserting them into the list.</p>
@@ -183,9 +183,9 @@ often do!), then it is more efficient to state that up front.</p>
 <span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>  <span class="cf">return</span> x<span class="op">;</span></span>
 <span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="does-cpp4r-support-default-arguments">3. Does cpp4r support default arguments?<a class="anchor" aria-label="anchor" href="#does-cpp4r-support-default-arguments"></a>
-</h4>
+<div class="section level2">
+<h2 id="does-cpp4r-support-default-arguments">3. Does cpp4r support default arguments?<a class="anchor" aria-label="anchor" href="#does-cpp4r-support-default-arguments"></a>
+</h2>
 <p>cpp4r does not support default arguments, while convenient they would
 require more complexity to support than is currently worthwhile. If you
 need default argument support you can use a wrapper function around your
@@ -203,21 +203,21 @@ function with a trailing <code>_</code>.</p>
 <span><span class="fu">add_some</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu">add_some</span><span class="op">(</span><span class="fl">1</span>, amount <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="how-do-i-create-a-new-empty-list">4. How do I create a new empty list?<a class="anchor" aria-label="anchor" href="#how-do-i-create-a-new-empty-list"></a>
-</h4>
+<div class="section level2">
+<h2 id="how-do-i-create-a-new-empty-list">4. How do I create a new empty list?<a class="anchor" aria-label="anchor" href="#how-do-i-create-a-new-empty-list"></a>
+</h2>
 <p>Define a new writable list object.</p>
 <p><code>cpp4r::writable::list x;</code></p>
 </div>
-<div class="section level4">
-<h4 id="how-do-i-retrieve-named-elements-from-a-named-vectorlist">5. How do I retrieve (named) elements from a named vector/list?<a class="anchor" aria-label="anchor" href="#how-do-i-retrieve-named-elements-from-a-named-vectorlist"></a>
-</h4>
+<div class="section level2">
+<h2 id="how-do-i-retrieve-named-elements-from-a-named-vectorlist">5. How do I retrieve (named) elements from a named vector/list?<a class="anchor" aria-label="anchor" href="#how-do-i-retrieve-named-elements-from-a-named-vectorlist"></a>
+</h2>
 <p>Use the <code>[]</code> accessor function.</p>
 <p><code>x["foo"]</code></p>
 </div>
-<div class="section level4">
-<h4 id="how-can-i-tell-whether-a-vector-is-named">6. How can I tell whether a vector is named?<a class="anchor" aria-label="anchor" href="#how-can-i-tell-whether-a-vector-is-named"></a>
-</h4>
+<div class="section level2">
+<h2 id="how-can-i-tell-whether-a-vector-is-named">6. How can I tell whether a vector is named?<a class="anchor" aria-label="anchor" href="#how-can-i-tell-whether-a-vector-is-named"></a>
+</h2>
 <p>Use the <code>named()</code> method for vector classes.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cpp4r.hpp&gt;</span></span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a></span>
@@ -230,10 +230,10 @@ function with a trailing <code>_</code>.</p>
 <span></span>
 <span><span class="fu">is_named</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"foo"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="how-do-i-return-a-cpp4rwritablelogicals-object-with-only-a-false-value">7. How do I return a <code>cpp4r::writable::logicals</code> object
+<div class="section level2">
+<h2 id="how-do-i-return-a-cpp4rwritablelogicals-object-with-only-a-false-value">7. How do I return a <code>cpp4r::writable::logicals</code> object
 with only a <code>FALSE</code> value?<a class="anchor" aria-label="anchor" href="#how-do-i-return-a-cpp4rwritablelogicals-object-with-only-a-false-value"></a>
-</h4>
+</h2>
 <p>You need to use <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list
 initialization</a> with <code><a href="https://rdrr.io/r/base/Paren.html">{}</a></code> to create the object.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cpp4r.hpp&gt;</span></span>
@@ -259,9 +259,9 @@ initialization</a> with <code><a href="https://rdrr.io/r/base/Paren.html">{}</a>
 <span></span>
 <span><span class="fu">my_both</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="how-do-i-create-a-new-empty-environment">8. How do I create a new empty environment?<a class="anchor" aria-label="anchor" href="#how-do-i-create-a-new-empty-environment"></a>
-</h4>
+<div class="section level2">
+<h2 id="how-do-i-create-a-new-empty-environment">8. How do I create a new empty environment?<a class="anchor" aria-label="anchor" href="#how-do-i-create-a-new-empty-environment"></a>
+</h2>
 <p>To do this you need to call the <code><a href="https://rdrr.io/r/base/environment.html">base::new.env()</a></code> function
 from C++. This can be done by creating a <code>cpp4r::function</code>
 object and then calling it to generate the new environment.</p>
@@ -273,10 +273,10 @@ object and then calling it to generate the new environment.</p>
 <span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>  <span class="cf">return</span> new_env<span class="op">();</span></span>
 <span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="how-do-i-assign-and-retrieve-values-in-an-environment-what-happens-if-i-try-to-get-a-value-that-does-not-exist">9. How do I assign and retrieve values in an environment? What
+<div class="section level2">
+<h2 id="how-do-i-assign-and-retrieve-values-in-an-environment-what-happens-if-i-try-to-get-a-value-that-does-not-exist">9. How do I assign and retrieve values in an environment? What
 happens if I try to get a value that does not exist?<a class="anchor" aria-label="anchor" href="#how-do-i-assign-and-retrieve-values-in-an-environment-what-happens-if-i-try-to-get-a-value-that-does-not-exist"></a>
-</h4>
+</h2>
 <p>Use <code>[]</code> to retrieve or assign values from an environment
 by name. If a value does not exist, it will error. To check for
 existence ahead of time, use the <code><a href="https://rdrr.io/r/base/exists.html">exists()</a></code> method.</p>
@@ -300,10 +300,10 @@ existence ahead of time, use the <code><a href="https://rdrr.io/r/base/exists.ht
 <span></span>
 <span><span class="fu">foo_exists</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="how-can-i-create-a-cpp4rraws-from-a-stdstring">10. How can I create a <code>cpp4r:raws</code> from a
+<div class="section level2">
+<h2 id="how-can-i-create-a-cpp4rraws-from-a-stdstring">10. How can I create a <code>cpp4r:raws</code> from a
 <code>std::string</code>?<a class="anchor" aria-label="anchor" href="#how-can-i-create-a-cpp4rraws-from-a-stdstring"></a>
-</h4>
+</h2>
 <p>There is no built in way to do this. One method would be to
 <code>push_back()</code> each element of the string individually.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cpp4r.hpp&gt;</span></span>
@@ -322,10 +322,10 @@ existence ahead of time, use the <code><a href="https://rdrr.io/r/base/exists.ht
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">push_raws</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="how-can-i-create-a-stdstring-from-a-cpp4rwritablestring">11. How can I create a <code>std::string</code> from a
+<div class="section level2">
+<h2 id="how-can-i-create-a-stdstring-from-a-cpp4rwritablestring">11. How can I create a <code>std::string</code> from a
 <code>cpp4r::writable::string</code>?<a class="anchor" aria-label="anchor" href="#how-can-i-create-a-stdstring-from-a-cpp4rwritablestring"></a>
-</h4>
+</h2>
 <p>Because C++ does not allow for two implicit cast, explicitly cast to
 <code>cpp4r::r_string</code> first.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cpp4r.hpp&gt;</span></span>
@@ -338,9 +338,9 @@ existence ahead of time, use the <code><a href="https://rdrr.io/r/base/exists.ht
 <span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a>  <span class="cf">return</span> elt<span class="op">;</span></span>
 <span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="what-are-the-types-for-c-iterators">12. What are the types for C++ iterators?<a class="anchor" aria-label="anchor" href="#what-are-the-types-for-c-iterators"></a>
-</h4>
+<div class="section level2">
+<h2 id="what-are-the-types-for-c-iterators">12. What are the types for C++ iterators?<a class="anchor" aria-label="anchor" href="#what-are-the-types-for-c-iterators"></a>
+</h2>
 <p>The iterators are <code>::iterator</code> classes contained inside
 the vector classes. For example the iterator for
 <code>cpp4r::doubles</code> would be
@@ -348,11 +348,11 @@ the vector classes. For example the iterator for
 <code>cpp4r::writable::doubles</code> would be
 <code>cpp4r::writable::doubles::iterator</code>.</p>
 </div>
-<div class="section level4">
-<h4 id="my-code-has-using-namespace-std-why-do-i-still-have-to-include-std-in-the-signatures-of-cpp4rregister-functions">13. My code has <code>using namespace std</code>, why do I still
+<div class="section level2">
+<h2 id="my-code-has-using-namespace-std-why-do-i-still-have-to-include-std-in-the-signatures-of-cpp4rregister-functions">13. My code has <code>using namespace std</code>, why do I still
 have to include <code>std::</code> in the signatures of
 <code>[[cpp4r::register]]</code> functions?<a class="anchor" aria-label="anchor" href="#my-code-has-using-namespace-std-why-do-i-still-have-to-include-std-in-the-signatures-of-cpp4rregister-functions"></a>
-</h4>
+</h2>
 <p>The <code>using namespace std</code> directive will not be included
 in the generated code of the function signatures, so they still need to
 be fully qualified. However you will <em>not</em> need to qualify the
@@ -378,9 +378,9 @@ string foobar() {
 <span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a>  <span class="cf">return</span> string<span class="op">(</span><span class="st">"foo"</span><span class="op">)</span> <span class="op">+</span> <span class="st">"-bar"</span><span class="op">;</span></span>
 <span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="how-do-i-modify-a-vector-in-place">14. How do I modify a vector in place?<a class="anchor" aria-label="anchor" href="#how-do-i-modify-a-vector-in-place"></a>
-</h4>
+<div class="section level2">
+<h2 id="how-do-i-modify-a-vector-in-place">14. How do I modify a vector in place?<a class="anchor" aria-label="anchor" href="#how-do-i-modify-a-vector-in-place"></a>
+</h2>
 <p>In place modification breaks the normal semantics of R code. In
 general it should be avoided, which is why <code>cpp4r::writable</code>
 classes always copy their data when constructed.</p>
@@ -403,10 +403,10 @@ this.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Internal.html">.Internal</a></span><span class="op">(</span><span class="fu">inspect</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">x</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="should-i-call-cpp4runwind_protect-manually">15. Should I call <code>cpp4r::unwind_protect()</code>
+<div class="section level2">
+<h2 id="should-i-call-cpp4runwind_protect-manually">15. Should I call <code>cpp4r::unwind_protect()</code>
 manually?<a class="anchor" aria-label="anchor" href="#should-i-call-cpp4runwind_protect-manually"></a>
-</h4>
+</h2>
 <p><code>cpp4r::unwind_protect()</code> is cpp4r’s way of safely calling
 R’s C API. In short, it allows you to run a function that might throw an
 R error, catch the <code>longjmp()</code> of that error, promote it to
@@ -418,9 +418,9 @@ objects have had a chance to destruct as needed.</p>
 function, you may be wondering if you should use it for your own custom
 needs. In general, this is advised against because this is an extremely
 advanced feature that is prone to subtle and hard to debug issues.</p>
-<div class="section level5">
-<h5 id="destructors">Destructors<a class="anchor" aria-label="anchor" href="#destructors"></a>
-</h5>
+<div class="section level3">
+<h3 id="destructors">Destructors<a class="anchor" aria-label="anchor" href="#destructors"></a>
+</h3>
 <p>The following setup for <code>test_destructor_ok()</code> with a
 manual call to <code>unwind_protect()</code> would work:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cpp4r.hpp&gt;</span></span>
@@ -466,9 +466,9 @@ C++ objects with R’s C API within <code>unwind_protect()</code>, then
 any R errors will result in a jump that prevents your destructors from
 running.</p>
 </div>
-<div class="section level5">
-<h5 id="nested-unwind_protect">Nested <code>unwind_protect()</code><a class="anchor" aria-label="anchor" href="#nested-unwind_protect"></a>
-</h5>
+<div class="section level3">
+<h3 id="nested-unwind_protect">Nested <code>unwind_protect()</code><a class="anchor" aria-label="anchor" href="#nested-unwind_protect"></a>
+</h3>
 <p>Another issue that can arise has to do with <em>nested</em> calls to
 <code>unwind_protect()</code>. It is very hard (if not impossible) to
 end up with invalidly nested <code>unwind_protect()</code> calls when
@@ -581,10 +581,10 @@ an exception.</li>
 </ul>
 </div>
 </div>
-<div class="section level4">
-<h4 id="ok-but-i-really-want-to-call-cpp4runwind_protect-manually">16. Ok but I really want to call
+<div class="section level2">
+<h2 id="ok-but-i-really-want-to-call-cpp4runwind_protect-manually">16. Ok but I really want to call
 <code>cpp4r::unwind_protect()</code> manually<a class="anchor" aria-label="anchor" href="#ok-but-i-really-want-to-call-cpp4runwind_protect-manually"></a>
-</h4>
+</h2>
 <p>If you have read the above bullet and still feel like you need to
 call <code>unwind_protect()</code>, then you should keep in mind the
 following when writing the function to unwind-protect:</p>
@@ -641,6 +641,57 @@ native R API:</p>
 <p>There are plans to improve on this in the future, but for now this is
 one of the only places where it is felt to be reasonable to call
 <code>unwind_protect()</code> manually.</p>
+</div>
+<div class="section level2">
+<h2 id="how-do-i-modify-a-matrix-rownamescolnames-on-c-side">17. How do I modify a matrix rownames/colnames on C++ side?<a class="anchor" aria-label="anchor" href="#how-do-i-modify-a-matrix-rownamescolnames-on-c-side"></a>
+</h2>
+<p>Any of the following options will work (the commented code works with
+cpp4r):</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="op">[[</span><span class="at">cpp4r</span><span class="op">::</span><span class="at">register</span><span class="op">]]</span></span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>cpp4r<span class="op">::</span>doubles_matrix<span class="op">&lt;&gt;</span> copy_mat<span class="op">(</span>cpp4r<span class="op">::</span>doubles_matrix<span class="op">&lt;&gt;</span> x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a>  cpp4r<span class="op">::</span>writable<span class="op">::</span>doubles_matrix<span class="op">&lt;&gt;</span> out <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a>  <span class="co">// SEXP dimnames = x.attr("dimnames");</span></span>
+<span id="cb28-6"><a href="#cb28-6" tabindex="-1"></a>  <span class="co">// if (dimnames != R_NilValue) {</span></span>
+<span id="cb28-7"><a href="#cb28-7" tabindex="-1"></a>  <span class="co">//   Rf_setAttrib(out.data(), R_DimNamesSymbol, dimnames);</span></span>
+<span id="cb28-8"><a href="#cb28-8" tabindex="-1"></a>  <span class="co">// }</span></span>
+<span id="cb28-9"><a href="#cb28-9" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="#cb28-10" tabindex="-1"></a>  out<span class="op">.</span>attr<span class="op">(</span><span class="st">"dimnames"</span><span class="op">)</span> <span class="op">=</span> x<span class="op">.</span>attr<span class="op">(</span><span class="st">"dimnames"</span><span class="op">);</span></span>
+<span id="cb28-11"><a href="#cb28-11" tabindex="-1"></a></span>
+<span id="cb28-12"><a href="#cb28-12" tabindex="-1"></a>  <span class="cf">return</span> out<span class="op">;</span></span>
+<span id="cb28-13"><a href="#cb28-13" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb28-14"><a href="#cb28-14" tabindex="-1"></a></span>
+<span id="cb28-15"><a href="#cb28-15" tabindex="-1"></a><span class="op">[[</span><span class="at">cpp4r</span><span class="op">::</span><span class="at">register</span><span class="op">]]</span></span>
+<span id="cb28-16"><a href="#cb28-16" tabindex="-1"></a>SEXP copy_mat_as_sexp<span class="op">(</span>cpp4r<span class="op">::</span>doubles_matrix<span class="op">&lt;&gt;</span> x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb28-17"><a href="#cb28-17" tabindex="-1"></a>  cpp4r<span class="op">::</span>writable<span class="op">::</span>doubles_matrix<span class="op">&lt;&gt;</span> out <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb28-18"><a href="#cb28-18" tabindex="-1"></a></span>
+<span id="cb28-19"><a href="#cb28-19" tabindex="-1"></a>  <span class="co">// SEXP dimnames = x.attr("dimnames");</span></span>
+<span id="cb28-20"><a href="#cb28-20" tabindex="-1"></a>  <span class="co">// if (dimnames != R_NilValue) {</span></span>
+<span id="cb28-21"><a href="#cb28-21" tabindex="-1"></a>  <span class="co">//   Rf_setAttrib(out.data(), R_DimNamesSymbol, dimnames);</span></span>
+<span id="cb28-22"><a href="#cb28-22" tabindex="-1"></a>  <span class="co">// }</span></span>
+<span id="cb28-23"><a href="#cb28-23" tabindex="-1"></a></span>
+<span id="cb28-24"><a href="#cb28-24" tabindex="-1"></a>  out<span class="op">.</span>attr<span class="op">(</span><span class="st">"dimnames"</span><span class="op">)</span> <span class="op">=</span> x<span class="op">.</span>attr<span class="op">(</span><span class="st">"dimnames"</span><span class="op">);</span></span>
+<span id="cb28-25"><a href="#cb28-25" tabindex="-1"></a></span>
+<span id="cb28-26"><a href="#cb28-26" tabindex="-1"></a>  <span class="cf">return</span> out<span class="op">;</span></span>
+<span id="cb28-27"><a href="#cb28-27" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb28-28"><a href="#cb28-28" tabindex="-1"></a></span>
+<span id="cb28-29"><a href="#cb28-29" tabindex="-1"></a><span class="op">[[</span><span class="at">cpp4r</span><span class="op">::</span><span class="at">register</span><span class="op">]]</span></span>
+<span id="cb28-30"><a href="#cb28-30" tabindex="-1"></a>cpp4r<span class="op">::</span>doubles_matrix<span class="op">&lt;&gt;</span> create_mat<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb28-31"><a href="#cb28-31" tabindex="-1"></a>  cpp4r<span class="op">::</span>writable<span class="op">::</span>doubles_matrix<span class="op">&lt;&gt;</span> out<span class="op">(</span><span class="dv">2</span><span class="op">,</span> <span class="dv">2</span><span class="op">);</span></span>
+<span id="cb28-32"><a href="#cb28-32" tabindex="-1"></a></span>
+<span id="cb28-33"><a href="#cb28-33" tabindex="-1"></a>  out<span class="op">(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">)</span> <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb28-34"><a href="#cb28-34" tabindex="-1"></a>  out<span class="op">(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">)</span> <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb28-35"><a href="#cb28-35" tabindex="-1"></a>  out<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">)</span> <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></span>
+<span id="cb28-36"><a href="#cb28-36" tabindex="-1"></a>  out<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">)</span> <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb28-37"><a href="#cb28-37" tabindex="-1"></a></span>
+<span id="cb28-38"><a href="#cb28-38" tabindex="-1"></a>  cpp4r<span class="op">::</span>writable<span class="op">::</span>list dimnames<span class="op">(</span><span class="dv">2</span><span class="op">);</span></span>
+<span id="cb28-39"><a href="#cb28-39" tabindex="-1"></a>  dimnames<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> cpp4r<span class="op">::</span>strings<span class="op">({</span><span class="st">"a"</span><span class="op">,</span> <span class="st">"b"</span><span class="op">});</span></span>
+<span id="cb28-40"><a href="#cb28-40" tabindex="-1"></a>  dimnames<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> cpp4r<span class="op">::</span>strings<span class="op">({</span><span class="st">"c"</span><span class="op">,</span> <span class="st">"d"</span><span class="op">});</span></span>
+<span id="cb28-41"><a href="#cb28-41" tabindex="-1"></a></span>
+<span id="cb28-42"><a href="#cb28-42" tabindex="-1"></a>  out<span class="op">.</span>attr<span class="op">(</span><span class="st">"dimnames"</span><span class="op">)</span> <span class="op">=</span> dimnames<span class="op">;</span></span>
+<span id="cb28-43"><a href="#cb28-43" tabindex="-1"></a></span>
+<span id="cb28-44"><a href="#cb28-44" tabindex="-1"></a>  <span class="cf">return</span> out<span class="op">;</span></span>
+<span id="cb28-45"><a href="#cb28-45" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

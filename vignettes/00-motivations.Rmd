@@ -342,7 +342,7 @@ d_sum <- readRDS("sum.Rds")
 knitr::kable(d_sum)
 ```
 
-[cpp4rtest/src/sum.cpp](https://github.com/r-lib/cpp4r/blob/main/cpp4rtest/src/sum.cpp) contains the code ran in these benchmarks.
+[cpp4rtest/src/sum.cpp](https://github.com/pachadotdev/cpp4r/blob/main/cpp4rtest/src/sum.cpp) contains the code ran in these benchmarks.
 
 ## UTF-8 everywhere {#utf-8-everywhere}
 
@@ -389,7 +389,7 @@ cloc inst/include
 cloc --fullpath --not-match-f '.*generated.*' inst/include
 
 # count lines for cpp4r headers
-git clone https://github.com/r-lib/cpp4r
+git clone https://github.com/pachadotdev/cpp4r
 cd cpp4r
 cloc inst/include/cpp4r
 ```

@@ -69,12 +69,12 @@ Alternatively many IDEs support automatically running `clang-format` every time 
 
 ## Code organization
 
-cpp4r is a header only library, so all source code exposed to users lives in [inst/include](https://github.com/r-lib/cpp4r/tree/main/inst/include).
-R code used to register functions and for `cpp4r::cpp_source()` is in [R/](https://github.com/r-lib/cpp4r/tree/main/R).
-Tests for *only* the code in `R/` is in [tests/testthat/](https://github.com/r-lib/cpp4r/tree/main/tests/testthat).
-The rest of the code is in a separate [cpp4rtest/](https://github.com/r-lib/cpp4r/tree/main/cpp4rtest) package included in the source tree.
-Inside [cpp4rtest/src](https://github.com/r-lib/cpp4r/tree/main/cpp4rtest/src) the files that start with `test-` are C++ tests using the [Catch](https://testthat.r-lib.org/reference/use_catch.html) support in testthat.
-In addition there are some regular R tests in [cpp4rtest/tests/testthat/](https://github.com/r-lib/cpp4r/tree/main/cpp4rtest/tests/testthat).
+cpp4r is a header only library, so all source code exposed to users lives in [inst/include](https://github.com/pachadotdev/cpp4r/tree/main/inst/include).
+R code used to register functions and for `cpp4r::cpp_source()` is in [R/](https://github.com/pachadotdev/cpp4r/tree/main/R).
+Tests for *only* the code in `R/` is in [tests/testthat/](https://github.com/pachadotdev/cpp4r/tree/main/tests/testthat).
+The rest of the code is in a separate [cpp4rtest/](https://github.com/pachadotdev/cpp4r/tree/main/cpp4rtest) package included in the source tree.
+Inside [cpp4rtest/src](https://github.com/pachadotdev/cpp4r/tree/main/cpp4rtest/src) the files that start with `test-` are C++ tests using the [Catch](https://testthat.r-lib.org/reference/use_catch.html) support in testthat.
+In addition there are some regular R tests in [cpp4rtest/tests/testthat/](https://github.com/pachadotdev/cpp4r/tree/main/cpp4rtest/tests/testthat).
 
 ## Naming conventions
 
@@ -87,13 +87,13 @@ In addition there are some regular R tests in [cpp4rtest/tests/testthat/](https:
 
 ## Vector classes
 
-All of the basic r_vector classes are class templates, the base template is defined in [cpp4r/r_vector.hpp](https://github.com/r-lib/cpp4r/blob/main/inst/include/cpp4r/r_vector.hpp).
+All of the basic r_vector classes are class templates, the base template is defined in [cpp4r/r_vector.hpp](https://github.com/pachadotdev/cpp4r/blob/main/inst/include/cpp4r/r_vector.hpp).
 The template parameter is the type of **value** the particular R vector stores, e.g. `double` for `cpp4r::doubles`.
 This differs from Rcpp, whose first template parameter is the R vector type, e.g.
 `REALSXP`.
 
 The file first has the class declarations, then function definitions further down in the file.
-Specializations for the various types are in separate files, e.g. [cpp4r/doubles.hpp](https://github.com/r-lib/cpp4r/blob/main/inst/include/cpp4r/doubles.hpp), [cpp4r/integers.hpp](https://github.com/r-lib/cpp4r/blob/main/inst/include/cpp4r/integers.hpp)
+Specializations for the various types are in separate files, e.g. [cpp4r/doubles.hpp](https://github.com/pachadotdev/cpp4r/blob/main/inst/include/cpp4r/doubles.hpp), [cpp4r/integers.hpp](https://github.com/pachadotdev/cpp4r/blob/main/inst/include/cpp4r/integers.hpp)
 
 ## Coercion functions
 
@@ -102,7 +102,7 @@ There are two different coercion functions
 `as_sexp()` takes a C++ object and coerces it to a SEXP object, so it can be used in R.
 `as_cpp<>()` is a template function that takes a SEXP and creates a C++ object from it
 
-The various methods for both functions are defined in [cpp4r/as.hpp](https://github.com/r-lib/cpp4r/blob/main/inst/include/cpp4r/as.hpp)
+The various methods for both functions are defined in [cpp4r/as.hpp](https://github.com/pachadotdev/cpp4r/blob/main/inst/include/cpp4r/as.hpp)
 
 This is definitely the most complex part of the cpp4r code, with extensive use of [template metaprogramming](https://en.wikipedia.org/wiki/Template_metaprogramming).
 In particular the [substitution failure is not an error (SFINAE)](https://en.wikipedia.org/wiki/Substitution_failure_is_not_an_error) technique is used to control overloading of the functions.
@@ -131,16 +131,16 @@ These two functions are considered internal to cpp4r, so do not use them in your
 This scheme scales in O(1) time to release or insert an object vs O(N) or worse time with `R_PreserveObject()` / `R_ReleaseObject()`.
 
 Each package has its own unique protection list, which avoids the need to manage a "global" protection list shared across packages.
-A previous version of cpp4r used a global protection list stored in an R global option, but this caused [multiple issues](https://github.com/r-lib/cpp4r/issues/330).
+A previous version of cpp4r used a global protection list stored in an R global option, but this caused [multiple issues](https://github.com/pachadotdev/cpp4r/issues/330).
 
-These functions are defined in [protect.hpp](https://github.com/r-lib/cpp4r/blob/main/inst/include/cpp4r/protect.hpp).
+These functions are defined in [protect.hpp](https://github.com/pachadotdev/cpp4r/blob/main/inst/include/cpp4r/protect.hpp).
 
 ### Unwind Protect
 
 cpp4r uses `R_UnwindProtect()` to protect (most) calls to the R API that could fail.
 These are usually those that allocate memory, though in truth most R API functions could error along some paths.
 If an error happens under `R_UnwindProtect()`, cpp4r will throw a C++ exception.
-This exception is caught by the try/catch block defined in the `BEGIN_cpp4r` macro in [cpp4r/declarations.hpp](https://github.com/r-lib/cpp4r/blob/main/inst/include/cpp4r/declarations.hpp).
+This exception is caught by the try/catch block defined in the `BEGIN_cpp4r` macro in [cpp4r/declarations.hpp](https://github.com/pachadotdev/cpp4r/blob/main/inst/include/cpp4r/declarations.hpp).
 The exception will cause any C++ destructors to run, freeing any resources held by C++ objects.
 After the try/catch block exits, the R error unwinding is then continued by `R_ContinueUnwind()` and a normal R error results.
 

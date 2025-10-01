@@ -19,10 +19,9 @@ knitr::opts_chunk$set(
 library(cpp4r)
 ```
 
-Below are some Frequently Asked Questions about cpp4r.
-If you have a question that you think would fit well here please [open an issue](https://github.com/r-lib/cpp4r/issues/new/choose).
+Below are some Frequently Asked Questions about cpp4r. If you have a question that you think would fit well here please [open an issue](https://github.com/pachadotdev/cpp4r/issues/new/choose).
 
-#### 1. What are the underlying types of cpp4r objects?
+# 1. What are the underlying types of cpp4r objects?
 
 | vector          | element         |
 |-----------------|-----------------|
@@ -33,7 +32,7 @@ If you have a question that you think would fit well here please [open an issue]
 | cpp4r::raws     | uint8_t         |
 | cpp4r::list     | SEXP            |
 
-#### 2. How do I add elements to a list?
+# 2. How do I add elements to a list?
 
 Use the `push_back()` method.
 You will need to use `cpp4r::as_sexp()` if you want to convert arbitrary C++ objects to `SEXP` before inserting them into the list.
@@ -99,7 +98,7 @@ cpp4r::writable::list foo_push_sized() {
 }
 ```
 
-#### 3. Does cpp4r support default arguments?
+# 3. Does cpp4r support default arguments?
 
 cpp4r does not support default arguments, while convenient they would require more complexity to support than is currently worthwhile.
 If you need default argument support you can use a wrapper function around your cpp4r registered function.
@@ -121,19 +120,19 @@ add_some(1)
 add_some(1, amount = 5)
 ```
 
-#### 4. How do I create a new empty list?
+# 4. How do I create a new empty list?
 
 Define a new writable list object.
 
 `cpp4r::writable::list x;`
 
-#### 5. How do I retrieve (named) elements from a named vector/list?
+# 5. How do I retrieve (named) elements from a named vector/list?
 
 Use the `[]` accessor function.
 
 `x["foo"]`
 
-#### 6. How can I tell whether a vector is named?
+# 6. How can I tell whether a vector is named?
 
 Use the `named()` method for vector classes.
 
@@ -152,7 +151,7 @@ is_named("foo")
 is_named(c(x = "foo"))
 ```
 
-#### 7. How do I return a `cpp4r::writable::logicals` object with only a `FALSE` value?
+# 7. How do I return a `cpp4r::writable::logicals` object with only a `FALSE` value?
 
 You need to use [list initialization](https://en.cppreference.com/w/cpp/language/list_initialization) with `{}` to create the object.
 
@@ -183,7 +182,7 @@ my_true()
 my_both()
 ```
 
-#### 8. How do I create a new empty environment?
+# 8. How do I create a new empty environment?
 
 To do this you need to call the `base::new.env()` function from C++.
 This can be done by creating a `cpp4r::function` object and then calling it to generate the new environment.
@@ -198,7 +197,7 @@ cpp4r::environment create_environment() {
 }
 ```
 
-#### 9. How do I assign and retrieve values in an environment? What happens if I try to get a value that does not exist?
+# 9. How do I assign and retrieve values in an environment? What happens if I try to get a value that does not exist?
 
 Use `[]` to retrieve or assign values from an environment by name.
 If a value does not exist, it will error.
@@ -228,7 +227,7 @@ set_foo(x, 1)
 foo_exists(x)
 ```
 
-#### 10. How can I create a `cpp4r:raws` from a `std::string`?
+# 10. How can I create a `cpp4r:raws` from a `std::string`?
 
 There is no built in way to do this.
 One method would be to `push_back()` each element of the string individually.
@@ -253,7 +252,7 @@ cpp4r::raws push_raws() {
 push_raws()
 ```
 
-#### 11. How can I create a `std::string` from a `cpp4r::writable::string`?
+# 11. How can I create a `std::string` from a `cpp4r::writable::string`?
 
 Because C++ does not allow for two implicit cast, explicitly cast to `cpp4r::r_string` first.
 
@@ -269,12 +268,12 @@ std::string my_string() {
 }
 ```
 
-#### 12. What are the types for C++ iterators?
+# 12. What are the types for C++ iterators?
 
 The iterators are `::iterator` classes contained inside the vector classes.
 For example the iterator for `cpp4r::doubles` would be `cpp4r::doubles::iterator` and the iterator for `cpp4r::writable::doubles` would be `cpp4r::writable::doubles::iterator`.
 
-#### 13. My code has `using namespace std`, why do I still have to include `std::` in the signatures of `[[cpp4r::register]]` functions?
+# 13. My code has `using namespace std`, why do I still have to include `std::` in the signatures of `[[cpp4r::register]]` functions?
 
 The `using namespace std` directive will not be included in the generated code of the function signatures, so they still need to be fully qualified.
 However you will *not* need to qualify the type names within those functions.
@@ -307,7 +306,7 @@ std::string foobar() {
 }
 ```
 
-#### 14. How do I modify a vector in place?
+# 14. How do I modify a vector in place?
 
 In place modification breaks the normal semantics of R code.
 In general it should be avoided, which is why `cpp4r::writable` classes always copy their data when constructed.
@@ -334,14 +333,14 @@ add_one(x)
 x
 ```
 
-#### 15. Should I call `cpp4r::unwind_protect()` manually?
+# 15. Should I call `cpp4r::unwind_protect()` manually?
 
 `cpp4r::unwind_protect()` is cpp4r's way of safely calling R's C API. In short, it allows you to run a function that might throw an R error, catch the `longjmp()` of that error, promote it to an exception that is thrown and caught by a try/catch that cpp4r sets up for you at `.Call()` time (which allows destructors to run), and finally tells R to continue unwinding the stack now that the C++ objects have had a chance to destruct as needed.
 
 Since `cpp4r::unwind_protect()` takes an arbitrary function, you may be wondering if you should use it for your own custom needs.
 In general, this is advised against because this is an extremely advanced feature that is prone to subtle and hard to debug issues.
 
-##### Destructors
+## Destructors
 
 The following setup for `test_destructor_ok()` with a manual call to `unwind_protect()` would work:
 
@@ -388,7 +387,7 @@ test_destructor_bad()
 In general, the only code that can be called within `unwind_protect()` is "pure" C code or C++ code that only uses POD (plain-old-data) types and no exceptions.
 If you mix complex C++ objects with R's C API within `unwind_protect()`, then any R errors will result in a jump that prevents your destructors from running.
 
-##### Nested `unwind_protect()`
+## Nested `unwind_protect()`
 
 Another issue that can arise has to do with *nested* calls to `unwind_protect()`.
 It is very hard (if not impossible) to end up with invalidly nested `unwind_protect()` calls when using the typical cpp4r API, but you can manually create a scenario like the following:
@@ -464,7 +463,7 @@ It makes more sense if you analyze it one step at a time:
 -   That exception is thrown and caught by the try/catch set up by `test_outer()`.
 -   The try/catch calls `R_ContinueUnwind()`, which `longjmp()`s again, and at this point the `longjmp()` can safely proceed to force an R error.
 
-#### 16. Ok but I really want to call `cpp4r::unwind_protect()` manually
+# 16. Ok but I really want to call `cpp4r::unwind_protect()` manually
 
 If you have read the above bullet and still feel like you need to call `unwind_protect()`, then you should keep in mind the following when writing the function to unwind-protect:
 
@@ -518,3 +517,55 @@ bench::mark(
 ```
 
 There are plans to improve on this in the future, but for now this is one of the only places where it is felt to be reasonable to call `unwind_protect()` manually.
+
+# 17. How do I modify a matrix rownames/colnames on C++ side?
+
+Any of the following options will work (the commented code works with cpp4r):
+
+```cpp
+[[cpp4r::register]]
+cpp4r::doubles_matrix<> copy_mat(cpp4r::doubles_matrix<> x) {
+  cpp4r::writable::doubles_matrix<> out = x;
+
+  // SEXP dimnames = x.attr("dimnames");
+  // if (dimnames != R_NilValue) {
+  //   Rf_setAttrib(out.data(), R_DimNamesSymbol, dimnames);
+  // }
+
+  out.attr("dimnames") = x.attr("dimnames");
+
+  return out;
+}
+
+[[cpp4r::register]]
+SEXP copy_mat_as_sexp(cpp4r::doubles_matrix<> x) {
+  cpp4r::writable::doubles_matrix<> out = x;
+
+  // SEXP dimnames = x.attr("dimnames");
+  // if (dimnames != R_NilValue) {
+  //   Rf_setAttrib(out.data(), R_DimNamesSymbol, dimnames);
+  // }
+
+  out.attr("dimnames") = x.attr("dimnames");
+
+  return out;
+}
+
+[[cpp4r::register]]
+cpp4r::doubles_matrix<> create_mat() {
+  cpp4r::writable::doubles_matrix<> out(2, 2);
+
+  out(0, 0) = 1;
+  out(0, 1) = 2;
+  out(1, 0) = 3;
+  out(1, 1) = 4;
+
+  cpp4r::writable::list dimnames(2);
+  dimnames[0] = cpp4r::strings({"a", "b"});
+  dimnames[1] = cpp4r::strings({"c", "d"});
+
+  out.attr("dimnames") = dimnames;
+
+  return out;
+}
+```
