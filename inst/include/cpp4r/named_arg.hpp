@@ -1,6 +1,8 @@
 #pragma once
 
-#include <stddef.h>  // for size_t
+// for size_t [@MichaelChirico, r-lib/cpp11/pull/454]
+// https://stackoverflow.com/questions/5079325/should-i-include-stddef-h-or-cstddef-for-size-t
+#include <cstddef>
 
 #include <initializer_list>  // for initializer_list
 
