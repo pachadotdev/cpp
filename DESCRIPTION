@@ -45,7 +45,8 @@ Suggests:
     tibble,
     utils,
     vctrs,
-    withr
+    withr,
+    tintin
 VignetteBuilder:
     knitr
 Config/testthat/edition: 3

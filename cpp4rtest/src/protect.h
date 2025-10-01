@@ -31,7 +31,6 @@
 // them
 
 [[cpp4r::register]] void protect_many_(int n) {
-#ifdef cpp4r_BENCH
   std::vector<SEXP> res;
   for (R_xlen_t i = 0; i < n; ++i) {
     res.push_back(PROTECT(Rf_ScalarInteger(n)));
@@ -39,10 +38,10 @@
 
   for (R_xlen_t i = n - 1; i >= 0; --i) {
     SEXP x = res[i];
+    (void)x;  // silence unused variable warning while preserving behavior
     UNPROTECT(1);
     res.pop_back();
   }
-#endif
 }
 
 [[cpp4r::register]] void protect_many_cpp4r_(int n) {
@@ -85,7 +84,6 @@
 }
 
 [[cpp4r::register]] void protect_many_Rcpp_(int n) {
-#ifdef cpp4r_BENCH
   std::vector<Rcpp::RObject> res;
   for (R_xlen_t i = 0; i < n; ++i) {
     res.push_back(Rcpp::RObject(Rf_ScalarInteger(n)));
@@ -93,7 +91,7 @@
 
   for (R_xlen_t i = n - 1; i >= 0; --i) {
     SEXP x = res[i];
+    (void)x;  // silence unused variable warning while preserving behavior
     res.pop_back();
   }
-#endif
 }

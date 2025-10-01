@@ -337,7 +337,7 @@ b_sum <- bench::press(
 saveRDS(b_sum, "sum.Rds", version = 2)
 ```
 
-```r
+```{r, message = FALSE, echo = FALSE, eval = TRUE}
 knitr::kable(readRDS("sum.Rds"))
 ```
 
@@ -390,19 +390,14 @@ cloc --fullpath --not-match-f '.*generated.*' inst/include
 # count lines for cpp4r headers
 git clone https://github.com/r-lib/cpp4r
 cd cpp4r
-cloc inst/include
-
-# get primary authors of Rcpp
-git ls-files -- inst/include | while read f; do git blame -w --line-porcelain -- "$f" | grep -I '^author '; done | sort -f | uniq -ic | sort -nr
+cloc inst/include/cpp4r
 ```
 
 This limited scope allows the implementation to be much simpler, the headers in Rcpp 1.0.4 have 74,658 lines of code (excluding blank or commented lines) in 379 files.
 Some headers in Rcpp are automatically generated, removing these still gives you 25,249 lines of code in 357 files.
-In contrast the headers in cpp4r contain only 1,734 lines of code in 19 files.
+In contrast the headers in cpp4r contain only 3,522 lines of code in 19 files.
 
 This reduction in complexity should make cpp4r an easier project to maintain and ensure correctness, particularly around interactions with the R garbage collector.
-
-<!--TODO: mention rchk compatibility here?-->
 
 ## Compilation speed {#compilation-speed}
 
@@ -455,20 +450,20 @@ This structure is much more efficient for large numbers of objects than using `R
 
 ```{r, message = FALSE, eval = should_run_benchmarks()}
 library(cpp4rtest)
-grid <- expand.grid(len = c(10 ^ (2:5), 2e5), pkg = c("cpp4r", "Rcpp"), stringsAsFactors = FALSE)
+grid <- expand.grid(len = c(10^(2:5), 2e5), pkg = c("cpp4r", "Rcpp"), stringsAsFactors = FALSE)
 b_release <- bench::press(.grid = grid,
   {
     fun = match.fun(sprintf("%s_release_", pkg))
     bench::mark(
       fun(len),
-      iterations = 1
+      min_iterations = 100
     )
   }
 )[c("len", "pkg", "min")]
 saveRDS(b_release, "release.Rds", version = 2)
 ```
 
-```{r, echo = FALSE, dev = "svg", fig.ext = "svg", eval = capabilities("cairo")}
+```{r, echo = FALSE, dev = "svg", fig.ext = "svg", eval = capabilities("cairo"), fig.width = 8, fig.height = 5}
 b_release <- readRDS("release.Rds")
 library(ggplot2)
 ggplot(b_release, aes(x = len, y = min / len, color = pkg)) +
@@ -477,17 +472,22 @@ ggplot(b_release, aes(x = len, y = min / len, color = pkg)) +
   bench::scale_y_bench_time(base = NULL) +
   scale_x_continuous(labels = scales::comma)+
   labs(
-    title = "cpp4r uses constant time protection",
+    title = "Number of protected objects\nvs\nAvg. time to release protection on one object",
     x = "Number of protected objects",
-    y = "Average time to release protection on one object"
+    y = "Avg. time to release protection on one object"
   ) +
-  theme_minimal(base_size = 13)
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+    plot.subtitle = element_text(hjust = 0.5)
+  ) +
+  tintin::scale_colour_tintin_d(option = "tintin in the land of the soviets")
 ```
 
 This plot shows the average time to protect and release a given object is essentially constant for cpp4r.
 Whereas it is linear or worse with the number of objects being tracked for Rcpp.
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, eval = TRUE}
 knitr::kable(b_release)
 ```
 
@@ -518,7 +518,7 @@ b_grow <- bench::press(.grid = grid,
 saveRDS(b_grow, "growth.Rds", version = 2)
 ```
 
-```{r, echo = FALSE, dev = "svg", fig.ext = "svg", eval = capabilities("cairo")}
+```{r, echo = FALSE, dev = "svg", fig.ext = "svg", eval = capabilities("cairo"), fig.width = 8, fig.height = 5}
 b_grow <- readRDS("growth.Rds")
 library(ggplot2)
 ggplot(b_grow, aes(x = len, y = min, color = pkg)) +
@@ -530,16 +530,24 @@ ggplot(b_grow, aes(x = len, y = min, color = pkg)) +
     labels = scales::trans_format("log10", scales::math_format(10^.x))
   ) +
   coord_fixed() +
-  labs(title = "log-log plot of vector size vs construction time", x = NULL, y = NULL) +
-  theme_minimal(base_size = 13)
+  labs(
+    title = "Log-log of vector size\nvs\nConstruction time",
+    x = "Vector size",
+    y = "Construction time"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+    plot.subtitle = element_text(hjust = 0.5)
+  ) +
+  tintin::scale_colour_tintin_d(option = "tintin in the land of the soviets")
 ```
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, eval = TRUE}
 knitr::kable(b_grow)
 ```
 
 ## Conclusion
 
-Rcpp has been and will continue to be widely successful.
-cpp4r is a alternative implementation of C++ bindings to R that chooses different design trade-offs and features.
-Both packages can co-exist (even be used in the same package!) and continue to enrich the R community.
+Rcpp has been and will continue to be widely successful. cpp4r is a alternative implementation of C++ bindings to R
+that chooses different design trade-offs and features.

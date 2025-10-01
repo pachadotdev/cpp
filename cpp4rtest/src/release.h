@@ -15,7 +15,6 @@
 }
 
 [[cpp4r::register]] void Rcpp_release_(int n) {
-#ifdef cpp4r_BENCH
   std::vector<Rcpp::RObject> x;
   int count = 0;
   while (count < n) {
@@ -27,5 +26,4 @@
     x.pop_back();
     ++count;
   }
-#endif
 }
