@@ -24,9 +24,7 @@ script.R
 ^talk$
 \.cache$
 ^MAINTENANCE\.md$
-^doc$
 ^build$
-^inst/doc/.*\.Rmd$
 ^CRAN-SUBMISSION$
 .vscode
 ^\.cache$
@@ -41,3 +39,4 @@ script.R
 ^cpp4rvendor$
 ^badges$
 ^Meta$
+^dev$

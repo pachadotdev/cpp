@@ -2,24 +2,24 @@ pandoc: 3.2.1
 pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
-  00-motivations: 00-motivations.html
-  01-setup: 01-setup.html
-  02-package-skeleton: 02-package-skeleton.html
-  03-read-only: 03-read-only.html
-  04-logical-functions: 04-logical-functions.html
-  05-rolling-functions: 05-rolling-functions.html
-  06-statistical-functions: 06-statistical-functions.html
-  07-logical-functions-2: 07-logical-functions-2.html
-  08-rolling-functions-2: 08-rolling-functions-2.html
-  09-statistical-functions-2: 09-statistical-functions-2.html
-  10-debugging: 10-debugging.html
-  11-external-pointers: 11-external-pointers.html
-  12-compiler-optimization: 12-compiler-optimization.html
-  13-linear-algebra: 13-linear-algebra.html
-  14-internals: 14-internals.html
-  15-FAQ: 15-FAQ.html
-  16-worked-examples: 16-worked-examples.html
-last_built: 2025-10-02T16:48Z
+  compiler-optimization: compiler-optimization.html
+  debugging: debugging.html
+  external-pointers: external-pointers.html
+  FAQ: FAQ.html
+  internals: internals.html
+  linear-algebra: linear-algebra.html
+  logical-functions-2: logical-functions-2.html
+  logical-functions: logical-functions.html
+  motivations: motivations.html
+  package-skeleton: package-skeleton.html
+  read-only: read-only.html
+  rolling-functions-2: rolling-functions-2.html
+  rolling-functions: rolling-functions.html
+  setup: setup.html
+  statistical-functions-2: statistical-functions-2.html
+  statistical-functions: statistical-functions.html
+  worked-examples: worked-examples.html
+last_built: 2025-10-02T20:53Z
 urls:
   reference: ./reference
   article: ./articles
