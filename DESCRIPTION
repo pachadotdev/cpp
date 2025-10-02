@@ -47,8 +47,7 @@ Suggests:
     vctrs,
     withr,
     tintin
-VignetteBuilder:
-    knitr
+VignetteBuilder: knitr
 Config/testthat/edition: 3
 Config/Needs/cpp4r/register:
     brio,

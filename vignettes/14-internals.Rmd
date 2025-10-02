@@ -106,7 +106,7 @@ The various methods for both functions are defined in [cpp4r/as.hpp](https://git
 
 This is definitely the most complex part of the cpp4r code, with extensive use of [template metaprogramming](https://en.wikipedia.org/wiki/Template_metaprogramming).
 In particular the [substitution failure is not an error (SFINAE)](https://en.wikipedia.org/wiki/Substitution_failure_is_not_an_error) technique is used to control overloading of the functions.
-If you could use C++20, a lot of this code would be made simpler with [Concepts](https://en.cppreference.com/w/cpp/language/constraints), but alas.
+If you could use C++20, a lot of this code would be made simpler with [Concepts](https://en.cppreference.com/w/cpp/language/constraints.html), but alas.
 
 The most common C++ types are included in the test suite and should work without issues, as more exotic types are used in real projects additional issues may arise.
 
@@ -131,7 +131,7 @@ These two functions are considered internal to cpp4r, so do not use them in your
 This scheme scales in O(1) time to release or insert an object vs O(N) or worse time with `R_PreserveObject()` / `R_ReleaseObject()`.
 
 Each package has its own unique protection list, which avoids the need to manage a "global" protection list shared across packages.
-A previous version of cpp4r used a global protection list stored in an R global option, but this caused [multiple issues](https://github.com/pachadotdev/cpp4r/issues/330).
+A previous version of cpp4r used a global protection list stored in an R global option, but this caused [multiple issues](https://github.com/r-lib/cpp11/issues/330).
 
 These functions are defined in [protect.hpp](https://github.com/pachadotdev/cpp4r/blob/main/inst/include/cpp4r/protect.hpp).
 

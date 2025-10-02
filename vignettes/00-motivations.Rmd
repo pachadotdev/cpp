@@ -15,7 +15,7 @@ bibliography: ["references.bib"]
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  eval = as.logical(Sys.getenv("cpp4r_EVAL", "false"))
+  eval = as.logical(Sys.getenv("CPP4R_EVAL", "false"))
 )
 
 print_cpp <- function(filename) {
@@ -25,7 +25,11 @@ print_cpp <- function(filename) {
 library(cpp4r)
 
 should_run_benchmarks <- function(x) {
-  get("requireNamespace")("cpp4rtest", quietly = TRUE) && asNamespace("cpp4rtest")$should_run_benchmarks()
+  if (isTRUE(Sys.getenv("CPP4R_RUN_BENCHMARKS") == "true")) {
+    TRUE
+  } else {
+    FALSE
+  }
 }
 ```
 
@@ -342,7 +346,7 @@ d_sum <- readRDS("sum.Rds")
 knitr::kable(d_sum)
 ```
 
-[cpp4rtest/src/sum.cpp](https://github.com/pachadotdev/cpp4r/blob/main/cpp4rtest/src/sum.cpp) contains the code ran in these benchmarks.
+[cpp4rtest/src/sum.cpp](https://github.com/pachadotdev/cpp4r/blob/main/cpp4rtest/src/sum.h) contains the code ran in these benchmarks.
 
 ## UTF-8 everywhere {#utf-8-everywhere}
 
@@ -362,12 +366,12 @@ Concretely cpp4r always uses `Rf_translateCharUTF8()` when obtaining `const char
 
 C++11 introduced features to the C++ language. cpp4r uses a number of these including
 
--   [move semantics](https://en.cppreference.com/w/cpp/language/move_constructor)
--   [type traits](https://en.cppreference.com/w/cpp/header/type_traits)
--   [initializer_list](https://en.cppreference.com/w/cpp/utility/initializer_list)
--   [variadic templates / parameter packs](https://en.cppreference.com/w/cpp/language/parameter_pack)
--   [user defined literals](https://en.cppreference.com/w/cpp/language/user_literal)
--   [user defined attributes](https://en.cppreference.com/w/cpp/language/attributes)
+-   [move semantics](https://en.cppreference.com/w/cpp/language/move_constructor.html)
+-   [type traits](https://en.cppreference.com/w/cpp/header/type_traits.html)
+-   [initializer_list](https://en.cppreference.com/w/cpp/utility/initializer_list.html)
+-   [variadic templates / parameter packs](https://en.cppreference.com/w/cpp/language/parameter_pack.html)
+-   [user defined literals](https://en.cppreference.com/w/cpp/language/user_literal.html)
+-   [user defined attributes](https://en.cppreference.com/w/cpp/language/attributes.html)
 
 ## Simpler implementation {#simpler-implementation}
 

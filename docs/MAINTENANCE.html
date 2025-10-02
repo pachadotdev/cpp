@@ -54,53 +54,48 @@
 
 <div class="section level2">
 <h2 id="current-state">Current state<a class="anchor" aria-label="anchor" href="#current-state"></a></h2>
-<p>The state of cpp4r is pretty stable, it seems to have the features we need for most of our projects using C++.</p>
+<p>The state of cpp4r is pretty stable.</p>
 </div>
 <div class="section level2">
 <h2 id="known-outstanding-issues">Known outstanding issues<a class="anchor" aria-label="anchor" href="#known-outstanding-issues"></a></h2>
 <div class="section level3">
 <h3 id="running-the-cpp4rtest-tests">Running the cpp4rtest tests<a class="anchor" aria-label="anchor" href="#running-the-cpp4rtest-tests"></a></h3>
-<p>Most of the test suite is in a sub-package, cpp4rtest. The best way to run these tests is to install the development version of cpp4r after any change, and then run <code>devtools::test("./cpp4rtest")</code>. Precisely, this looks like:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Install dev cpp4r, clean the cpp4rtest dll manually since it thinks nothing</span></span>
-<span><span class="co"># has changed, then recompile and run its tests.</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/install.html">install</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://pkgbuild.r-lib.org/reference/clean_dll.html">clean_dll</a></span><span class="op">(</span><span class="st">"./cpp4rtest"</span><span class="op">)</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/test.html">test</a></span><span class="op">(</span><span class="st">"./cpp4rtest"</span><span class="op">)</span></span></code></pre></div>
-<p>If tests failures occur the output from Catch isn’t always easy to interpret. I have a branch of testthat <a href="https://github.com/jimhester/testthat/tree/catch-detailed-output" class="uri">https://github.com/jimhester/testthat/tree/catch-detailed-output</a> that should make things easier to understand. I contributed those changes to the main testthat, but something changed after merging the more detailed output was lost, I unfortunately never had the time to track down the cause and fix it.</p>
-<p>In addition getting a debugger to catch when errors happen can be fiddly when running the cpp4rtest tests, something about the way that Catch redirects stderr / stdout interacts with the debugger.</p>
-<p>The GitHub Actions workflow has some additional logic to handle running the cpp4r tests <a href="https://github.com/r-lib/cpp4r/blob/fd8ef97d006db847f7f17166cf52e1e0383b2d35/.github/workflows/R-CMD-check.yaml#L95-L102" class="uri">https://github.com/r-lib/cpp4r/blob/fd8ef97d006db847f7f17166cf52e1e0383b2d35/.github/workflows/R-CMD-check.yaml#L95-L102</a>, <a href="https://github.com/r-lib/cpp4r/blob/fd8ef97d006db847f7f17166cf52e1e0383b2d35/.github/workflows/R-CMD-check.yaml#L117-L124" class="uri">https://github.com/r-lib/cpp4r/blob/fd8ef97d006db847f7f17166cf52e1e0383b2d35/.github/workflows/R-CMD-check.yaml#L117-L124</a>.</p>
+<p>Most of the test suite is in a sub-package, cpp4rtest. This is because we need to test compiled code. The best way to run these tests is to install the development version of cpp4r after any change, and then run:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">make</span> test</span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
-<h2 id="ensure-you-use-syssetenvcpp4r_eval--true-devtoolssubmit_cran-when-submitting">Ensure you use <code>Sys.setenv("cpp4r_EVAL" = "true"); devtools::submit_cran()</code> when submitting.<a class="anchor" aria-label="anchor" href="#ensure-you-use-syssetenvcpp4r_eval--true-devtoolssubmit_cran-when-submitting"></a></h2>
-<p>If you forget to set <code>CPP_EVAL = "true"</code> then the vignette chunks will not run properly and the vignettes will not be rendered properly.</p>
+<h2 id="set-the-environment-variables-when-submitting">Set the environment variables when submitting<a class="anchor" aria-label="anchor" href="#set-the-environment-variables-when-submitting"></a></h2>
+<p>If you forget to set <code>CPP4R_EVAL = "true"</code> then the vignette chunks will not run properly and the vignettes will not be rendered properly.</p>
+<p>Run this:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span><span class="op">(</span><span class="st">"CPP4R_EVAL"</span> <span class="op">=</span> <span class="st">"true"</span><span class="op">)</span>; <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/submit_cran.html">submit_cran</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="regenerating-benchmark-objects-used-in-motivationsrmd">Regenerating benchmark objects used in <code>motivations.Rmd</code>
 <a class="anchor" aria-label="anchor" href="#regenerating-benchmark-objects-used-in-motivationsrmd"></a></h2>
-<p>If you need to regenerate the benchmark objects (RDS objects) utilized in <code>motivations.Rmd</code>, then you should set <code>Sys.setenv("cpp4rTEST_SHOULD_RUN_BENCHMARKS" = "TRUE")</code> before running the Rmd. You’ll also need to make sure that cpp4rtest is actually installed. See <code>cpp4rtest:::should_run_benchmarks()</code> for more.</p>
+<p>If you need to regenerate the benchmark objects (RDS objects) utilized in <code>motivations.Rmd</code>, then you should set <code>Sys.setenv("CPP4R_RUN_BENCHMARKS" = "true")</code> before running the Rmd. You’ll also need to make sure that cpp4rtest is actually installed.</p>
 </div>
 <div class="section level2">
 <h2 id="usage-with-clangd">Usage with clangd<a class="anchor" aria-label="anchor" href="#usage-with-clangd"></a></h2>
 <p>Since cpp4r is header only, if you use clangd you’ll have a bit of an issue because tools like bear and pkgload won’t know how to generate the <code>compile_commands.json</code> file. Instead, you can create it manually with something like this, which seems to work well. Note that the paths are specific to your computer.</p>
 <pre><code>[
     {
-        "command": "g++ -std=gnu++11 -I\"/Users/davis/files/r/packages/cpp4r/inst/include\" -I\"/Library/Frameworks/R.framework/Resources/include\" -I\"/Users/davis/Library/R/arm64/4.4/library/Rcpp/include\" -I\"/Users/davis/Library/R/arm64/4.4/library/testthat/include\" -I\"/opt/homebrew/include\" -Wall -pedantic",
+        "command": "g++ -std=gnu++11 -I\"/home/pacha/files/r/packages/cpp4r/inst/include\" -I\"/Library/Frameworks/R.framework/Resources/include\" -I\"/home/pacha/Library/R/x64/4.4/library/Rcpp/include\" -I\"/home/pacha/Library/R/x64/4.4/library/testthat/include\" -I\"/opt/homebrew/include\" -Wall -pedantic",
         "file": "R.hpp",
-        "directory": "/Users/davis/files/r/packages/cpp4r/inst/include/cpp4r"
+        "directory": "/home/pacha/files/r/packages/cpp4r/inst/include/cpp4r"
     }
 ]</code></pre>
 <p>Key notes:</p>
 <ul><li>Only doing this for <code>R.hpp</code> seems to be enough. I imagine this could be any of the header files, but it is reasonable to pick the “root” one that pretty much all others include.</li>
 <li>Using <code>-std=gnu++11</code> to keep us honest about only C++11 features.</li>
 <li>Using <code>-I\"/Library/Frameworks/R.framework/Resources/include\"</code> for access to the R headers.</li>
-<li>Using <code>-I\"/Users/davis/files/r/packages/cpp4r/inst/include\"</code> as a “self include”, which seems to be the key to the whole thing.</li>
+<li>Using <code>-I\"/home/pacha/files/r/packages/cpp4r/inst/include\"</code> as a “self include”, which seems to be the key to the whole thing.</li>
 </ul><p>If you are modifying any tests or benchmarks, you also need:</p>
 <ul><li>
-<code>-I\"/Users/davis/Library/R/arm64/4.4/library/Rcpp/include\"</code> for Rcpp headers.</li>
+<code>-I\"/home/pacha/Library/R/x64/4.4/library/Rcpp/include\"</code> for Rcpp headers.</li>
 <li>
-<code>-I\"/Users/davis/Library/R/arm64/4.4/library/testthat/include\"</code> for testthat headers related to Catch tests.</li>
+<code>-I\"/home/pacha/Library/R/x64/4.4/library/testthat/include\"</code> for testthat headers related to Catch tests.</li>
 </ul><p>Note that this is specific to a path on your machine and the R version you are currently working with.</p>
 </div>
 <div class="section level2">

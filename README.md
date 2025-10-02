@@ -1,15 +1,15 @@
 # cpp4r  <img src="man/figures/logo.svg" align="right" height="139" alt="" />
 
 <!-- badges: start -->
-[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.org/articles/stages.html#stable)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check](https://github.com/pachadotdev/cpp4r/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pachadotdev/cpp4r/actions/workflows/R-CMD-check.yaml)
 [![CRAN status](https://www.r-pkg.org/badges/version/cpp4r)](https://CRAN.R-project.org/package=cpp4r)
 [![Test coverage](https://raw.githubusercontent.com/pachadotdev/cpp4r/main/badges/coverage.svg)](https://github.com/pachadotdev/cpp4r/actions/workflows/test-coverage.yaml)
-[![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-yellow.svg)](https://www.buymeacoffee.com/pacha)
+[![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-yellow.svg)](https://buymeacoffee.com/pacha)
 <!-- badges: end -->
 
 cpp4r helps you to interact with R objects using C++ code.
-It is a fork of the [cpp11](https://cran.r-project.org/package=cpp) package with identical syntax and similar goals.
+It is a fork of the [cpp11](https://cran.r-project.org/package=cpp11) package with identical syntax and similar goals.
 
 cpp4r can be used as a replacement for cpp11 in existing or new packages. Think of cpp11 and cpp4r as MySQL and MariaDB: they are almost identical, but cpp4r has some extra features.
 
@@ -52,7 +52,7 @@ cpp4r is a header only library with no hard dependencies and does not use a shar
 
 ## Vendoring
 
-You can [vendor](https://cpp4r.org/articles/motivations.html#vendoring) the current installed version of cpp4r headers into your package with `cpp4r::vendor_cpp4r()`.
+You can [vendor](https://cpp4r.org/articles/00-motivations.html#vendoring) the current installed version of cpp4r headers into your package with `cpp4r::vendor()`.
 
 This ensures the headers will remain unchanged until you explicitly update them.
 
@@ -62,7 +62,7 @@ Please open an issue or email me. I will do my best to respond before 48 hours.
 
 ## Contributing
 
-Contributions are welcome! Please see the [internals vignette](https://cpp4r.org/articles/internals.html) for details about design choices and coding style.
+Contributions are welcome! Please see the [internals vignette](https://cpp4r.org/articles/14-internals.html) for details about design choices and coding style.
 
 ## Code of Conduct
 

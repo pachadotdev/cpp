@@ -81,7 +81,7 @@
 </div>
 <!-- badges: start -->
 
-<p>cpp4r helps you to interact with R objects using C++ code. It is a fork of the <a href="https://cran.r-project.org/package=cpp">cpp11</a> package with identical syntax and similar goals.</p>
+<p>cpp4r helps you to interact with R objects using C++ code. It is a fork of the <a href="https://cran.r-project.org/package=cpp11">cpp11</a> package with identical syntax and similar goals.</p>
 <p>cpp4r can be used as a replacement for cpp11 in existing or new packages. Think of cpp11 and cpp4r as MySQL and MariaDB: they are almost identical, but cpp4r has some extra features.</p>
 <p>After discussing some <a href="https://github.com/pachadotdev/cpp11/pulls/pachadotdev">pull requests</a> with Hadley Wickham from Posit, it was mentioned that I should create my own fork to add the following features:</p>
 <ul class="task-list">
@@ -116,7 +116,7 @@
 <div class="section level2">
 <h2 id="vendoring">Vendoring<a class="anchor" aria-label="anchor" href="#vendoring"></a>
 </h2>
-<p>You can <a href="https://cpp4r.org/articles/motivations.html#vendoring">vendor</a> the current installed version of cpp4r headers into your package with <code>cpp4r::vendor_cpp4r()</code>.</p>
+<p>You can <a href="https://cpp4r.org/articles/00-motivations.html#vendoring">vendor</a> the current installed version of cpp4r headers into your package with <code><a href="reference/vendor.html">cpp4r::vendor()</a></code>.</p>
 <p>This ensures the headers will remain unchanged until you explicitly update them.</p>
 </div>
 <div class="section level2">
@@ -127,7 +127,7 @@
 <div class="section level2">
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
 </h2>
-<p>Contributions are welcome! Please see the <a href="https://cpp4r.org/articles/internals.html">internals vignette</a> for details about design choices and coding style.</p>
+<p>Contributions are welcome! Please see the <a href="https://cpp4r.org/articles/14-internals.html">internals vignette</a> for details about design choices and coding style.</p>
 </div>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
@@ -179,11 +179,11 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://lifecycle.org/articles/stages.html#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
 <li><a href="https://github.com/pachadotdev/cpp4r/actions/workflows/R-CMD-check.yaml"><img src="https://github.com/pachadotdev/cpp4r/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://CRAN.R-project.org/package=cpp4r"><img src="https://www.r-pkg.org/badges/version/cpp4r" alt="CRAN status"></a></li>
 <li><a href="https://github.com/pachadotdev/cpp4r/actions/workflows/test-coverage.yaml"><img src="https://raw.githubusercontent.com/pachadotdev/cpp4r/main/badges/coverage.svg" alt="Test coverage"></a></li>
-<li><a href="https://www.buymeacoffee.com/pacha"><img src="https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-yellow.svg" alt="BuyMeACoffee"></a></li>
+<li><a href="https://buymeacoffee.com/pacha"><img src="https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-yellow.svg" alt="BuyMeACoffee"></a></li>
 </ul>
 </div>
 

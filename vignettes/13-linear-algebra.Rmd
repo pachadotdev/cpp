@@ -13,15 +13,15 @@ bibliography: ["references.bib"]
 
 # Motivation
 
-R provides out-of-box support for matrices and vectors. This is not the case for C++ code, where you need to use a library such as [Armadillo](https://arma.sourceforge.net/) that has a wrapper for R [@cpp4rarmadillo]. One of the nicest Armadillo features is that it has a similar syntax to MATLAB.
+R provides out-of-box support for matrices and vectors. This is not the case for C++ code, where you need to use a library such as [Armadillo](https://arma.sourceforge.net/) that has a wrapper for R [@cpp11armadillo]. One of the nicest Armadillo features is that it has a similar syntax to MATLAB.
 
 # Using Armadillo
 
-[cpp4rarmadillo](https://pacha.dev/cpp4rarmadillo/) provides a detailed R-specific documentation with worked examples.
+[cpp11armadillo](https://pacha.dev/cpp11armadillo/) provides a detailed R-specific documentation with worked examples.
 
-Because the examples in the cpp4rarmadillo are self-contained and with detailed explanations, this vignette will not repeat them here.
+Because the examples in the cpp11armadillo are self-contained and with detailed explanations, this vignette will not repeat them here.
 
-Here is one of the over five-hundred examples from the cpp4rarmadillo package to compute $\hat{\beta} = (X^TX)^{-1}X^Ty$ for a linear model using the cpp4r concepts already covered:
+Here is one of the over five-hundred examples from the cpp11armadillo package to compute $\hat{\beta} = (X^TX)^{-1}X^Ty$ for a linear model using the cpp4r concepts already covered:
 
 ```cpp
 Mat<double> ols_(const doubles_matrix<>& y, const doubles_matrix<>& x) {
@@ -48,6 +48,8 @@ Mat<double> ols_(const doubles_matrix<>& y, const doubles_matrix<>& x) {
 }
 ```
 
-One of the advantages of cpp4rarmadillo is that it connects cpp4r with Armadillo, allowing you to use the `as_Mat()` and `as_doubles_matrix()` functions as the "bread" of the sandwich, where pure Armadillo code serves as the "meat".
+One of the advantages of cpp11armadillo is that it connects cpp11 (and cpp4r) with Armadillo, allowing you to use the
+`as_Mat()` and `as_doubles_matrix()` functions as the "bread" of the sandwich, where pure Armadillo code serves as the
+"meat".
 
 # References

@@ -424,16 +424,14 @@ for `cpp4r` features, including:
 
 # Useful R/C++ Integration Examples
 
-Here are some examples of C++ code integration with R using the `cpp4r` package:
+Here are some examples of C++ code integration with R using the `cpp11` package:
 
 * [arrow](https://arrow.apache.org/docs/r/): An R package that provides bindings to the Arrow C++ library. Arrow is a   
   columnar in-memory analytics format that is extremely fast and efficient.
-* [cpp4rarmadillo](https://github.com/pachadotdev/cpp4rarmadillo): An R package that provides bindings to the Armadillo C++ 
+* [cpp4rarmadillo](https://github.com/pachadotdev/cpp11armadillo): An R package that provides bindings to the Armadillo C++ 
   library. Armadiilo is a high-quality linear algebra library with a syntax similar to MATLAB.
-* [cpp4reigen](https://github.com/pachadotdev/cpp4rtesseract): An R package that provides bindings to the Eigen C++ library. 
+* [cpp11eigen](https://github.com/pachadotdev/cpp11eigen): An R package that provides bindings to the Eigen C++ library. 
   Eigen is a high-performance linear algebra library with a permisive license.
-* [cpp4rtesseract](https://github.com/pachadotdev/cpp4rtesseract): An R package that provides bindings to the Tesseract OCR  
-  C++ engine. This package allows to extract text from images.
 * [haven](https://github.com/tidyverse/haven): A package that reads and writes SPSS, Stata, and SAS files in R.
 * [kendallknight](https://github.com/pachadotdev/kendallknight): Implements the Kendall's correlation coefficient in C++, 
   achieving speedup by using an algorithm with a complexity of $O(n \log(n))$ instead of $O(n^2)$ in base R.

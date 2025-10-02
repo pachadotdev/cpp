@@ -90,18 +90,18 @@
 </h2>
 <p>R provides out-of-box support for matrices and vectors. This is not
 the case for C++ code, where you need to use a library such as <a href="https://arma.sourceforge.net/">Armadillo</a> that has a wrapper
-for R <span class="citation">(<strong>cpp4rarmadillo?</strong>)</span>.
-One of the nicest Armadillo features is that it has a similar syntax to
-MATLAB.</p>
+for R <span class="citation">(Vargas Sepulveda and Schneider Malamud
+2025)</span>. One of the nicest Armadillo features is that it has a
+similar syntax to MATLAB.</p>
 </div>
 <div class="section level2">
 <h2 id="using-armadillo">Using Armadillo<a class="anchor" aria-label="anchor" href="#using-armadillo"></a>
 </h2>
-<p><a href="https://pacha.dev/cpp4rarmadillo/">cpp4rarmadillo</a>
+<p><a href="https://pacha.dev/cpp11armadillo/">cpp11armadillo</a>
 provides a detailed R-specific documentation with worked examples.</p>
-<p>Because the examples in the cpp4rarmadillo are self-contained and
+<p>Because the examples in the cpp11armadillo are self-contained and
 with detailed explanations, this vignette will not repeat them here.</p>
-<p>Here is one of the over five-hundred examples from the cpp4rarmadillo
+<p>Here is one of the over five-hundred examples from the cpp11armadillo
 package to compute
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>β</mi><mo accent="true">̂</mo></mover><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>X</mi><mi>T</mi></msup><mi>X</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>−</mi><mn>1</mn></mrow></msup><msup><mi>X</mi><mi>T</mi></msup><mi>y</mi></mrow><annotation encoding="application/x-tex">\hat{\beta} = (X^TX)^{-1}X^Ty</annotation></semantics></math>
 for a linear model using the cpp4r concepts already covered:</p>
@@ -127,14 +127,23 @@ for a linear model using the cpp4r concepts already covered:</p>
 <span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>  Mat<span class="op">&lt;</span><span class="dt">double</span><span class="op">&gt;</span> beta <span class="op">=</span> <span class="va">ols_</span><span class="op">(</span>y<span class="op">,</span> x<span class="op">);</span></span>
 <span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>  <span class="cf">return</span> as_doubles<span class="op">(</span>beta<span class="op">);</span></span>
 <span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>One of the advantages of cpp4rarmadillo is that it connects cpp4r
-with Armadillo, allowing you to use the <code>as_Mat()</code> and
-<code>as_doubles_matrix()</code> functions as the “bread” of the
-sandwich, where pure Armadillo code serves as the “meat”.</p>
+<p>One of the advantages of cpp11armadillo is that it connects cpp11
+(and cpp4r) with Armadillo, allowing you to use the
+<code>as_Mat()</code> and <code>as_doubles_matrix()</code> functions as
+the “bread” of the sandwich, where pure Armadillo code serves as the
+“meat”.</p>
 </div>
 <div class="section level2">
-<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-cpp11armadillo" class="csl-entry">
+Vargas Sepulveda, Mauricio, and Jonathan Schneider Malamud. 2025.
+<span>“Cpp11armadillo: <span>An</span> <span>R</span> Package to Use the
+<span>Armadillo</span> <span>C</span>++ Library.”</span>
+<em>SoftwareX</em> 30 (May): 102087. <a href="https://doi.org/10.1016/j.softx.2025.102087">https://doi.org/10.1016/j.softx.2025.102087</a>.
+</div>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

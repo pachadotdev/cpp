@@ -182,7 +182,7 @@ extensive use of <a href="https://en.wikipedia.org/wiki/Template_metaprogramming
 metaprogramming</a>. In particular the <a href="https://en.wikipedia.org/wiki/Substitution_failure_is_not_an_error">substitution
 failure is not an error (SFINAE)</a> technique is used to control
 overloading of the functions. If you could use C++20, a lot of this code
-would be made simpler with <a href="https://en.cppreference.com/w/cpp/language/constraints">Concepts</a>,
+would be made simpler with <a href="https://en.cppreference.com/w/cpp/language/constraints.html">Concepts</a>,
 but alas.</p>
 <p>The most common C++ types are included in the test suite and should
 work without issues, as more exotic types are used in real projects
@@ -222,7 +222,7 @@ O(N) or worse time with <code>R_PreserveObject()</code> /
 <p>Each package has its own unique protection list, which avoids the
 need to manage a “global” protection list shared across packages. A
 previous version of cpp4r used a global protection list stored in an R
-global option, but this caused <a href="https://github.com/pachadotdev/cpp4r/issues/330">multiple
+global option, but this caused <a href="https://github.com/r-lib/cpp11/issues/330">multiple
 issues</a>.</p>
 <p>These functions are defined in <a href="https://github.com/pachadotdev/cpp4r/blob/main/inst/include/cpp4r/protect.hpp">protect.hpp</a>.</p>
 </div>
