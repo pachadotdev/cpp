@@ -1,5 +1,5 @@
 ---
-title: "Rolling Functions"
+title: "06 - Rolling Functions"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{06 - Rolling Functions}

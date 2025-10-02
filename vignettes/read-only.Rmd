@@ -1,5 +1,5 @@
 ---
-title: "Read-only versus Writable R Objects"
+title: "04 - Read-only versus Writable R Objects"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{04 - Read-only versus Writable R Objects}

@@ -1,5 +1,5 @@
 ---
-title: "Logical Functions"
+title: "05 - Logical Functions"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{05 - Logical Functions}

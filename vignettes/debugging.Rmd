@@ -1,5 +1,5 @@
 ---
-title: "Debugging R Packages"
+title: "11 - Debugging R Packages"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{11 - Debugging R Packages}

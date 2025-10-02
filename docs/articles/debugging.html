@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Debugging R Packages • cpp4r</title>
+<title>11 - Debugging R Packages • cpp4r</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
@@ -15,7 +15,7 @@
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Debugging R Packages">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="11 - Debugging R Packages">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -38,23 +38,23 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/compiler-optimization.html">Compiler Optimizations</a></li>
-    <li><a class="dropdown-item" href="../articles/debugging.html">Debugging R Packages</a></li>
-    <li><a class="dropdown-item" href="../articles/external-pointers.html">External Pointers</a></li>
-    <li><a class="dropdown-item" href="../articles/FAQ.html">FAQs</a></li>
-    <li><a class="dropdown-item" href="../articles/internals.html">Internals</a></li>
-    <li><a class="dropdown-item" href="../articles/linear-algebra.html">Linear Algebra</a></li>
+<li><a class="dropdown-item" href="../articles/compiler-optimization.html">13 - Compiler Optimizations</a></li>
+    <li><a class="dropdown-item" href="../articles/debugging.html">11 - Debugging R Packages</a></li>
+    <li><a class="dropdown-item" href="../articles/external-pointers.html">12 - External Pointers</a></li>
+    <li><a class="dropdown-item" href="../articles/FAQ.html">17 - FAQs</a></li>
+    <li><a class="dropdown-item" href="../articles/internals.html">15 - Internals</a></li>
+    <li><a class="dropdown-item" href="../articles/linear-algebra.html">14 - Linear Algebra</a></li>
     <li><a class="dropdown-item" href="../articles/logical-functions-2.html">Logical Functions with Missing Values</a></li>
-    <li><a class="dropdown-item" href="../articles/logical-functions.html">Logical Functions</a></li>
-    <li><a class="dropdown-item" href="../articles/motivations.html">Motivations for cpp4r</a></li>
-    <li><a class="dropdown-item" href="../articles/package-skeleton.html">Package Skeleton</a></li>
-    <li><a class="dropdown-item" href="../articles/read-only.html">Read-only versus Writable R Objects</a></li>
-    <li><a class="dropdown-item" href="../articles/rolling-functions-2.html">Rolling Functions with Missing Values</a></li>
-    <li><a class="dropdown-item" href="../articles/rolling-functions.html">Rolling Functions</a></li>
-    <li><a class="dropdown-item" href="../articles/setup.html">Setup</a></li>
-    <li><a class="dropdown-item" href="../articles/statistical-functions-2.html">Statistical Functions with Missing Values</a></li>
-    <li><a class="dropdown-item" href="../articles/statistical-functions.html">Statistical Functions</a></li>
-    <li><a class="dropdown-item" href="../articles/worked-examples.html">Worked Examples</a></li>
+    <li><a class="dropdown-item" href="../articles/logical-functions.html">05 - Logical Functions</a></li>
+    <li><a class="dropdown-item" href="../articles/motivations.html">01 - Motivations for cpp4r</a></li>
+    <li><a class="dropdown-item" href="../articles/package-skeleton.html">03 - Package Skeleton</a></li>
+    <li><a class="dropdown-item" href="../articles/read-only.html">04 - Read-only versus Writable R Objects</a></li>
+    <li><a class="dropdown-item" href="../articles/rolling-functions-2.html">09 - Rolling Functions with Missing Values</a></li>
+    <li><a class="dropdown-item" href="../articles/rolling-functions.html">06 - Rolling Functions</a></li>
+    <li><a class="dropdown-item" href="../articles/setup.html">02 - Setup</a></li>
+    <li><a class="dropdown-item" href="../articles/statistical-functions-2.html">10 - Statistical Functions with Missing Values</a></li>
+    <li><a class="dropdown-item" href="../articles/statistical-functions.html">07 - Statistical Functions</a></li>
+    <li><a class="dropdown-item" href="../articles/worked-examples.html">16 - Worked Examples</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -76,7 +76,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.svg" class="logo" alt=""><h1>Debugging R Packages</h1>
+      <img src="../logo.svg" class="logo" alt=""><h1>11 - Debugging R Packages</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/pachadotdev/cpp4r/blob/HEAD/vignettes/debugging.Rmd"><code>vignettes/debugging.Rmd</code></a></small>

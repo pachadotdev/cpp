@@ -1,5 +1,5 @@
 ---
-title: "Motivations for cpp4r"
+title: "01 - Motivations for cpp4r"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{01 - Motivations for cpp4r}

@@ -1,5 +1,5 @@
 ---
-title: "Statistical Functions with Missing Values"
+title: "10 - Statistical Functions with Missing Values"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{10 - Statistical Functions with Missing Values}

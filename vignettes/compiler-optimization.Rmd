@@ -1,5 +1,5 @@
 ---
-title: "Compiler Optimizations"
+title: "13 - Compiler Optimizations"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{13 - Compiler Optimizations}

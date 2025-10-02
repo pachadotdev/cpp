@@ -1,5 +1,5 @@
 ---
-title: "Statistical Functions"
+title: "07 - Statistical Functions"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{07 - Statistical Functions}

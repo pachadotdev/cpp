@@ -1,5 +1,5 @@
 ---
-title: "Internals"
+title: "15 - Internals"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{15 - Internals}

@@ -1,5 +1,5 @@
 ---
-title: "Package Skeleton"
+title: "03 - Package Skeleton"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{03 - Package Skeleton}
