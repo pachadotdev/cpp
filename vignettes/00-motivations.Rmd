@@ -381,7 +381,7 @@ In addition the code needed to support these features is complex and can be chal
 
 cpp4r takes a more limited scope, providing only the set of r_vector wrappers for R vector types, coercion methods to and from C++ and the limited attributes necessary to support use in R packages.
 
-```{r, eval = FALSE, include = FALSE}
+```bash
 # count lines for Rcpp headers (excluding comments)
 # brew install cloc
 git clone https://github.com/RcppCore/Rcpp
@@ -412,7 +412,7 @@ This can significantly improve the compilation speed and memory usage to compile
 
 Here are some real examples of the reduction in compile time and peak memory usage after converting packages to cpp11, which has the same header structure as cpp4r.
 
-```{r, eval = FALSE, include = FALSE}
+```bash
 # brew install gtime
 # CC=gcc-9 CXX=g++-9 CXX11=g++-9
 gtime -f %M:%e R CMD INSTALL --libs-only --use-vanilla .
@@ -456,15 +456,13 @@ This structure is much more efficient for large numbers of objects than using `R
 ```{r, message = FALSE, eval = should_run_benchmarks()}
 library(cpp4rtest)
 grid <- expand.grid(len = seq(10000, 50000, by = 10000), pkg = c("cpp4r", "Rcpp"), stringsAsFactors = FALSE)
-b_release <- bench::press(.grid = grid,
-  {
-    fun = match.fun(sprintf("%s_release_", pkg))
-    bench::mark(
-      fun(len),
-      min_iterations = 100
-    )
-  }
-)[c("len", "pkg", "median")]
+b_release <- bench::press(.grid = grid, {
+  fun <- match.fun(sprintf("%s_release_", pkg))
+  bench::mark(
+    fun(len),
+    min_iterations = 100
+  )
+})[c("len", "pkg", "median")]
 saveRDS(b_release, "release.Rds", version = 2)
 ```
 
@@ -475,7 +473,7 @@ ggplot(b_release, aes(x = len, y = median, color = pkg)) +
   geom_point() +
   geom_line() +
   bench::scale_y_bench_time(base = NULL) +
-  scale_x_continuous(labels = scales::comma)+
+  scale_x_continuous(labels = scales::comma) +
   labs(
     title = "Number of protected objects\nvs\nMedian time to release protection on one object",
     x = "Number of protected objects",
@@ -513,15 +511,13 @@ grid <- rbind(
   grid,
   expand.grid(len = seq(10000, 50000, by = 10000), pkg = "Rcpp", stringsAsFactors = FALSE)
 )
-b_grow <- bench::press(.grid = grid,
-  {
-    fun = match.fun(sprintf("%sgrow_", ifelse(pkg == "cpp4r", "", paste0(pkg, "_"))))
-    bench::mark(
-      fun(len),
-      min_iterations = 100
-    )
-  }
-)[c("len", "pkg", "min", "mem_alloc", "n_itr", "n_gc")]
+b_grow <- bench::press(.grid = grid, {
+  fun <- match.fun(sprintf("%sgrow_", ifelse(pkg == "cpp4r", "", paste0(pkg, "_"))))
+  bench::mark(
+    fun(len),
+    min_iterations = 100
+  )
+})[c("len", "pkg", "min", "mem_alloc", "n_itr", "n_gc")]
 saveRDS(b_grow, "growth.Rds", version = 2)
 ```
 

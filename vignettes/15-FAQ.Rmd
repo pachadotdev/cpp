@@ -11,7 +11,7 @@ editor:
 bibliography: ["references.bib"]
 ---
 
-```{r, include = FALSE}
+```r
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -280,7 +280,7 @@ However you will *not* need to qualify the type names within those functions.
 
 The following will not compile
 
-```{cpp4r, eval = FALSE}
+```cpp
 #include <cpp4r.hpp>
 #include <string>
 
@@ -373,13 +373,13 @@ void test_destructor_bad() {
 }
 ```
 
-```{r, error=TRUE}
+```r
 test_destructor_ok()
 ```
 
 But if you happen to move `a` into the `unwind_protect()`, then it will not be destructed, and you will end up with a memory leak at best, and a much more sinister issue if your destructor is important:
 
-```{r, eval=FALSE}
+```r
 test_destructor_bad()
 #> Error: oh no!
 ```
@@ -432,7 +432,7 @@ In general, if you must use `unwind_protect()` then you must be very careful not
 
 It is worth pointing out that calling out to an R function from cpp4r which then calls back into cpp4r is still safe, i.e. if the registered version of the imaginary `test_outer()` function below was called from R, then that would work:
 
-```{cpp4r, eval = FALSE}
+```cpp
 #include <cpp4r.hpp>
 
 [[cpp4r::register]]

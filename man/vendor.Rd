@@ -4,15 +4,13 @@
 \alias{vendor}
 \title{Vendor the cpp4r headers}
 \usage{
-vendor(path = ".", headers = "/inst/include")
+vendor(path = "./src/vendor")
 }
 \arguments{
-\item{path}{The path to the package root directory}
-
-\item{headers}{The subdirectory to vendor the headers into}
+\item{path}{The directory to vendor the headers into}
 }
 \value{
-The file path to the vendored code (invisibly).
+The path to the vendored code (invisibly).
 }
 \description{
 Vendoring is the act of making your own copy of the 3rd party packages your
@@ -36,7 +34,7 @@ dir.create(dir, recursive = TRUE)
 # vendor the cpp4r headers into the directory
 vendor(dir)
 
-list.files(file.path(dir, "inst", "include", "cpp4r"))
+list.files(file.path(dir, "src", "vendor"))
 
 # cleanup
 unlink(dir, recursive = TRUE)

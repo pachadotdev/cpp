@@ -555,6 +555,20 @@ is complex and can be challenging to maintain.</p>
 <p>cpp4r takes a more limited scope, providing only the set of r_vector
 wrappers for R vector types, coercion methods to and from C++ and the
 limited attributes necessary to support use in R packages.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co"># count lines for Rcpp headers (excluding comments)</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="co"># brew install cloc</span></span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/RcppCore/Rcpp</span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a><span class="bu">cd</span> Rcpp</span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="fu">git</span> checkout 1.0.4</span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a><span class="ex">cloc</span> inst/include</span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a><span class="co"># count lines for Rcpp headers without generated code</span></span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a><span class="ex">cloc</span> <span class="at">--fullpath</span> <span class="at">--not-match-f</span> <span class="st">'.*generated.*'</span> inst/include</span>
+<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a><span class="co"># count lines for cpp4r headers</span></span>
+<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/pachadotdev/cpp4r</span>
+<span id="cb19-13"><a href="#cb19-13" tabindex="-1"></a><span class="bu">cd</span> cpp4r</span>
+<span id="cb19-14"><a href="#cb19-14" tabindex="-1"></a><span class="ex">cloc</span> inst/include/cpp4r</span></code></pre></div>
 <p>This limited scope allows the implementation to be much simpler, the
 headers in Rcpp 1.0.4 have 74,658 lines of code (excluding blank or
 commented lines) in 379 files. Some headers in Rcpp are automatically
@@ -577,6 +591,9 @@ your package.</p>
 <p>Here are some real examples of the reduction in compile time and peak
 memory usage after converting packages to cpp11, which has the same
 header structure as cpp4r.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="co"># brew install gtime</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="co"># CC=gcc-9 CXX=g++-9 CXX11=g++-9</span></span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a><span class="ex">gtime</span> <span class="at">-f</span> %M:%e R CMD INSTALL <span class="at">--libs-only</span> <span class="at">--use-vanilla</span> .</span></code></pre></div>
 <table style="width:100%;" class="table">
 <colgroup>
 <col width="14%">
@@ -675,20 +692,18 @@ appropriate for certain situations.</p>
 objects it is managing. This structure is much more efficient for large
 numbers of objects than using <code>R_PreserveObject()</code> /
 <code>R_ReleaseObjects()</code> as is done in Rcpp.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">cpp4rtest</span><span class="op">)</span></span>
 <span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span>len <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">10000</span>, <span class="fl">50000</span>, by <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span>, pkg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cpp4r"</span>, <span class="st">"Rcpp"</span><span class="op">)</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="va">b_release</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/press.html">press</a></span><span class="op">(</span>.grid <span class="op">=</span> <span class="va">grid</span>,</span>
-<span>  <span class="op">{</span></span>
-<span>    <span class="va">fun</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/match.fun.html">match.fun</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"%s_release_"</span>, <span class="va">pkg</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html">mark</a></span><span class="op">(</span></span>
-<span>      <span class="fu">fun</span><span class="op">(</span><span class="va">len</span><span class="op">)</span>,</span>
-<span>      min_iterations <span class="op">=</span> <span class="fl">100</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"len"</span>, <span class="st">"pkg"</span>, <span class="st">"median"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">b_release</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/press.html">press</a></span><span class="op">(</span>.grid <span class="op">=</span> <span class="va">grid</span>, <span class="op">{</span></span>
+<span>  <span class="va">fun</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.fun.html">match.fun</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"%s_release_"</span>, <span class="va">pkg</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html">mark</a></span><span class="op">(</span></span>
+<span>    <span class="fu">fun</span><span class="op">(</span><span class="va">len</span><span class="op">)</span>,</span>
+<span>    min_iterations <span class="op">=</span> <span class="fl">100</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"len"</span>, <span class="st">"pkg"</span>, <span class="st">"median"</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op">(</span><span class="va">b_release</span>, <span class="st">"release.Rds"</span>, version <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="00-motivations_files/figure-html/unnamed-chunk-8-1.svg" width="768"></p>
+<p><img src="00-motivations_files/figure-html/unnamed-chunk-6-1.svg" width="768"></p>
 <p>This plot shows the average time to protect and release a given
 object is essentially constant for cpp4r. Whereas it is linear or worse
 with the number of objects being tracked for Rcpp.</p>
@@ -764,23 +779,21 @@ as the entire vector has to be copied each call.</p>
 extra space. Because of this you can do ~10,000,000 vector appends with
 cpp4r in approximately the same amount of time that Rcpp does 10,000, as
 this benchmark demonstrates.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span>len <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">10000</span>, <span class="fl">50000</span>, by <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span>, pkg <span class="op">=</span> <span class="st">"cpp4r"</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span></span>
 <span>  <span class="va">grid</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span>len <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">10000</span>, <span class="fl">50000</span>, by <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span>, pkg <span class="op">=</span> <span class="st">"Rcpp"</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">b_grow</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/press.html">press</a></span><span class="op">(</span>.grid <span class="op">=</span> <span class="va">grid</span>,</span>
-<span>  <span class="op">{</span></span>
-<span>    <span class="va">fun</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/match.fun.html">match.fun</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"%sgrow_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">pkg</span> <span class="op">==</span> <span class="st">"cpp4r"</span>, <span class="st">""</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="st">"_"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html">mark</a></span><span class="op">(</span></span>
-<span>      <span class="fu">fun</span><span class="op">(</span><span class="va">len</span><span class="op">)</span>,</span>
-<span>      min_iterations <span class="op">=</span> <span class="fl">100</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"len"</span>, <span class="st">"pkg"</span>, <span class="st">"min"</span>, <span class="st">"mem_alloc"</span>, <span class="st">"n_itr"</span>, <span class="st">"n_gc"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">b_grow</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/press.html">press</a></span><span class="op">(</span>.grid <span class="op">=</span> <span class="va">grid</span>, <span class="op">{</span></span>
+<span>  <span class="va">fun</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.fun.html">match.fun</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"%sgrow_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">pkg</span> <span class="op">==</span> <span class="st">"cpp4r"</span>, <span class="st">""</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="st">"_"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html">mark</a></span><span class="op">(</span></span>
+<span>    <span class="fu">fun</span><span class="op">(</span><span class="va">len</span><span class="op">)</span>,</span>
+<span>    min_iterations <span class="op">=</span> <span class="fl">100</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"len"</span>, <span class="st">"pkg"</span>, <span class="st">"min"</span>, <span class="st">"mem_alloc"</span>, <span class="st">"n_itr"</span>, <span class="st">"n_gc"</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op">(</span><span class="va">b_grow</span>, <span class="st">"growth.Rds"</span>, version <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="00-motivations_files/figure-html/unnamed-chunk-11-1.svg" width="768"></p>
+<p><img src="00-motivations_files/figure-html/unnamed-chunk-9-1.svg" width="768"></p>
 <table class="table">
 <thead><tr class="header">
 <th align="right">len</th>

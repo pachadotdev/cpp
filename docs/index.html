@@ -92,7 +92,7 @@
 <li><label><input type="checkbox" checked>Use values added to a vector with <code>push_back()</code> immediately.</label></li>
 <li><label><input type="checkbox" checked>Support bidirectional passing of complex numbers/vectors.</label></li>
 <li><label><input type="checkbox" checked>Provide flexibility with data types (e.g., cpp4r’s <code>as_integers()</code> and <code>as_doubles()</code> accept logical inputs while cpp11’s do not).</label></li>
-<li><label><input type="checkbox" checked>Some internal optimizations for better speed (e.g., <a href="https://github.com/pachadotdev/cpp11/pull/463" class="uri">https://github.com/pachadotdev/cpp11/pull/463</a> and <a href="https://github.com/pachadotdev/cpp11/pull/430" class="uri">https://github.com/pachadotdev/cpp11/pull/430</a>).</label></li>
+<li><label><input type="checkbox" checked>Some internal optimizations for better speed (e.g., <a href="https://github.com/r-lib/cpp11/pull/463" class="uri">https://github.com/r-lib/cpp11/pull/463</a> and <a href="https://github.com/r-lib/cpp11/pull/430" class="uri">https://github.com/r-lib/cpp11/pull/430</a>).</label></li>
 </ul>
 <div class="section level2">
 <h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
@@ -104,7 +104,7 @@
 </h2>
 <p>Create a new package with <code>cpp4r::pkg_template("~/path/to/mypkg")</code> and then edit the generated files.</p>
 <p>To add cpp4r to an existing package, put your C++ files in the <code>src/</code> directory and add the following to your DESCRIPTION file:</p>
-<pre><code><span><span class="va">LinkingTo</span><span class="op">:</span> <span class="va">cpp4r</span></span></code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>LinkingTo<span class="sc">:</span> cpp4r</span></code></pre></div>
 <p>Then add a roxygen header, for example, to <code>R/mypkg-package.R</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#' @useDynLib mypkg, .registration = TRUE</span></span>

@@ -4,17 +4,17 @@
 \alias{unvendor}
 \title{Unvendor the cpp4r headers}
 \usage{
-unvendor(path = ".")
+unvendor(path = "./src/vendor")
 }
 \arguments{
-\item{path}{The path to the package root directory}
+\item{path}{The directory with the vendored headers}
 }
 \value{
-The file path to the unvendored code (invisibly).
+The path to the unvendored code (invisibly).
 }
 \description{
-This function removes the vendored cpp4r headers from your package and
-restores the \code{LinkingTo: cpp4r} field in the DESCRIPTION file if it was removed.
+This function removes the vendored cpp4r headers from your package by
+automatically finding the vendored headers.
 }
 \examples{
 # create a new directory
@@ -25,9 +25,7 @@ dir.create(dir)
 vendor(dir)
 
 # unvendor the cpp4r headers from the directory
-unvendor(dir)
-
-list.files(file.path(dir, "inst", "include", "cpp4r"))
+unvendor()
 
 # cleanup
 unlink(dir, recursive = TRUE)
