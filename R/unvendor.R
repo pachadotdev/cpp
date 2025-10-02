@@ -1,10 +1,10 @@
 #' Unvendor the cpp4r headers
 #'
-#' This function removes the vendored cpp4r headers from your package and
-#' restores the `LinkingTo: cpp4r` field in the DESCRIPTION file if it was removed.
+#' This function removes the vendored cpp4r headers from your package by
+#' automatically finding the vendored headers.
 #'
-#' @inheritParams register
-#' @return The file path to the unvendored code (invisibly).
+#' @param path The directory with the vendored headers
+#' @return The path to the unvendored code (invisibly).
 #' @export
 #' @examples
 #' # create a new directory
@@ -15,25 +15,37 @@
 #' vendor(dir)
 #'
 #' # unvendor the cpp4r headers from the directory
-#' unvendor(dir)
-#'
-#' list.files(file.path(dir, "inst", "include", "cpp4r"))
+#' unvendor()
 #'
 #' # cleanup
 #' unlink(dir, recursive = TRUE)
-unvendor <- function(path = ".") {
-  new <- file.path(path, "inst", "include", "cpp4r")
+unvendor <- function(path = "./src/vendor") {
+  # Find the vendoring info file
+  info_files <- list.files(path, pattern = "00-vendoring-info.txt", recursive = TRUE, full.names = TRUE)
 
-  if (!dir.exists(new)) {
-    stop("'", new, "' does not exist", call. = FALSE)
+  if (length(info_files) != 1L) {
+    if (is_interactive()) { message("Could not find vendored headers") }
+    return(invisible(NULL))
   }
 
-  unlink(new, recursive = TRUE)
+  # The info file is in the cpp4r directory, so dirname(info_files) gives us the cpp4r directory
+  cpp4r_dir <- dirname(info_files)
+  # The parent of the cpp4r directory is where cpp4r.hpp should be
+  parent_dir <- dirname(cpp4r_dir)
+  
+  # Remove the cpp4r directory
+  unlink(cpp4r_dir, recursive = TRUE)
 
-  cpp4r_hpp <- file.path(dirname(new), "cpp4r.hpp")
-  if (file.exists(cpp4r_hpp)) {
-    unlink(cpp4r_hpp)
+  # Remove cpp4r.hpp from the parent directory
+  cpp4r_hpp_path <- file.path(parent_dir, "cpp4r.hpp")
+  if (file.exists(cpp4r_hpp_path)) {
+    unlink(cpp4r_hpp_path)
   }
 
-  invisible(new)
+  if (is_interactive()) {
+    message("Unvendored cpp4r from '", parent_dir, "'")
+    message("DESCRIPTION should link to cpp4r (e.g., 'LinkingTo: cpp4r')")
+  }
+
+  invisible(parent_dir)
 }

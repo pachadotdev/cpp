@@ -185,8 +185,9 @@ describe("generate_cpp_functions", {
       args = list(tibble::tibble(type = character(), name = character()))
     )
 
-    expect_equal(generate_cpp_functions(funs),
-"// foo.cpp
+    expect_equal(
+      generate_cpp_functions(funs),
+      "// foo.cpp
 void foo();
 extern \"C\" SEXP _cpp4r_foo() {
   BEGIN_cpp4r
@@ -209,8 +210,9 @@ extern \"C\" SEXP _cpp4r_foo() {
       args = list(tibble::tibble(type = character(), name = character()))
     )
 
-    expect_equal(generate_cpp_functions(funs, package = "mypkg"),
-"// foo.cpp
+    expect_equal(
+      generate_cpp_functions(funs, package = "mypkg"),
+      "// foo.cpp
 void foo();
 extern \"C\" SEXP _mypkg_foo() {
   BEGIN_cpp4r
@@ -234,8 +236,9 @@ extern \"C\" SEXP _mypkg_foo() {
       args = list(tibble::tibble(type = character(), name = character()))
     )
 
-    expect_equal(generate_cpp_functions(funs),
-"// foo.cpp
+    expect_equal(
+      generate_cpp_functions(funs),
+      "// foo.cpp
 int foo();
 extern \"C\" SEXP _cpp4r_foo() {
   BEGIN_cpp4r
@@ -257,8 +260,9 @@ extern \"C\" SEXP _cpp4r_foo() {
       args = list(tibble::tibble(type = "int", name = "bar"))
     )
 
-    expect_equal(generate_cpp_functions(funs),
-"// foo.cpp
+    expect_equal(
+      generate_cpp_functions(funs),
+      "// foo.cpp
 void foo(int bar);
 extern \"C\" SEXP _cpp4r_foo(SEXP bar) {
   BEGIN_cpp4r
@@ -281,8 +285,9 @@ extern \"C\" SEXP _cpp4r_foo(SEXP bar) {
       args = list(tibble::tibble(type = "int", name = "bar"))
     )
 
-    expect_equal(generate_cpp_functions(funs),
-"// foo.cpp
+    expect_equal(
+      generate_cpp_functions(funs),
+      "// foo.cpp
 int foo(int bar);
 extern \"C\" SEXP _cpp4r_foo(SEXP bar) {
   BEGIN_cpp4r
@@ -307,8 +312,9 @@ extern \"C\" SEXP _cpp4r_foo(SEXP bar) {
       )
     )
 
-    expect_equal(generate_cpp_functions(funs),
-"// foo.cpp
+    expect_equal(
+      generate_cpp_functions(funs),
+      "// foo.cpp
 int foo(int bar);
 extern \"C\" SEXP _cpp4r_foo(SEXP bar) {
   BEGIN_cpp4r
@@ -356,10 +362,12 @@ describe("generate_r_functions", {
       args = list(tibble::tibble(type = character(), name = character()))
     )
 
-    expect_equal(generate_r_functions(funs, package = "cpp4r"),
-"foo <- function() {
+    expect_equal(
+      generate_r_functions(funs, package = "cpp4r"),
+      "foo <- function() {
   invisible(.Call(`_cpp4r_foo`))
-}")
+}"
+    )
   })
 
   it("returns the wrapped function for a single void function with no arguments and use_package = TRUE", {
@@ -374,10 +382,12 @@ describe("generate_r_functions", {
       args = list(tibble::tibble(type = character(), name = character()))
     )
 
-    expect_equal(generate_r_functions(funs, package = "cpp4r", use_package = TRUE),
-"foo <- function() {
+    expect_equal(
+      generate_r_functions(funs, package = "cpp4r", use_package = TRUE),
+      "foo <- function() {
   invisible(.Call(\"_cpp4r_foo\", PACKAGE = \"cpp4r\"))
-}")
+}"
+    )
   })
 
   it("returns the wrapped function for a single void function with no arguments and different package name", {
@@ -392,10 +402,12 @@ describe("generate_r_functions", {
       args = list(tibble::tibble(type = character(), name = character()))
     )
 
-    expect_equal(generate_r_functions(funs, package = "mypkg"),
-"foo <- function() {
+    expect_equal(
+      generate_r_functions(funs, package = "mypkg"),
+      "foo <- function() {
   invisible(.Call(`_mypkg_foo`))
-}")
+}"
+    )
   })
 
   it("returns the wrapped function for a single function with no arguments", {
@@ -410,10 +422,12 @@ describe("generate_r_functions", {
       args = list(tibble::tibble(type = character(), name = character()))
     )
 
-    expect_equal(generate_r_functions(funs, package = "cpp4r"),
-"foo <- function() {
+    expect_equal(
+      generate_r_functions(funs, package = "cpp4r"),
+      "foo <- function() {
   .Call(`_cpp4r_foo`)
-}")
+}"
+    )
   })
 
   it("returns the wrapped function for a single function with no arguments and use_package = TRUE", {
@@ -428,10 +442,12 @@ describe("generate_r_functions", {
       args = list(tibble::tibble(type = character(), name = character()))
     )
 
-    expect_equal(generate_r_functions(funs, package = "cpp4r", use_package = TRUE),
-"foo <- function() {
+    expect_equal(
+      generate_r_functions(funs, package = "cpp4r", use_package = TRUE),
+      "foo <- function() {
   .Call(\"_cpp4r_foo\", PACKAGE = \"cpp4r\")
-}")
+}"
+    )
   })
 
   it("returns the wrapped function for a single void function with arguments", {
@@ -446,10 +462,12 @@ describe("generate_r_functions", {
       args = list(tibble::tibble(type = "int", name = "bar"))
     )
 
-    expect_equal(generate_r_functions(funs, package = "cpp4r"),
-"foo <- function(bar) {
+    expect_equal(
+      generate_r_functions(funs, package = "cpp4r"),
+      "foo <- function(bar) {
   invisible(.Call(`_cpp4r_foo`, bar))
-}")
+}"
+    )
   })
 
   it("returns the wrapped function for a single function with arguments", {
@@ -464,10 +482,12 @@ describe("generate_r_functions", {
       args = list(tibble::tibble(type = "int", name = "bar"))
     )
 
-    expect_equal(generate_r_functions(funs, package = "cpp4r"),
-"foo <- function(bar) {
+    expect_equal(
+      generate_r_functions(funs, package = "cpp4r"),
+      "foo <- function(bar) {
   .Call(`_cpp4r_foo`, bar)
-}")
+}"
+    )
   })
 
   it("returns the wrapped functions for multiple functions with arguments", {
@@ -485,14 +505,16 @@ describe("generate_r_functions", {
       )
     )
 
-    expect_equal(generate_r_functions(funs, package = "cpp4r"),
-"foo <- function(bar) {
+    expect_equal(
+      generate_r_functions(funs, package = "cpp4r"),
+      "foo <- function(bar) {
   .Call(`_cpp4r_foo`, bar)
 }
 
 bar <- function(baz) {
   .Call(`_cpp4r_bar`, baz)
-}")
+}"
+    )
   })
 })
 
@@ -503,10 +525,8 @@ describe("register", {
 
     dir.create(f)
     expect_equal(register(f), character())
-
   })
   it("works with a package that registers a single c++ function", {
-
     # tools::package_native_routine_registration_skeleton is not available before R 3.4
     skip_if(getRversion() < "3.4")
 

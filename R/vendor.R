@@ -12,9 +12,8 @@
 #' **you**. Bugfixes and new features in cpp4r will not be available for your
 #' code until you run `cpp_vendor()` again.
 #'
-#' @inheritParams register
-#' @param headers The subdirectory to vendor the headers into
-#' @return The file path to the vendored code (invisibly).
+#' @param path The directory to vendor the headers into
+#' @return The path to the vendored code (invisibly).
 #' @export
 #' @examples
 #' # create a new directory
@@ -24,16 +23,14 @@
 #' # vendor the cpp4r headers into the directory
 #' vendor(dir)
 #'
-#' list.files(file.path(dir, "inst", "include", "cpp4r"))
+#' list.files(file.path(dir, "src", "vendor"))
 #'
 #' # cleanup
 #' unlink(dir, recursive = TRUE)
-vendor <- function(path = ".", headers = "/inst/include") {
+vendor <- function(path = "./src/vendor") {
   if (is.null(path)) {
     stop("You must provide a path to vendor the code into", call. = FALSE)
   }
-
-  path <- paste0(path, headers)
 
   path2 <- file.path(path, "cpp4r")
   if (dir.exists(path2)) {
@@ -60,53 +57,39 @@ vendor <- function(path = ".", headers = "/inst/include") {
 
   cpp4r_version <- utils::packageVersion("cpp4r")
 
-  cpp4r_header <- sprintf(
-    "// cpp4r version: %s\n// vendored on: %s",
-    cpp4r_version,
-    Sys.Date()
+  writeLines(
+    sprintf(
+      "cpp4r version: %s\nvendored on: %s",
+      cpp4r_version,
+      Sys.Date()
+    ),
+    file.path(path2, "00-vendoring-info.txt")
   )
 
-  write_header(
-    path, "cpp4r.hpp", "cpp4r",
-    cpp4r_header
+  file.copy(
+    system.file("include", "cpp4r.hpp", package = "cpp4r"),
+    file.path(path, "cpp4r.hpp"),
+    overwrite = TRUE
   )
 
-  copy_files(
-    list.files(current_cpp4r, full.names = TRUE),
-    path, "cpp4r", cpp4r_header
+  cpp4r_files <- list.files(current_cpp4r, full.names = TRUE)
+
+  file.copy(
+    cpp4r_files,
+    path2,
+    overwrite = TRUE
   )
 
-  # Additional steps to make vendoring work ----
+  if (is_interactive()) {
+    message("Vendored cpp4r to '", path, "'")
 
-  message(paste(
-    "Makevars and/or Makevars.win should have a line such as",
-    "'PKG_CPPFLAGS = -I../inst/include'"
-  ))
+    message(paste(
+      "Makevars.in and/or Makevars.win should have a line such as",
+      "'PKG_CPPFLAGS = -I vendor/' (default) or 'PKG_CPPFLAGS = -I ../inst/include/'"
+    ))
 
-  message("DESCRIPTION should not have lines such as 'LinkingTo: cpp4r'")
-
-  files <- list.files(headers, full.names = TRUE)
+    message("DESCRIPTION should not link to cpp4r (e.g., 'LinkingTo: cpp4r') or the build will ignore the vendored code")
+  }
 
   invisible(path)
-}
-
-write_header <- function(path, header, pkg, cpp4rarmadillo_header) {
-  writeLines(
-    c(
-      cpp4rarmadillo_header,
-      readLines(
-        system.file("include", header, package = pkg)
-      )
-    ),
-    file.path(path, header)
-  )
-}
-
-copy_files <- function(files, path, out, cpp4rarmadillo_header) {
-  for (f in files) {
-    writeLines(
-      c(cpp4rarmadillo_header, readLines(f)),
-      file.path(path, out, basename(f))
-    )
-  }
 }
