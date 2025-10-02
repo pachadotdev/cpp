@@ -25,7 +25,6 @@ script.R
 \.cache$
 ^MAINTENANCE\.md$
 ^doc$
-^Meta$
 ^build$
 ^inst/doc/.*\.Rmd$
 ^CRAN-SUBMISSION$
@@ -39,4 +38,5 @@ script.R
 ^cpp4romp$
 ^cpp4rsimplexphase2$
 ^cpp4rtest$
+^cpp4rvendor$
 ^badges$
