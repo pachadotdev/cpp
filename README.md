@@ -19,6 +19,9 @@ cpp4r helps you to interact with R objects using C++ code. It is a fork
 of the [cpp11](https://cran.r-project.org/package=cpp11) package with
 identical syntax and similar goals.
 
+⚠️Important⚠️: cpp4r was created to ease writing functions in your own
+packages and does not offer on-the-fly compilation for code snippets.
+
 cpp4r can be used as a replacement for cpp11 in existing or new
 packages. Think of cpp11 and cpp4r as MySQL and MariaDB: they are almost
 identical, but cpp4r has some extra features.
@@ -30,7 +33,7 @@ fork to add the following features:
 
 - [x] Convert ordered and unordered C++ maps to R lists.
 - [x] Roxygen support on C++ side.
-- [x] Allow `dimnames` atribute with matrices on C++ side.
+- [x] Allow `dimnames` attribute with matrices on C++ side.
 - [x] Support nullable `external_ptr<>`.
 - [x] Use values added to a vector with `push_back()` immediately.
 - [x] Support bidirectional passing of complex numbers/vectors.

@@ -82,12 +82,13 @@
 <!-- badges: start -->
 
 <p>cpp4r helps you to interact with R objects using C++ code. It is a fork of the <a href="https://cran.r-project.org/package=cpp11">cpp11</a> package with identical syntax and similar goals.</p>
+<p>⚠️Important⚠️: cpp4r was created to ease writing functions in your own packages and does not offer on-the-fly compilation for code snippets.</p>
 <p>cpp4r can be used as a replacement for cpp11 in existing or new packages. Think of cpp11 and cpp4r as MySQL and MariaDB: they are almost identical, but cpp4r has some extra features.</p>
 <p>After discussing some <a href="https://github.com/pachadotdev/cpp11/pulls/pachadotdev">pull requests</a> with Hadley Wickham from Posit, it was mentioned that I should create my own fork to add the following features:</p>
 <ul class="task-list">
 <li><label><input type="checkbox" checked>Convert ordered and unordered C++ maps to R lists.</label></li>
 <li><label><input type="checkbox" checked>Roxygen support on C++ side.</label></li>
-<li><label><input type="checkbox" checked>Allow <code>dimnames</code> atribute with matrices on C++ side.</label></li>
+<li><label><input type="checkbox" checked>Allow <code>dimnames</code> attribute with matrices on C++ side.</label></li>
 <li><label><input type="checkbox" checked>Support nullable <code>external_ptr&lt;&gt;</code>.</label></li>
 <li><label><input type="checkbox" checked>Use values added to a vector with <code>push_back()</code> immediately.</label></li>
 <li><label><input type="checkbox" checked>Support bidirectional passing of complex numbers/vectors.</label></li>
