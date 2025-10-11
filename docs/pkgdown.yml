@@ -1,0 +1,25 @@
+pandoc: 3.2.1
+pkgdown: 2.1.3
+pkgdown_sha: ~
+articles:
+  01-motivations: 01-motivations.html
+  02-setup: 02-setup.html
+  03-package-skeleton: 03-package-skeleton.html
+  04-read-only: 04-read-only.html
+  05-logical-functions: 05-logical-functions.html
+  06-rolling-functions: 06-rolling-functions.html
+  07-statistical-functions: 07-statistical-functions.html
+  08-logical-functions-2: 08-logical-functions-2.html
+  09-rolling-functions-2: 09-rolling-functions-2.html
+  10-statistical-functions-2: 10-statistical-functions-2.html
+  11-debugging: 11-debugging.html
+  12-external-pointers: 12-external-pointers.html
+  13-compiler-optimization: 13-compiler-optimization.html
+  14-linear-algebra: 14-linear-algebra.html
+  15-internals: 15-internals.html
+  16-FAQ: 16-FAQ.html
+  17-worked-examples: 17-worked-examples.html
+last_built: 2025-10-10T23:34Z
+urls:
+  reference: ./reference
+  article: ./articles
