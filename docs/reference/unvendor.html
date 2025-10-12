@@ -26,8 +26,7 @@
 <div class="main-container">
 <div id="menu">
   <div>
-    <h1>cpp4r Documentation</h1>
-  </div>
+    <img src="../man/figures/logo.svg" align="center" height="139" alt="cpp4r logo"></div>
 
   <div class="search-container">
     <input type="text" id="search-box" placeholder="Search..."><button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">💡</button>
@@ -76,22 +75,22 @@
 <div class="content-main">
 <h1></h1>
 <h2>Arguments</h2>
-<table class="ref-arguments"><tr><td><strong>path</strong></td><td><p>The directory with the vendored headers. It is recommended to use \code{"./src/vendor"}.</p></td></tr></table><h2>Examples</h2>
+<table class="ref-arguments"><tbody><tr><td><strong>path</strong></td><td>The directory with the vendored headers. It is recommended to use \code{"./src/vendor"}.</td></tr></tbody></table><h2>Examples</h2>
 <div class="sourceCode"><pre><code># create a new directory
 dir &lt;- paste0(tempdir(), "/", gsub("\\s+|[[:punct:]]", "", Sys.time()))
 dir.create(dir, recursive = TRUE)</code></pre></div>
 <div class="output"><pre><code>## [1] TRUE</code></pre></div>
 <div class="sourceCode"><pre><code># vendor the cpp4r headers into the directory
 vendor(dir)</code></pre></div>
-<div class="error"><pre><code>## Error: could not find function "vendor"</code></pre></div>
+<div class="output"><pre><code>## [1] "/tmp/RtmpD7okxS/20251012194553222812"</code></pre></div>
 <div class="sourceCode"><pre><code># unvendor the cpp4r headers from the directory
 unvendor(dir)</code></pre></div>
-<div class="error"><pre><code>## Error: could not find function "unvendor"</code></pre></div>
+<div class="output"><pre><code>## [1] "/tmp/RtmpD7okxS/20251012194553222812"</code></pre></div>
 <div class="sourceCode"><pre><code># cleanup
 unlink(dir, recursive = TRUE)</code></pre></div>
 <div class="output"><pre><code>## [1] 0</code></pre></div>
 </div>
-<footer><p>Last updated: 2025-10-12 17:59:33</p>
+<footer><p>Last updated: 2025-10-12 19:45:53</p>
 </footer><script>
 document.addEventListener('DOMContentLoaded', function() {
   // Theme toggle functionality

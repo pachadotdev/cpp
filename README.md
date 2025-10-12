@@ -3,8 +3,6 @@
 
 # cpp4r
 
-<img src="man/figures/logo.svg" height="139" alt="" />
-
 <!-- badges: start -->
 
 [![Lifecycle:
