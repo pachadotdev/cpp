@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>vendor • cpp4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"><!-- MathJax Configuration --><script>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Changelog • cpp4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"><!-- MathJax Configuration --><script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)'], ['$', '$']],
@@ -75,36 +75,22 @@
 <div id="content">
 <div class="content-wrapper">
 <div class="content-main">
-<h1>Vendor the cpp4r headers</h1>
-<h2>Usage</h2><pre class="ref-usage">
-vendor(path = "./src/vendor")
-</pre>
-<h2>Arguments</h2><table class="ref-arguments"><tr><td><strong>path</strong></td><td>The directory to vendor the headers into</td></tr></table><h2>Value</h2><p>
-The path to the vendored code (invisibly).
-</p>
-<h2>Description</h2><p>
-Vendoring is the act of making your own copy of the 3rd party packages your
-project is using. It is often used in the go language community.
-</p>
-<h2>Details</h2><p>
-This function vendors cpp4r into your package by copying the cpp4r
-headers into the inst/include</p> folder of your package and adding
-'cpp4r version: XYZ' to the top of the files, where XYZ is the version of
-cpp4r currently installed on your machine.
-{Note: vendoring places the responsibility of updating the code on
-you. Bugfixes and new features in cpp4r will not be available for your
-code until you run cpp_vendor() again.
-}
-<h2>Examples</h2><pre><code># create a new directory
-dir &lt;- paste0(tempdir(), "/", gsub("\\\+|[[:punct:]]", "", Sys.time()))
-dir.create(dir, recursive = TRUE)
-# vendor the cpp4r headers into the directory
-vendor(dir)
-list.files(file.path(dir, "src", "vendor"))
-# cleanup
-unlink(dir, recursive = TRUE)</code></pre>
-</div>
-<footer><p>Last updated: 2025-10-12 11:32:38</p>
+<h1>Changelog</h1>
+<h1>cpp4r 0.3.0</h1>
+
+<ul><li>Added <code>as_logicals()</code> and <code>as_strings()</code> in the same style of <code>as_doubles()</code> and <code>as_integers()</code></li>
+<li>Improved memory management for <code>r_vector</code> iterators</li>
+<li>Slightly faster than <code>cpp11</code></li>
+<li><code>vendor()</code> and <code>unvendor()</code> use <code>path = NULL</code> as default to adhere to CRAN policies.</li>
+</ul><h1>cpp4r 0.2.0</h1>
+
+<ul><li>Reduced dependencies on R side</li>
+<li>The vignettes are rendered only for the package site to keep the CRAN build minimal</li>
+</ul><h1>cpp4r 0.1.0</h1>
+
+<ul><li>Initial release</li>
+</ul></div>
+<footer><p>Last updated: 2025-10-12 11:32:44</p>
 </footer><script>
 document.addEventListener('DOMContentLoaded', function() {
   // Theme toggle functionality

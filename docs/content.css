@@ -27,7 +27,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-size: small;
+  font-size: 16px; /* Doubled from typical 'small' (usually ~12px) to 16px */
   font-family: "Noto Sans", "Lucida Grande", "Lucida Sans Unicode", Arial, Verdana, Helvetica, sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -42,33 +42,39 @@ body {
 .main-container {
   display: flex;
   flex: 1;
-  overflow: hidden;
-  min-height: 0; /* This is important for flex children to shrink */
+  min-height: 100vh; /* Allow expansion for long content */
 }
 
 /* Content area */
 #content {
   flex: 1;
+  margin-left: 280px; /* Account for fixed menu width */
   padding: 1em 2em;
   overflow-y: auto;
   background-color: var(--bg-color);
   display: flex;
   flex-direction: column;
+  min-height: 100vh; /* Allow expansion for long content */
+  box-sizing: border-box; /* Include padding in height calculation */
   transition: background-color 0.3s ease;
 }
 
 /* Content wrapper to push footer down */
-#content > *:not(footer) {
-  flex-shrink: 0;
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 2em); /* Minimum viewport height minus padding */
 }
 
-#content > footer {
-  margin-top: auto; /* This is the "\hfill" equivalent */
+.content-main {
+  flex: 1;
+  min-height: 0; /* Allow content to shrink if needed */
 }
 
 /* Footer styling */
 footer {
-  margin-top: 3em;
+  margin-top: auto;
   padding: 1em 0;
   text-align: center;
   color: var(--text-color);
@@ -76,24 +82,34 @@ footer {
   font-size: 0.9em;
   border-top: 1px solid var(--border-color);
   transition: color 0.3s ease, border-color 0.3s ease;
+  flex-shrink: 0;
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
-  .main-container {
-    flex-direction: column;
-  }
-  
   #menu {
+    position: relative;
     width: 100%;
     min-width: auto;
+    height: auto;
     max-height: 200px;
     border-right: none;
-    border-bottom: 1px solid #dee2e6;
+    border-bottom: 1px solid var(--border-color);
   }
   
   #content {
+    margin-left: 0;
     padding: 1em;
+    min-height: calc(100vh - 200px); /* Account for collapsed menu */
+    box-sizing: border-box;
+  }
+  
+  .content-wrapper {
+    min-height: calc(100vh - 200px - 2em); /* Minimum height for mobile */
+  }
+  
+  .main-container {
+    flex-direction: column;
   }
   
   footer {
@@ -313,4 +329,57 @@ IMG.img_slide {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* MathJax styling */
+.MathJax {
+  font-size: 1em !important;
+}
+
+.MathJax_Display {
+  margin: 1em 0 !important;
+}
+
+/* MathJax SVG styling */
+mjx-container[jax="SVG"] {
+  /* overflow-x: auto; */
+  overflow-y: visible;
+  max-width: 100%;
+  display: inline-block;
+}
+
+/* Display math (block equations) */
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+/* Inline math */
+mjx-container[jax="SVG"][display="false"] {
+  display: inline-block !important;
+  vertical-align: baseline !important;
+  margin: 0 0.1em;
+  transform: translateY(-0.3em) !important;
+  position: relative !important;
+}
+
+/* Target the SVG elements directly for better alignment */
+mjx-container[jax="SVG"][display="false"] svg {
+  vertical-align: baseline !important;
+  position: relative !important;
+  top: -0.1em !important;
+}
+
+/* SVG elements should inherit text color for dark mode */
+[data-theme="dark"] mjx-container[jax="SVG"] svg {
+  color: var(--text-color);
+}
+
+/* Ensure SVG math scales properly on different screen sizes */
+@media (max-width: 768px) {
+  mjx-container[jax="SVG"] {
+    max-width: 100%;
+    /* overflow-x: auto; */
+  }
 }
