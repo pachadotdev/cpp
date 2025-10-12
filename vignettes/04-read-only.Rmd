@@ -13,8 +13,8 @@ bibliography: ["references.bib"]
 
 # Read and write
 
-In `cpp4r`, when you declare a variable, it is read-only by default as in cpp11 [@vaughan]. This is different from 
-`Rcpp`, where variables are read-write by default [@rcpp].
+In `cpp4r`, when you declare a variable, it is read-only by default as in cpp11 [@vaughan24]. This is different from 
+`Rcpp`, where variables are read-write by default [@eddelbuettel11].
 
 Following from the package created in the previous vignette, try to compile and run the following code by adding it to a
 new file `src/04_square_coordinates.h`:

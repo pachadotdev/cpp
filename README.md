@@ -1,7 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# cpp4r <img src="man/figures/logo.svg" align="right" height="139" alt="" />
+# cpp4r
+
+<img src="man/figures/logo.svg" height="139" alt="" />
 
 <!-- badges: start -->
 

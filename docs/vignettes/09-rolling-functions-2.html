@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>09 - Rolling Functions with Missing Values • cpp4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"></head><body>
+<div class="main-container">
+<div id="menu">
+  <div>
+    <h1>cpp4r Documentation</h1>
+  </div>
+
+  <div class="search-container">
+    <input type="text" id="search-box" placeholder="Search..."><button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">💡</button>
+  </div>
+
+  <div class="submenu">
+    <label style="border-bottom: 0;"><a style="padding-left: 0;" href="../index.html">Home 🏠</a></label>
+  </div>
+
+  <div class="submenu">
+    <label>Functions</label>
+    <a href="../reference/cpp4r-package.html">cpp4r-package</a>
+    <a href="../reference/pkg_template.html">pkg_template</a>
+    <a href="../reference/register.html">register</a>
+    <a href="../reference/unvendor.html">unvendor</a>
+    <a href="../reference/vendor.html">vendor</a>
+  </div>
+
+  <div class="submenu">
+    <label>Vignettes</label>
+    <a href="../vignettes/01-motivations.html">01 - Motivations for cpp4r</a>
+    <a href="../vignettes/02-setup.html">02 - Setup</a>
+    <a href="../vignettes/03-package-skeleton.html">03 - Package Skeleton</a>
+    <a href="../vignettes/04-read-only.html">04 - Read-only versus Writable R Objects</a>
+    <a href="../vignettes/05-logical-functions.html">05 - Logical Functions</a>
+    <a href="../vignettes/06-rolling-functions.html">06 - Rolling Functions</a>
+    <a href="../vignettes/07-statistical-functions.html">07 - Statistical Functions</a>
+    <a href="../vignettes/08-logical-functions-2.html">08 - Logical Functions with Missing Values</a>
+    <a href="../vignettes/09-rolling-functions-2.html">09 - Rolling Functions with Missing Values</a>
+    <a href="../vignettes/10-statistical-functions-2.html">10 - Statistical Functions with Missing Values</a>
+    <a href="../vignettes/11-debugging.html">11 - Debugging R Packages</a>
+    <a href="../vignettes/12-external-pointers.html">12 - External Pointers</a>
+    <a href="../vignettes/13-compiler-optimization.html">13 - Compiler Optimizations</a>
+    <a href="../vignettes/14-linear-algebra.html">14 - Linear Algebra</a>
+    <a href="../vignettes/15-internals.html">15 - Internals</a>
+    <a href="../vignettes/16-FAQ.html">17 - FAQs</a>
+    <a href="../vignettes/17-worked-examples.html">16 - Worked Examples</a>
+  </div>
+
+</div>
+<div id="content">
+<h1>09 - Rolling Functions with Missing Values</h1>
+
+
+
+<div id="note" class="section level1">
+<h1>Note</h1>
+<p>These functions ignore <code>NA</code> values for now. Adjustments
+for handling <code>NA</code> values are covered in a separate
+vignette.</p>
+<p>R already provides efficient versions of the functions covered here.
+This is just to illustrate how to use C++ code.</p>
+</div>
+<div id="cumulative-sum" class="section level1">
+<h1>Cumulative sum</h1>
+<p>The following function expands the previous <code>cumsum_cpp()</code>
+function to handle missing values.</p>
+<pre class="cpp"><code>[[cpp4r::register]]
+doubles cumsum2_cpp(doubles x, bool na_rm = false) {
+  int n = x.size();
+
+  writable::doubles out(n);
+  out[0] = x[0];
+
+  if (na_rm == true) {
+    for (int i = 1; i &lt; n; ++i) {
+      double y1 = out[i - 1], y2 = x[i];
+      if (ISNAN(y2)) {
+        out[i] = y1 + 0.0;
+      } else {
+        if (ISNAN(y1)) {
+          out[i] = 0.0 + y2;
+        } else {
+          out[i] = y1 + y2;
+        }
+      }
+    }
+  } else {
+    for (int i = 1; i &lt; n; ++i) {
+      double y1 = out[i - 1], y2 = x[i];
+      if (ISNAN(y2)) {
+        out[i] = NA_REAL;
+      } else {
+        if (ISNAN(y1)) {
+          out[i] = NA_REAL;
+        } else {
+          out[i] = y1 + y2;
+        }
+      }
+    }
+  }
+
+  return out;
+}</code></pre>
+<p>To test the functions, you can run the following benchmark code in
+the R console:</p>
+<pre class="r"><code>set.seed(123) # for reproducibility
+x &lt;- rpois(1e6, lambda = 2) # 1,000,000 elements
+
+cumsum(c(1, NA, 2, 4))
+cumsum2_cpp(c(1, NA, 2, 4))
+cumsum2_cpp(c(1, NA, 2, 4), na_rm = TRUE)
+
+mark(
+  cumsum(x),
+  cumsum2_cpp(x)
+)</code></pre>
+</div>
+<div id="cumulative-product" class="section level1">
+<h1>Cumulative product</h1>
+<p>The following function expands the previous
+<code>cumprod_cpp()</code> function to handle missing values.</p>
+<pre class="cpp"><code>[[cpp4r::register]]
+doubles cumprod2_cpp(doubles x, bool na_rm = false) {
+  int n = x.size();
+
+  writable::doubles out(n);
+  out[0] = x[0];
+
+  if (na_rm == true) {
+    for (int i = 1; i &lt; n; ++i) {
+      double y1 = out[i - 1], y2 = x[i];
+      if (ISNAN(y2)) {
+        out[i] = y1 * 1.0;
+      } else {
+        if (ISNAN(y1)) {
+          out[i] = 1.0 * y2;
+        } else {
+          out[i] = y1 * y2;
+        }
+      }
+    }
+  } else {
+    for (int i = 1; i &lt; n; ++i) {
+      double y1 = out[i - 1], y2 = x[i];
+      if (ISNAN(y2)) {
+        out[i] = NA_REAL;
+      } else {
+        if (ISNAN(y1)) {
+          out[i] = NA_REAL;
+        } else {
+          out[i] = y1 * y2;
+        }
+      }
+    }
+  }
+
+  return out;
+}</code></pre>
+<p>To test the functions, you can run the following benchmark code in
+the R console:</p>
+<pre class="r"><code>cumprod(c(1, NA, 2, 4))
+cumprod2_cpp(c(1, NA, 2, 4))
+cumprod2_cpp(c(1, NA, 2, 4), na_rm = TRUE)
+
+mark(
+  cumprod(x),
+  cumprod2_cpp(x)
+)</code></pre>
+</div>
+<div id="cumulative-minimum" class="section level1">
+<h1>Cumulative minimum</h1>
+<p>The next function calculates the cumulative minimum of the elements
+of a vector.</p>
+<pre class="cpp"><code>[[cpp4r::register]] doubles
+cummin_cpp(doubles x, bool na_rm = false) {
+  int n = x.size();
+
+  writable::doubles out(n);
+  out[0] = x[0];
+
+  if (na_rm == true) {
+    for (int i = 1; i &lt; n; ++i) {
+      double y1 = x[i - 1], y2 = x[i];
+      if (ISNAN(y1)) {
+        out[i] = y2;
+      } else {
+        out[i] = std::min(y1, y2);
+      }
+    }
+  } else {
+    for (int i = 1; i &lt; n; ++i) {
+      double y1 = out[i - 1], y2 = x[i];
+      if (ISNAN(y2)) {
+        out[i] = NA_REAL;
+      } else {
+        if (ISNAN(y1)) {
+          out[i] = NA_REAL;
+        } else {
+          out[i] = std::min(y1, y2);
+        }
+      }
+    }
+  }
+
+  return out;
+}</code></pre>
+<p>To test the function, you can run the following benchmark code in the
+R console:</p>
+<pre class="r"><code>cummin(c(1, NA, 2, 4))
+cummin_cpp(c(1, NA, 2, 4))
+cummin_cpp(c(1, NA, 2, 4), na_rm = TRUE)
+
+mark(
+  cummin(x),
+  cummin_cpp(x)
+)</code></pre>
+</div>
+<div id="cumulative-maximum" class="section level1">
+<h1>Cumulative maximum</h1>
+<p>The next function calculates the cumulative maximum of the elements
+of a vector.</p>
+<pre class="cpp"><code>[[cpp4r::register]]
+doubles cummax_cpp(doubles x, bool na_rm = false) {
+  int n = x.size();
+
+  writable::doubles out(n);
+  out[0] = x[0];
+
+  if (na_rm == true) {
+    for (int i = 1; i &lt; n; ++i) {
+      double y1 = out[i - 1], y2 = x[i];
+      if (ISNAN(y1)) {
+        out[i] = y2;
+      } else {
+        out[i] = std::max(y1, y2);
+      }
+    }
+  } else {
+    for (int i = 1; i &lt; n; ++i) {
+      double y1 = out[i - 1], y2 = x[i];
+      if (ISNAN(y2)) {
+        out[i] = NA_REAL;
+      } else {
+        if (ISNAN(y1)) {
+          out[i] = NA_REAL;
+        } else {
+          out[i] = std::max(y1, y2);
+        }
+      }
+    }
+  }
+
+  return out;
+}</code></pre>
+<p>To test the functions, you can run the following benchmark code in
+the R console:</p>
+<pre class="r"><code>cummax(c(1, NA, 2, 4))
+cummax_cpp(c(1, NA, 2, 4))
+cummax_cpp(c(1, NA, 2, 4), na_rm = TRUE)
+
+mark(
+  cummax(x),
+  cummax_cpp(x)
+)</code></pre>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+</div>
+<footer><p>Last updated: 2025-10-12 10:17:45</p>
+</footer><script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Theme toggle functionality
+  const themeToggle = document.getElementById('theme-toggle');
+  const currentTheme = localStorage.getItem('theme') || 'light';
+
+  // Apply saved theme
+  document.documentElement.setAttribute('data-theme', currentTheme);
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+  }
+
+  // Search functionality
+  const searchBox = document.getElementById('search-box');
+  if (!searchBox) return;
+
+  let searchIndex = [];
+
+  // Load search index
+  fetch('../search.json')
+    .then(response => response.json())
+    .then(data => {
+      searchIndex = data;
+    })
+    .catch(error => {
+      console.log('Search index not available, falling back to simple search');
+    });
+
+  searchBox.addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase().trim();
+
+    if (searchTerm === '') {
+      // Show all items when search is empty
+      document.querySelectorAll('#menu .submenu a').forEach(function(link) {
+        link.style.display = 'block';
+      });
+      document.querySelectorAll('#menu .submenu').forEach(function(submenu) {
+        submenu.style.display = 'block';
+      });
+      return;
+    }
+
+    // Content-based search using search index
+    if (searchIndex.length > 0) {
+      const matchingUrls = new Set();
+
+      searchIndex.forEach(function(item) {
+        const searchContent = (item.title + ' ' + item.content).toLowerCase();
+        if (searchContent.includes(searchTerm)) {
+          matchingUrls.add(item.url);
+        }
+      });
+
+      // Show/hide links based on content matches
+      document.querySelectorAll('#menu .submenu a').forEach(function(link) {
+        const href = link.getAttribute('href');
+        const relativePath = href.replace(/^.*\//, ''); // Get just the filename part
+
+        let isMatch = false;
+        matchingUrls.forEach(function(url) {
+          if (url.includes(relativePath)) {
+            isMatch = true;
+          }
+        });
+
+        // Also check link text for simple matches
+        if (!isMatch && link.textContent.toLowerCase().includes(searchTerm)) {
+          isMatch = true;
+        }
+
+        link.style.display = isMatch ? 'block' : 'none';
+      });
+    } else {
+      // Fallback to simple name-based search
+      document.querySelectorAll('#menu .submenu a').forEach(function(link) {
+        const linkText = link.textContent.toLowerCase();
+        link.style.display = linkText.includes(searchTerm) ? 'block' : 'none';
+      });
+    }
+
+    // Show/hide entire submenus if no visible links
+    document.querySelectorAll('#menu .submenu').forEach(function(submenu) {
+      const visibleLinks = submenu.querySelectorAll('a[style*="display: block"]');
+      const label = submenu.querySelector('label');
+
+      // Don't hide the Home submenu
+      if (label && label.textContent.includes('Home')) {
+        return;
+      }
+
+      submenu.style.display = visibleLinks.length > 0 ? 'block' : 'none';
+    });
+  });
+});
+</script></div>
+</div>
+</body></html>
+

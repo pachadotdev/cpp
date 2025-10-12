@@ -13,7 +13,7 @@ bibliography: ["references.bib"]
 
 # Motivation
 
-R provides out-of-box support for matrices and vectors. This is not the case for C++ code, where you need to use a library such as [Armadillo](https://arma.sourceforge.net/) that has a wrapper for R [@cpp11armadillo]. One of the nicest Armadillo features is that it has a similar syntax to MATLAB.
+R provides out-of-box support for matrices and vectors. This is not the case for C++ code, where you need to use a library such as [Armadillo](https://arma.sourceforge.net/) that has a wrapper for R [@vargassepulveda25]. One of the nicest Armadillo features is that it has a similar syntax to MATLAB.
 
 # Using Armadillo
 

@@ -13,7 +13,7 @@ bibliography: ["references.bib"]
 
 # Motivation
 
-The previous package skeleton left out some essential details, such as testing for memory leaks and debugging. This vignette will cover these aspects in more detail. The references for this vignette are @vaughan, @padgham, @vaughan2, and @wickham.
+The previous package skeleton left out some essential details, such as testing for memory leaks and debugging. This vignette will cover these aspects in more detail. The references for this vignette are @vaughan24, @padgham22, @vaughan19, and @wickham19.
 
 # Instructional examples
 
@@ -86,7 +86,7 @@ This implementation is extremely naive, quite similar to the Gauss-Jordan exampl
 
 One approach is to create one function per step, which means creating one function to obtain $X^tX$, another for $(X^tX)^{-1}$ (e.g, implementing the Gauss-Jordan method to invert a matrix), another for $X^tY$ and then calling each of those functions to obtain $\hat{\beta} = (X^tX)^{-1}(X^tY)$.
 
-A good challenge would be to implement the QR decomposition used by the `lm()` function in R and use it to obtain the OLS estimator in C++. @drury provides a good starting point, this is not trivial to implement.
+A good challenge would be to implement the QR decomposition used by the `lm()` function in R and use it to obtain the OLS estimator in C++. @drury16 provides a good starting point, this is not trivial to implement.
 
 It is hard to beat the performance of the `lm()` function in R, which calls compiled C and FORTRAN functions, and these functions are fast and robust `lm()`.
 
@@ -105,7 +105,7 @@ See the [cpp4rsimplex](https://github.com/pachadotdev/cpp4r/tree/main/cpp4rsimpl
 
 ### Algorithm
 
-The simplex algorithm is well described in [Introduction to Linear Optimization](http://athenasc.com/linoptbook.html) and there is efficient software to solve this, including @lpsolve.
+The simplex algorithm is well described in [Introduction to Linear Optimization](http://athenasc.com/linoptbook.html) and there is efficient software to solve this, including @lpsolve23.
 
 A problem written in canonical form is represented by a table such as:
 
@@ -276,7 +276,7 @@ One common phrase that you might find when you need to search how to do somethin
 
 This has been tested on Windows, where you need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/), and Ubuntu where you do not need anything special because the `gcc` compiler comes with the operating system and it just works.
 
-If you are using macOS, you need to install `libomp` via Homebrew in order to extend the `clang` compiler, and this is explained in the [OpenBox documentation](https://open-box.readthedocs.io/en/latest/installation/openmp_macos.html) [@openbox].
+If you are using macOS, you need to install `libomp` via Homebrew in order to extend the `clang` compiler, and this is explained in the [OpenBox documentation](https://open-box.readthedocs.io/en/latest/installation/openmp_macos.html) [@openbox24].
 
 ### Enabling OpenMP
 

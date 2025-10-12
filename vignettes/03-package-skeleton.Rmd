@@ -11,7 +11,7 @@ editor:
 bibliography: ["references.bib"]
 ---
 
-The reference for this vignette is @usethis.
+The reference for this vignette is @usethis24.
 
 # Loading the Required R Packages
 

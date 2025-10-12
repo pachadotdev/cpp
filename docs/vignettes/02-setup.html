@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>pkg_template • cpp4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"></head><body>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>02 - Setup • cpp4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"></head><body>
 <div class="main-container">
 <div id="menu">
   <div>
@@ -46,22 +46,61 @@
 
 </div>
 <div id="content">
-<h1>Start a new project with the cpp4r package template</h1>
-<h2>Usage</h2><pre class="ref-usage">
-pkg_template(path = NULL, pkgname = NULL)
-</pre>
-<h2>Arguments</h2><table class="ref-arguments"><tr><td><strong>path</strong></td><td>Path to the new project</td></tr><tr><td><strong>pkgname</strong></td><td>Name of the new package</td></tr></table><h2>Value</h2><p>
-The file path to the copied template (invisibly).
-</p>
-<h2>Description</h2><p>
-Start a new project with the cpp4r package template
-</p>
-<h2>Examples</h2><pre><code># create a new directory
-dir &lt;- tempdir()
-dir.create(dir)
-# copy the package template into the directory
-pkg_template(dir, "mynewpkg")</code></pre>
-<footer><p>Last updated: 2025-10-12 10:17:40</p>
+<h1>02 - Setup</h1>
+
+
+
+<div id="c-setup" class="section level1">
+<h1>C++ Setup</h1>
+<p>You will need a working C++ compiler capable of compiling C++11 code.
+To get it:</p>
+<ul><li>On Windows, install <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a>.</li>
+<li>On Mac, install Xcode from the App Store.</li>
+<li>On Linux,
+<code>sudo pacman -Syu install build-essential g++-11</code> or
+similar.</li>
+</ul><div id="for-ubuntu-users" class="section level2">
+<h2>For Ubuntu Users</h2>
+<p>After installing <code>g++-11</code>, you may still encounter issues
+compiling C++ code due to missing standard library headers. This does
+not happen when testing on Manjaro Linux.</p>
+<p>You can try this:</p>
+<pre class="bash"><code>sudo apt install build-essential g++-11 libc++-11-dev libc++abi-11-dev</code></pre>
+<p>Then you can attempt to compile a simple example to print a
+number:</p>
+<pre class="cpp"><code>// save this as 01-print-number.cpp or similar
+#include &lt;iostream&gt; // required for the cout function
+
+// function to print a message
+int main() {
+    std::cout &lt;&lt; 1 &lt;&lt; std::endl;
+    return 0;
+}</code></pre>
+<p>Then try to compile and run it with the following bash
+instruction:</p>
+<pre class="bash"><code>g++ 01-print-number.cpp
+./01-print-number # prints "1"</code></pre>
+<p>Otherwise, not installing the additional packages may lead to the
+following error:</p>
+<pre class="bash"><code>fatal error: 'cstdio' file not found
+fatal error: 'vector' file not found
+cannot find -lc++abi: No such file or directory</code></pre>
+</div>
+</div>
+<div id="r-setup" class="section level1">
+<h1>R Setup</h1>
+<p>You can install the R packages <code>bench</code>,
+<code>cpp4r</code>, <code>devtools</code> and <code>usethis</code> with
+the following command:</p>
+<pre class="r"><code>install.packages(c("bench", "cpp4r", "devtools", "usethis"))</code></pre>
+<p>To verify that R can compile C++ code, you can run
+<code>pkgbuild::check_build_tools(debug = TRUE)</code>, which will
+return an output similar to:</p>
+<pre class="r"><code>Trying to compile a simple C file
+Running /usr/lib64/R/bin/R CMD SHLIB foo.c
+using C compiler: ‘gcc (GCC) 15.2.1 20250813’</code></pre>
+</div>
+<footer><p>Last updated: 2025-10-12 10:17:43</p>
 </footer><script>
 document.addEventListener('DOMContentLoaded', function() {
   // Theme toggle functionality

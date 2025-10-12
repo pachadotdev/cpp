@@ -11,7 +11,7 @@ editor:
 bibliography: ["references.bib"]
 ---
 
-These examples were adapted from @vaughan.
+These examples were adapted from @vaughan24.
 
 # Note
 
@@ -188,7 +188,7 @@ all_cpp_4(logicals x) {
 }
 ```
 
-To avoid typing `std::` every time, you can use `using namespace std;` at the top of `src/code.cpp`. However, this is not recommended because it can lead to conflicts. A better option is to declare `using std::the_function;` which means you can use `the_function` instead of `std::the_function` each time [@akbiggs].
+To avoid typing `std::` every time, you can use `using namespace std;` at the top of `src/code.cpp`. However, this is not recommended because it can lead to conflicts. A better option is to declare `using std::the_function;` which means you can use `the_function` instead of `std::the_function` each time [@akbiggs24].
 However, this is not recommended as it can lead to conflicts if two functions have the same name.
 
 To test the functions, you can run the following tests and benchmark code in the R console:

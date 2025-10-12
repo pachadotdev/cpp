@@ -44,10 +44,10 @@ mainstream solution with over 2,000 reverse dependencies by 2020 [@eddelbuettel1
 released in 2014 but did not achieve widespread adoption [@francois20].
 
 While Rcpp has been highly successful, adding modern C++ features or addressing certain architectural issues would
-require substantial breaking changes to maintain backward compatibility with the extensive ecosystem of dependent
-packages.
+require substantial breaking changes. These changes would compromise backward compatibility with the extensive ecosystem
+of dependent packages.
 
-To address these limitations, the cpp11 package [@cpp1123] was released in 2023 as a reimplementation of C++
+To address these limitations, the cpp11 package [@cpp1123] was released in 2023 as a complete reimplementation of C++
 bindings to R, incorporating modern C++ features and different design trade-offs aiming to provide:
 
 - Enforced copy-on-write semantics consistent with R's behavior
@@ -59,13 +59,12 @@ bindings to R, incorporating modern C++ features and different design trade-offs
 - Faster compilation with reduced memory requirements
 - Completely header-only design to avoid Application Binary Interface (ABI) compatibility issues
 
-## Software description
+# Software description
 
-While using cpp11 to keep my thesis project minimal in terms of code duplication and reusing existing components
-instead, I identified several enhancements that could benefit the R community and improve the usability of the library
-including:
+While using cpp11 for my thesis project, I identified several enhancements that could benefit the R community and
+improve the library's usability. These enhancements include:
 
-- Support for converting C++ standard containers (maps) to R lists
+- Support for converting C++ maps to R lists
 - Roxygen documentation support directly in C++ code
 - Proper handling of matrix attributes
 - Support for nullable external pointers
@@ -98,8 +97,8 @@ implementations.
 Several internal optimizations improve performance over cpp11, particularly in vector operations and memory management.
 These optimizations maintain the safety guarantees of cpp11 while improving execution speed.
 
-cpp4r provides full bidirectional copy of complex numbers, enabling seamless copy of complex vectors and matrices
-between R and C++ code. On the contrary, cpp11 does not support copying complex numbers from R to C++ or vice versa.
+cpp4r provides full bidirectional copying of complex numbers, enabling seamless transfer of complex vectors and matrices
+between R and C++ code. In contrast, cpp11 does not support this functionality.
 
 cpp4r maintains cpp11's core design principles while extending functionality:
 
@@ -112,19 +111,19 @@ cpp4r maintains cpp11's core design principles while extending functionality:
 - Header-Only Design: As a completely header-only library, cpp4r avoids ABI compatibility issues that can arise with
   libraries containing compiled components.
 
-cpp4r offers vendoring capabilities, which means that you copy the code for the dependencies into your project's source
-tree. This idea comes from the Go programming language, where it is a common practice to included the dependencies'
-headers with the source code [@go24]. This ensures the dependency code is fixed and stable until it is updated. This
-feature is possible because cpp4r is a header-only library, allowing you to copy all headers  by running
-`cpp4r::vendor_cpp4r()` if you need this option.
+cpp4r offers vendoring capabilities, which means copying the dependency code directly into your project's source
+tree. This approach, borrowed from the Go programming language, includes the dependencies'
+headers with the source code [@go24]. This ensures the dependency code remains fixed and stable until explicitly updated. 
+Since cpp4r is a header-only library, you can copy all headers by running
+`cpp4r::vendor_cpp4r()` when needed.
 
-Vendoring has advantages and drawbacks however. The advantage is that unlikely disruptive changes to the cpp4r project
-could never break your existing code. The drawbacks are that the package size will be slightly larger and isolated from
-bugfixes and/or new features until you explicitly update the vendored headers. The majority of packages should not
-vendor the cpp4r dependency, unless those are designed to run within restricted environments where internet access is
+Vendoring has both advantages and drawbacks. The main advantage is that disruptive changes to the cpp4r project
+cannot break your existing code. The drawbacks include slightly larger package size and isolation from
+bugfixes and new features until you explicitly update the vendored headers. Most packages should not
+vendor the cpp4r dependency, except for projects designed to run in restricted environments where internet access is
 limited or unavailable for security reasons (e.g., high-performance computing clusters).
 
-## Software functionalities
+# Software functionalities
 
 cpp4r is designed as a drop-in replacement for cpp11, using identical syntax and API patterns. Existing cpp11 code can
 typically be migrated to cpp4r with minimal changes, primarily involving header includes and namespace references.
@@ -184,7 +183,7 @@ cpp11::doubles my_square_cpp(cpp11::doubles x) {
 ```
 
 ```r
-#' @title Square of Each Element in 'x
+#' @title Square of Each Element in 'x'
 #' @param x Numeric vector
 #' @return Numeric vector
 #' @export
@@ -193,30 +192,29 @@ my_square <- function(x) {
 }
 ```
 
-## Illustrative examples
+# Illustrative examples
 
-cpp4r uses a custom double linked list data structure to track objects it is managing. This structure is more efficient
-for large numbers of objects than using `R_PreserveObject()`/`R_ReleaseObjects()` as it is done in Rcpp.
+cpp4r uses lists to track managed objects. This approach is more efficient for large numbers of objects than Rcpp's use
+of `R_PreserveObject()`/`R_ReleaseObjects()`.
 
-For problems where we know the vectors or matrices size beforehand, the performance difference between cpp4r/cpp11
-and Rcpp is negligible. However, when the length of the vectors (or matrices) is not known beforehand, the performance
-changes notably, and such is the case of the rejection sampling algorithm which consists in obtaining $n$ accepted
-samples without the possibility to know beforehand how many candidates we need to generate.
+When vector or matrix sizes are known beforehand, the performance difference between cpp4r/cpp11 and Rcpp is negligible.
+However, when the length is unknown beforehand, performance changes notably. This is the case with rejection sampling
+algorithms, which obtain $n$ accepted samples without knowing in advance how many candidates need to be generated.
 
-The C++ `push_back()` method is ideal for cases such as rejection sampling, each candidate is either accepted (stored)
-or rejected (discarded), and in a low acceptance rates we might need to generate $kn$ candidates ($k > 1$) than the
-$n$ final samples. Unlike Gibbs sampling algorithms, where we know the iterations upfront, rejection sampling genuinely
-requires dynamic growth vectors or matrices. For example, with an acceptance rate of 80%, we would need to generate
-approximately $1.25 n$ samples to obtain $n$ final samples.
+The C++ `push_back()` method is ideal for rejection sampling, where each candidate is either accepted (stored)
+or rejected (discarded). With low acceptance rates, we might need to generate $kn$ candidates ($k > 1$) to obtain
+$n$ final samples. Unlike Gibbs sampling algorithms, where iterations are known upfront, rejection sampling
+requires dynamically growing vectors or matrices. For example, with an 80% acceptance rate, we need to generate
+approximately $1.25n$ samples to obtain $n$ final samples.
 
-Rejection sampling is used in Monte Carlo methods, Bayesian inference, and simulation studies where cpp4r design is
-handy as it reserves extra memory making `push_back()` operations within it have a time complexity $O(1)$. On the
-contrary, Rcpp does not reserve extra capacity and its `push_back()` operations have a time complexity $O(n)$ that
-leads to a quadratic pattern in memory usage with the number of input elements. This design difference translates in
+Rejection sampling is used in Monte Carlo methods, Bayesian inference, and simulation studies where cpp4r's design is
+advantageous because it reserves extra memory, making `push_back()` operations have $O(1)$ time complexity. In
+contrast, Rcpp does not reserve extra capacity, and its `push_back()` operations have $O(n)$ time complexity,
+leading to quadratic memory usage patterns. This design difference translates to
 performance differences with larger input data.
 
-The following code shows a rejection sampling implementation with lower and upper truncation bounds using cpp4r (it is
-equivalent for cpp11 and Rcpp):
+The following code shows a rejection sampling implementation with lower and upper truncation bounds using cpp4r. The
+syntax is equivalent for cpp11 and Rcpp, but performance differs:
 
 ```cpp
 // Reproducible examples via set.seed() in R
@@ -226,10 +224,9 @@ class local_rng {
   ~local_rng() { PutRNGstate(); }
 };
 
-[[cpp4r::register]] doubles rejection_sampling_cpp4r(int n_samples, double mu = 0.0, 
-                                                     double sigma = 1.0,
-                                                     double lower = -2.0, 
-                                                     double upper = 2.0) {
+[[cpp4r::register]]
+doubles rejection_sampling(int n_samples, double mu = 0.0, double sigma = 1.0,
+                           double lower = -2.0, double upper = 2.0) {
   local_rng rng_state;
   
   // Acceptance rate for better initial allocation
@@ -237,7 +234,8 @@ class local_rng {
   double acceptance_rate = Rf_pnorm5(z_upper, 0.0, 1.0, 1, 0) -
     Rf_pnorm5(z_lower, 0.0, 1.0, 1, 0);
   
-  // Allocate based on expected number of samples needed (add 20% to ensure minimum size)
+  // Allocate based on expected number of samples needed
+  // (add 20% to ensure minimum size)
   R_xlen_t estimated_needed = static_cast<R_xlen_t>(n_samples / acceptance_rate * 1.2);
   estimated_needed = std::max(estimated_needed, static_cast<R_xlen_t>(n_samples));
   
@@ -263,6 +261,12 @@ The following table shows the speed quantiles for the same rejection sampling al
 and Rcpp:
 
 ```{r}
+#| label: ch1-tbl-speed
+#| tbl-cap: "Median speed and cumulative memory usage for the same rejection sampling algorithm written with different C++ backends for R (cpp11, cpp4r, and Rcpp). Source: own creation."
+#| message: false
+#| warning: false
+#| echo: false
+
 library(dplyr)
 library(purrr)
 library(scales)
@@ -287,23 +291,27 @@ rejection_bench %>%
   knitr::kable(align = c("l", rep("r", 3)), booktabs = TRUE,
     col.names = c("Backend", "Sample size", "Median speed", "Cumulative memory usage")) %>%
   kable_styling(latex_options = c("hold_position")) %>%
-  collapse_rows(columns = 1, valign = "middle", latex_hline = "major")
+  collapse_rows(columns = 1, valign = "middle")
 ```
 
-The benchmark reveals that both cpp4r and cpp11 exhibit better scaling compared to Rcpp, showing how a different
-approach makes a difference when we require repeated calls to `push_back()`, as with Rcpp the entire vector has to be
-copied on each call. In contrast `cpp4r` vectors grow efficiently, reserving extra space as `std::vector` does.
+The benchmark shows that both cpp4r and cpp11 scale better than Rcpp when making repeated `push_back()` calls. 
+With Rcpp, the entire vector must be copied on each call. In contrast, cpp4r vectors grow efficiently by 
+reserving extra space, similar to `std::vector`.
 
-## Impact
+The benchmark followed the guidelines from @beyer19. It was conducted on a Lenovo ThinkPad X1 Carbon Gen 9 laptop
+equipped with an 11th Gen Intel Core i7-1185G7 processor (8 cores, 3.00GHz), 15.3 GiB of RAM and Manjaro Linux operating
+system.
+
+# Impact
 
 By providing a portable interface for C++ integration, cpp4r enables R developers to leverage the power of modern C++
 while minimizing the complexity typically associated with writing compiled code. The benchmarks demonstrate substantial
 speed and memory usage improvements compared to existing implementations, providing researchers with a useful tool to
 write R packages to analyze large datasets and intensive computations.
 
-Besides the better use of RAM, which can make a difference between being able to run an analysis or not, cpp4r's design
-also offers faster compilation times, which can significantly enhance the development workflow and testing. This is
-particularly beneficial in academic and business settings, where prototyping and iteration often precede the final
+Beyond improved memory usage, which can determine whether an analysis is feasible, cpp4r's design
+also offers faster compilation times, enhancing development workflow and testing. This is
+particularly beneficial in academic and business settings, where prototyping and iteration are common before final
 implementation.
 
 cpp4r represents an evolution in C++ bindings for R, building upon the solid foundation established by cpp11 while
@@ -311,12 +319,16 @@ addressing specific limitations and adding features that can benefit the R commu
 with cpp11, cpp4r provides a migration path for developers seeking enhanced functionality without requiring significant
 code restructuring.
 
-## Conclusion
+# Conclusion
 
-The development of cpp4r demonstrates the value of open-source transparency and how it enabled derived works. While
+The development of cpp4r demonstrates the value of open-source transparency and how it enables derived works. While
 cpp11 and Rcpp continue to serve the broader R community effectively, cpp4r offers an alternative for projects
 requiring its specific enhancements, particularly in academic research contexts where documentation features and
-additional data types support reduces the coding effort for advancing computational methods.
+additional data types support reduce the coding effort for advancing computational methods.
 
+The software, documentation, and replication code are available on [GitHub](https://github.com/pachadotdev/cpp4r). The
+codebase is released under the Apache 2.0 license. Contributions and feedback from the R community are welcome to
+help improve the package further. We hope that cpp4r will be a valuable tool for R developers, providing a
+simple solution for performance bottlenecks by integrating C++ code into R packages.
 
-# References
+# references

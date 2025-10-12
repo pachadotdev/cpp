@@ -11,7 +11,7 @@ editor:
 bibliography: ["references.bib"]
 ---
 
-These examples were adapted from @vaughan.
+These examples were adapted from @vaughan24.
 
 # Note
 

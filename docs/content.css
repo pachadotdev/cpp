@@ -1,0 +1,316 @@
+/* CSS Variables for theming */
+:root {
+  --bg-color: #fff;
+  --text-color: #222;
+  --menu-bg: #f8f9fa;
+  --menu-link-color: #495057;
+  --border-color: #dee2e6;
+  --code-bg: #f0f0f0;
+  --accent-color: #2d58b7;
+}
+
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #f0f0f0;
+  --menu-bg: #1e1e1e;
+  --menu-link-color: #e0e0e0;
+  --border-color: #404040;
+  --code-bg: #2a2a2a;
+  --accent-color: #6fa8dc;
+}
+
+html {
+  margin: 0px;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: small;
+  font-family: "Noto Sans", "Lucida Grande", "Lucida Sans Unicode", Arial, Verdana, Helvetica, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Main container for menu and content */
+.main-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0; /* This is important for flex children to shrink */
+}
+
+/* Content area */
+#content {
+  flex: 1;
+  padding: 1em 2em;
+  overflow-y: auto;
+  background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.3s ease;
+}
+
+/* Content wrapper to push footer down */
+#content > *:not(footer) {
+  flex-shrink: 0;
+}
+
+#content > footer {
+  margin-top: auto; /* This is the "\hfill" equivalent */
+}
+
+/* Footer styling */
+footer {
+  margin-top: 3em;
+  padding: 1em 0;
+  text-align: center;
+  color: var(--text-color);
+  opacity: 0.7;
+  font-size: 0.9em;
+  border-top: 1px solid var(--border-color);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+  }
+  
+  #menu {
+    width: 100%;
+    min-width: auto;
+    max-height: 200px;
+    border-right: none;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  #content {
+    padding: 1em;
+  }
+  
+  footer {
+    padding: 1em;
+  }
+}
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent-color);
+}
+
+a:visited {
+  color: var(--accent-color);
+}
+
+/* Titles */
+
+.itemTitle {
+  color: var(--accent-color);
+  transition: color 0.3s ease;
+}
+
+h1,
+h2,
+h3,
+tt {
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+h1 {
+  padding-top: 0px;
+  margin-top: 0px;
+}
+
+h2 {
+  color: var(--text-color);
+  padding-top: 0.5em;
+}
+
+h3 {
+  padding-top: 0.5em;
+  margin-bottom: -0.25em;
+  color: var(--accent-color);
+  transition: color 0.3s ease;
+}
+
+/* Lists */
+
+ul {
+  padding-left: 1.5em;
+  margin: 1em 0;
+}
+
+ol {
+  padding-left: 1.5em;
+  margin: 1em 0;
+}
+
+li {
+  padding-bottom: 0.5em;
+  display: list-item;
+}
+
+/* Task lists (checkboxes) */
+ul.task-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul.task-list li {
+  display: list-item;
+  margin-bottom: 0.5em;
+  padding-left: 0;
+}
+
+ul.task-list li label {
+  display: inline;
+  font-weight: normal;
+  margin-left: 0.5em;
+}
+
+ul.task-list li input[type="checkbox"] {
+  margin-right: 0.5em;
+}
+
+/* Tables */
+
+tr {
+  vertical-align: top;
+}
+
+table.ref-arguments {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+}
+
+table.ref-arguments td {
+  padding: 0.5em;
+  vertical-align: top;
+  border: none;
+}
+
+table.ref-arguments td:first-child {
+  width: 20%;
+  min-width: 8em;
+}
+
+/* Code */
+
+pre {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  padding: 1em;
+  border-radius: 4px;
+  overflow-x: auto;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+code {
+  background-color: var(--code-bg);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: "Hack", "Fira Mono", "Courier New", Courier, monospace;
+  transition: background-color 0.3s ease;
+}
+
+/* Links inside code blocks */
+code a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+code a:hover {
+  color: var(--accent-color);
+}
+
+code a:visited {
+  color: var(--accent-color);
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+/* Reference documentation */
+
+.ref-usage {
+  background-color: var(--code-bg);
+  padding: 1em;
+  border-left: 4px solid var(--accent-color);
+  margin: 1em 0;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Vignette code blocks - same styling as ref-usage */
+#content pre {
+  background-color: var(--code-bg);
+  border-left: 4px solid var(--accent-color);
+  font-family: "Hack", "Fira Mono", "Courier New", Courier, monospace;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.ref-arguments dt {
+  font-weight: bold;
+  margin-top: 1em;
+}
+
+.ref-arguments dd {
+  margin-left: 2em;
+  margin-bottom: 0.5em;
+}
+
+/* Spans */
+
+span.error {
+  color: red;
+}
+
+span.warning {
+  color: purple;
+}
+
+span.note {
+  color: gray;
+}
+
+span.caret {
+  color: green;
+  font-weight: bold;
+}
+
+span.template-highlight {
+  color: cyan;
+}
+
+/* Navigation */
+
+.nav-active {
+  font-weight: bold;
+  background-color: var(--accent-color) !important;
+  color: var(--bg-color) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Images */
+
+IMG.img_slide {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
