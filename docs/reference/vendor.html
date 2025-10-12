@@ -22,7 +22,7 @@
         processHtmlClass: 'tex2jax_process'
       }
     };
-  </script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head><body>
+  </script><script id="MathJax-script" async src="../js/tex-svg.js"></script></head><body>
 <div class="main-container">
 <div id="menu">
   <div>
@@ -39,9 +39,8 @@
 
   <div class="submenu">
     <label>Functions</label>
-    <a href="../reference/cpp4r-package.html">cpp4r-package</a>
-    <a href="../reference/pkg_template.html">pkg_template</a>
     <a href="../reference/register.html">register</a>
+    <a href="../reference/pkg_template.html">pkg_template</a>
     <a href="../reference/unvendor.html">unvendor</a>
     <a href="../reference/vendor.html">vendor</a>
   </div>
@@ -75,36 +74,23 @@
 <div id="content">
 <div class="content-wrapper">
 <div class="content-main">
-<h1>Vendor the cpp4r headers</h1>
-<h2>Usage</h2><pre class="ref-usage">
-vendor(path = "./src/vendor")
-</pre>
-<h2>Arguments</h2><table class="ref-arguments"><tr><td><strong>path</strong></td><td>The directory to vendor the headers into</td></tr></table><h2>Value</h2><p>
-The path to the vendored code (invisibly).
-</p>
-<h2>Description</h2><p>
-Vendoring is the act of making your own copy of the 3rd party packages your
-project is using. It is often used in the go language community.
-</p>
-<h2>Details</h2><p>
-This function vendors cpp4r into your package by copying the cpp4r
-headers into the inst/include</p> folder of your package and adding
-'cpp4r version: XYZ' to the top of the files, where XYZ is the version of
-cpp4r currently installed on your machine.
-{Note: vendoring places the responsibility of updating the code on
-you. Bugfixes and new features in cpp4r will not be available for your
-code until you run cpp_vendor() again.
-}
-<h2>Examples</h2><pre><code># create a new directory
-dir &lt;- paste0(tempdir(), "/", gsub("\\\+|[[:punct:]]", "", Sys.time()))
-dir.create(dir, recursive = TRUE)
-# vendor the cpp4r headers into the directory
-vendor(dir)
-list.files(file.path(dir, "src", "vendor"))
-# cleanup
-unlink(dir, recursive = TRUE)</code></pre>
+<h1></h1>
+<h2>Arguments</h2>
+<table class="ref-arguments"><tr><td><strong>path</strong></td><td><p>The directory to vendor the headers into</p></td></tr></table><h2>Examples</h2>
+<div class="sourceCode"><pre><code># create a new directory
+dir &lt;- paste0(tempdir(), "/", gsub("\\s+|[[:punct:]]", "", Sys.time()))
+dir.create(dir, recursive = TRUE)</code></pre></div>
+<div class="output"><pre><code>## [1] TRUE</code></pre></div>
+<div class="sourceCode"><pre><code># vendor the cpp4r headers into the directory
+vendor(dir)</code></pre></div>
+<div class="error"><pre><code>## Error: could not find function "vendor"</code></pre></div>
+<div class="sourceCode"><pre><code>list.files(dir, recursive = TRUE)</code></pre></div>
+<div class="output"><pre><code>## character(0)</code></pre></div>
+<div class="sourceCode"><pre><code># cleanup
+unlink(dir, recursive = TRUE)</code></pre></div>
+<div class="output"><pre><code>## [1] 0</code></pre></div>
 </div>
-<footer><p>Last updated: 2025-10-12 11:32:38</p>
+<footer><p>Last updated: 2025-10-12 17:59:33</p>
 </footer><script>
 document.addEventListener('DOMContentLoaded', function() {
   // Theme toggle functionality

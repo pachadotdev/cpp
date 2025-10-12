@@ -13,7 +13,7 @@ stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://
 [![CRAN
 status](https://www.r-pkg.org/badges/version/cpp4r)](https://CRAN.R-project.org/package=cpp4r)
 [![Test
-coverage](https://raw.githubusercontent.com/pachadotdev/cpp4r/main/badges/coverage.svg)](https://github.com/pachadotdev/cpp4r/actions/workflows/test-coverage.yaml)
+coverage](https://raw.githubusercontent.com/pachadotdev/cpp4r/coverage/badges/coverage.svg)](https://github.com/pachadotdev/cpp4r/actions/workflows/test-coverage.yaml)
 [![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-yellow.svg)](https://buymeacoffee.com/pacha)
 <!-- badges: end -->
 

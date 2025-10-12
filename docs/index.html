@@ -22,7 +22,7 @@
         processHtmlClass: 'tex2jax_process'
       }
     };
-  </script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head><body>
+  </script><script id="MathJax-script" async src="js/tex-svg.js"></script></head><body>
 <div class="main-container">
 <div id="menu">
   <div>
@@ -39,9 +39,8 @@
 
   <div class="submenu">
     <label>Functions</label>
-    <a href="reference/cpp4r-package.html">cpp4r-package</a>
-    <a href="reference/pkg_template.html">pkg_template</a>
     <a href="reference/register.html">register</a>
+    <a href="reference/pkg_template.html">pkg_template</a>
     <a href="reference/unvendor.html">unvendor</a>
     <a href="reference/vendor.html">vendor</a>
   </div>
@@ -75,7 +74,7 @@
 <div id="content">
 <div class="content-wrapper">
 <div class="content-main">
-<h1>cpp4r</h1>
+<p># cpp4r</p>
 
 <p><img src="man/figures/logo.svg" height="139" alt=""></p>
 
@@ -84,7 +83,7 @@ stable"></a>
 <a href="https://github.com/pachadotdev/cpp4r/actions/workflows/R-CMD-check.yaml"><img src="https://github.com/pachadotdev/cpp4r/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a>
 <a href="https://CRAN.R-project.org/package=cpp4r"><img src="https://www.r-pkg.org/badges/version/cpp4r" alt="CRAN
 status"></a>
-<a href="https://github.com/pachadotdev/cpp4r/actions/workflows/test-coverage.yaml"><img src="https://raw.githubusercontent.com/pachadotdev/cpp4r/main/badges/coverage.svg" alt="Test
+<a href="https://github.com/pachadotdev/cpp4r/actions/workflows/test-coverage.yaml"><img src="https://raw.githubusercontent.com/pachadotdev/cpp4r/coverage/badges/coverage.svg" alt="Test
 coverage"></a>
 <a href="https://buymeacoffee.com/pacha"><img src="https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-yellow.svg" alt="BuyMeACoffee"></a>
 <!-- badges: end --></p>
@@ -113,12 +112,13 @@ fork to add the following features:</p>
 <li><input type="checkbox" checked disabled> Support bidirectional passing of complex numbers/vectors.</li>
 <li><input type="checkbox" checked disabled> Provide flexibility with data types (e.g., cpp4r’s <code>as_integers()</code> and <code>as_doubles()</code> accept logical inputs while cpp11’s do not).</li>
 <li><input type="checkbox" checked disabled> Some internal optimizations for better speed (e.g., <a href="https://github.com/r-lib/cpp11/pull/463">https://github.com/r-lib/cpp11/pull/463</a> and <a href="https://github.com/r-lib/cpp11/pull/430">https://github.com/r-lib/cpp11/pull/430</a>).</li>
-</ul><h2>Getting started</h2>
+</ul>
+## Getting started
 
 <p>Check the <a href="https://cpp4r.org/">documentation</a> to get started using cpp4r
 in your scripts, particularly if you are new to C++ programming.</p>
 
-<h2>Using cpp4r in a package</h2>
+<p>## Using cpp4r in a package</p>
 
 <p>Create a new package with <code>cpp4r::pkg_template("~/path/to/mypkg")</code> and
 then edit the generated files.</p>
@@ -132,8 +132,7 @@ directory and add the following to your DESCRIPTION file:</p>
 
 <pre><code>#' @useDynLib mypkg, .registration = TRUE
 #' @keywords internal
-"_PACKAGE"
-</code></pre>
+"_PACKAGE"</code></pre>
 
 <p>Then decorate C++ functions you want to expose to R with
 <code>[[cpp4r::register]]</code>.</p>
@@ -142,7 +141,7 @@ directory and add the following to your DESCRIPTION file:</p>
 use a shared library. It is straightforward and reliable to use in
 packages without fear of compile-time and run-time mismatches.</p>
 
-<h2>Vendoring</h2>
+<p>## Vendoring</p>
 
 <p>You can <a href="https://cpp4r.org/articles/01-motivations.html">vendor</a> the
 current installed version of cpp4r headers into your package with
@@ -158,24 +157,24 @@ are breaking changes in future versions of cpp4r. The disadvantage is
 that you will not get bug fixes and new features unless you update the
 vendored headers.</p>
 
-<h2>Getting help</h2>
+<p>## Getting help</p>
 
 <p>Please open an issue or email me. I will do my best to respond before 48
 hours.</p>
 
-<h2>Contributing</h2>
+<p>## Contributing</p>
 
 <p>Contributions are welcome! Please see the <a href="https://cpp4r.org/articles/15-internals.html">internals
 vignette</a> for details
 about design choices and coding style.</p>
 
-<h2>Code of Conduct</h2>
+<p>## Code of Conduct</p>
 
 <p>Please note that the cpp4r project is released with a <a href="https://cpp4r.org/CODE_OF_CONDUCT.html">Contributor Code
 of Conduct</a>. By contributing to
 this project, you agree to abide by its terms.</p>
 </div>
-<footer><p>Last updated: 2025-10-12 11:32:38</p>
+<footer><p>Last updated: 2025-10-12 17:59:33</p>
 </footer><script>
 document.addEventListener('DOMContentLoaded', function() {
   // Theme toggle functionality

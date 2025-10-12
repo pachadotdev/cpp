@@ -23,7 +23,7 @@
 #' # vendor the cpp4r headers into the directory
 #' vendor(dir)
 #'
-#' list.files(file.path(dir, "src", "vendor"))
+#' list.files(dir, recursive = TRUE)
 #'
 #' # cleanup
 #' unlink(dir, recursive = TRUE)

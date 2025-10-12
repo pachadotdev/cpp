@@ -22,7 +22,7 @@
         processHtmlClass: 'tex2jax_process'
       }
     };
-  </script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head><body>
+  </script><script id="MathJax-script" async src="../js/tex-svg.js"></script></head><body>
 <div class="main-container">
 <div id="menu">
   <div>
@@ -39,9 +39,8 @@
 
   <div class="submenu">
     <label>Functions</label>
-    <a href="../reference/cpp4r-package.html">cpp4r-package</a>
-    <a href="../reference/pkg_template.html">pkg_template</a>
     <a href="../reference/register.html">register</a>
+    <a href="../reference/pkg_template.html">pkg_template</a>
     <a href="../reference/unvendor.html">unvendor</a>
     <a href="../reference/vendor.html">vendor</a>
   </div>
@@ -215,23 +214,22 @@ and non-basic variables are equal to 0.</li>
 the variable with the most negative <span class="math inline">\(c_j\)</span>, and assume that it is <span class="math inline">\(j = s\)</span>.</li>
 <li>If <span class="math inline">\(a_{is} \leq 0\)</span> for all <span class="math inline">\(i\)</span>, then the problem is unbounded.</li>
 <li>If <span class="math inline">\(a_{is} &gt; 0\)</span> for some <span class="math inline">\(i\)</span>, choose <span class="math inline">\(i =
-r\)</span> such that <span class="math inline">\(\frac{b_r}{a_{rs}} =
-\min(\frac{b_i}{a_is},\: a_{is} 0)\)</span> and pivot on <span class="math inline">\(a_{rs}\)</span>, to then go back to step 1.</li>
+r\)</span> such that <span class="math inline">\(b_r / a_{rs} = \min(b_i
+/ a_{is},\: a_{is} &gt; 0)\)</span> and pivot on <span class="math inline">\(a_{rs}\)</span>, to then go back to step 1.</li>
 </ol><p>The coefficients are updated according to:</p>
-<ol style="list-style-type: decimal"><li><span class="math inline">\(a_{ij} \leftarrow a_{ij} - \frac{a_{is}
-a_{rj}}{a_{rs}}\)</span> for <span class="math inline">\(j \neq
+<ol style="list-style-type: decimal"><li><span class="math inline">\(a_{ij} \leftarrow a_{ij} - (a_{is}
+a_{rj}) / a_{rs}\)</span> for <span class="math inline">\(j \neq
 s\)</span></li>
-<li><span class="math inline">\(a_{rj} \leftarrow
-\frac{a_{rj}}{a_{rs}}\)</span></li>
-<li><span class="math inline">\(b_i \leftarrow b_i - \frac{a_{is}
-b_r}{a_{rs}}\)</span> for <span class="math inline">\(i \neq
-r\)</span></li>
-<li><span class="math inline">\(b_r \leftarrow
-\frac{b_r}{a_{rs}}\)</span></li>
-<li><span class="math inline">\(c_j \leftarrow c_j - \frac{c_s
-a_{rj}}{a_{rs}}\)</span></li>
-<li><span class="math inline">\(-z \leftarrow -z - \frac{c_s
-b_r}{a_{rs}}\)</span></li>
+<li><span class="math inline">\(a_{rj} \leftarrow a_{rj} /
+a_{rs}\)</span></li>
+<li><span class="math inline">\(b_i \leftarrow b_i - (a_{is} b_r) /
+a_{rs}\)</span> for <span class="math inline">\(i \neq r\)</span></li>
+<li><span class="math inline">\(b_r \leftarrow b_r /
+a_{rs}\)</span></li>
+<li><span class="math inline">\(c_j \leftarrow c_j - (c_s a_{rj}) /
+a_{rs}\)</span></li>
+<li><span class="math inline">\(-z \leftarrow -z - (c_s b_r) /
+a_{rs}\)</span></li>
 </ol><p>This algorithm is equivalent to Gauss method to solve linear
 systems.</p>
 </div>
@@ -288,9 +286,8 @@ x_1 &amp; x_2 &amp; x_3 &amp; x_4 &amp; -z \\
 \end{array}
 \]</span></p>
 <p>Here a stopping criterion is reached: the minimum cost is
-non-negative, therefore the solution is optimal and is <span class="math inline">\(x^* = (\frac{1}{4}, \frac{11}{4}, 0 , 0)\)</span>
-with an optimal value <span class="math inline">\(z^* =
--\frac{17}{2}\)</span>.</p>
+non-negative, therefore the solution is optimal and is <span class="math inline">\(x^* = (1/4, 11/4, 0 , 0)\)</span> with an optimal
+value <span class="math inline">\(z^* = -17/2\)</span>.</p>
 </div>
 <div id="building-and-testing-1" class="section level3">
 <h3>Building and testing</h3>
@@ -582,7 +579,7 @@ Raton, Florida. <a href="https://adv-r.hadley.nz/rcpp.html">https://adv-r.hadley
 </div>
 </div>
 </div>
-<footer><p>Last updated: 2025-10-12 11:32:44</p>
+<footer><p>Last updated: 2025-10-12 17:59:40</p>
 </footer><script>
 document.addEventListener('DOMContentLoaded', function() {
   // Theme toggle functionality

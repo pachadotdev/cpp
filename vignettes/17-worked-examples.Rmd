@@ -127,16 +127,16 @@ The simplex algorithm to solve the problem consists in the next steps:
 1. If $c_j \geq 0$ for all $j$, then the current solution is optimal. Basic variables are equal to $b_i$ and non-basic variables are equal to 0.
 2. If $c_j < 0$ for some $j$, choose it to enter the base. Choose the variable with the most negative $c_j$, and assume that it is $j = s$.
 3. If $a_{is} \leq 0$ for all $i$, then the problem is unbounded.
-4. If $a_{is} > 0$ for some $i$, choose $i = r$ such that $\frac{b_r}{a_{rs}} = \min(\frac{b_i}{a_is},\: a_{is} 0)$ and pivot on $a_{rs}$, to then go back to step 1.
+4. If $a_{is} > 0$ for some $i$, choose $i = r$ such that $b_r / a_{rs} = \min(b_i / a_{is},\: a_{is} > 0)$ and pivot on $a_{rs}$, to then go back to step 1.
 
 The coefficients are updated according to:
 
-1. $a_{ij} \leftarrow a_{ij} - \frac{a_{is} a_{rj}}{a_{rs}}$ for $j \neq s$
-2. $a_{rj} \leftarrow \frac{a_{rj}}{a_{rs}}$
-3. $b_i \leftarrow b_i - \frac{a_{is} b_r}{a_{rs}}$ for $i \neq r$
-4. $b_r \leftarrow \frac{b_r}{a_{rs}}$
-5. $c_j \leftarrow c_j - \frac{c_s a_{rj}}{a_{rs}}$
-6. $-z \leftarrow -z - \frac{c_s b_r}{a_{rs}}$
+1. $a_{ij} \leftarrow a_{ij} - (a_{is} a_{rj}) / a_{rs}$ for $j \neq s$
+2. $a_{rj} \leftarrow a_{rj} / a_{rs}$
+3. $b_i \leftarrow b_i - (a_{is} b_r) / a_{rs}$ for $i \neq r$
+4. $b_r \leftarrow b_r / a_{rs}$
+5. $c_j \leftarrow c_j - (c_s a_{rj}) / a_{rs}$
+6. $-z \leftarrow -z - (c_s b_r) / a_{rs}$
 
 This algorithm is equivalent to Gauss method to solve linear systems.
 
@@ -202,7 +202,7 @@ x_1 & x_2 & x_3 & x_4 & -z \\
 \end{array}
 $$
 
-Here a stopping criterion is reached: the minimum cost is non-negative, therefore the solution is optimal and is $x^* = (\frac{1}{4}, \frac{11}{4}, 0 , 0)$ with an optimal value $z^* = -\frac{17}{2}$.
+Here a stopping criterion is reached: the minimum cost is non-negative, therefore the solution is optimal and is $x^* = (1/4, 11/4, 0 , 0)$ with an optimal value $z^* = -17/2$.
 
 ### Building and testing
 

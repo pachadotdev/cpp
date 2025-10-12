@@ -288,8 +288,10 @@ rejection_bench <- rejection_bench %>%
   arrange(expression, len)
 
 rejection_bench %>%
-  knitr::kable(align = c("l", rep("r", 3)), booktabs = TRUE,
-    col.names = c("Backend", "Sample size", "Median speed", "Cumulative memory usage")) %>%
+  knitr::kable(
+    align = c("l", rep("r", 3)), booktabs = TRUE,
+    col.names = c("Backend", "Sample size", "Median speed", "Cumulative memory usage")
+  ) %>%
   kable_styling(latex_options = c("hold_position")) %>%
   collapse_rows(columns = 1, valign = "middle")
 ```

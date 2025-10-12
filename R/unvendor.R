@@ -9,8 +9,8 @@
 #' @export
 #' @examples
 #' # create a new directory
-#' dir <- tempfile()
-#' dir.create(dir)
+#' dir <- paste0(tempdir(), "/", gsub("\\s+|[[:punct:]]", "", Sys.time()))
+#' dir.create(dir, recursive = TRUE)
 #'
 #' # vendor the cpp4r headers into the directory
 #' vendor(dir)
@@ -22,22 +22,24 @@
 #' unlink(dir, recursive = TRUE)
 unvendor <- function(path = NULL) {
   stopifnot(!is.null(path), dir.exists(path))
-  
+
   # Check if the cpp4r directory exists
   cpp4r_dir <- file.path(path, "cpp4r")
   cpp4r_hpp_path <- file.path(path, "cpp4r.hpp")
   info_file_path <- file.path(path, "00-cpp4r-vendoring-info.txt")
-  
+
   # Check if vendored files exist
   has_cpp4r_dir <- dir.exists(cpp4r_dir)
   has_cpp4r_hpp <- file.exists(cpp4r_hpp_path)
   has_info_file <- file.exists(info_file_path)
-  
+
   if (!has_cpp4r_dir && !has_cpp4r_hpp && !has_info_file) {
-    if (is_interactive()) { message("Could not find vendored headers") }
+    if (is_interactive()) {
+      message("Could not find vendored headers")
+    }
     return(invisible(NULL))
   }
-  
+
   # Remove the cpp4r directory if it exists
   if (has_cpp4r_dir) {
     unlink(cpp4r_dir, recursive = TRUE)
@@ -47,7 +49,7 @@ unvendor <- function(path = NULL) {
   if (has_cpp4r_hpp) {
     unlink(cpp4r_hpp_path)
   }
-  
+
   # Remove the info file if it exists
   if (has_info_file) {
     unlink(info_file_path)
