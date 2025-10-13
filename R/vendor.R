@@ -1,6 +1,6 @@
-#' Vendor the cpp4r headers
+#' @title Vendor the cpp4r headers
 #'
-#' Vendoring is the act of making your own copy of the 3rd party packages your
+#' @description Vendoring is the act of making your own copy of the 3rd party packages your
 #' project is using. It is often used in the go language community.
 #'
 #' This function vendors cpp4r into your package by copying the cpp4r

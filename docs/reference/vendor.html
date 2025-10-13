@@ -73,16 +73,27 @@
 <div id="content">
 <div class="content-wrapper">
 <div class="content-main">
-<h1></h1>
+<h1>Vendor the cpp4r headers </h1>
+<h2>Description</h2>
+<p>project is using. It is often used in the go language community.</p>
+<p>This function vendors cpp4r into your package by copying the cpp4r
+headers into the <code>inst/include</code> folder of your package and adding
+'cpp4r version: XYZ' to the top of the files, where XYZ is the version of
+cpp4r currently installed on your machine.</p>
+<strong>Note</strong>: vendoring places the responsibility of updating the code on
+<strong>you</strong>. Bugfixes and new features in cpp4r will not be available for your
+code until you run <code>cpp_vendor()</code> again.
 <h2>Arguments</h2>
-<table class="ref-arguments"><tbody><tr><td><strong>path</strong></td><td>The directory to vendor the headers into</td></tr></tbody></table><h2>Examples</h2>
+<table class="ref-arguments"><tbody><tr><td><strong>path</strong></td><td>The directory to vendor the headers into</td></tr></tbody></table><h2>Return</h2>
+<p>The path to the vendored code (invisibly).</p>
+<h2>Examples</h2>
 <div class="sourceCode"><pre><code># create a new directory
 dir &lt;- paste0(tempdir(), "/", gsub("\\s+|[[:punct:]]", "", Sys.time()))
 dir.create(dir, recursive = TRUE)</code></pre></div>
 <div class="output"><pre><code>## [1] TRUE</code></pre></div>
 <div class="sourceCode"><pre><code># vendor the cpp4r headers into the directory
 vendor(dir)</code></pre></div>
-<div class="output"><pre><code>## [1] "/tmp/RtmpD7okxS/20251012194553245044"</code></pre></div>
+<div class="output"><pre><code>## [1] "/tmp/RtmpXU10wP/20251012223018846617"</code></pre></div>
 <div class="sourceCode"><pre><code>list.files(dir, recursive = TRUE)</code></pre></div>
 <div class="output"><pre><code>##  [1] "00-cpp4r-vendoring-info.txt" "cpp4r.hpp"
 ##  [3] "cpp4r/as.hpp"                "cpp4r/attribute_proxy.hpp"
@@ -101,7 +112,7 @@ vendor(dir)</code></pre></div>
 unlink(dir, recursive = TRUE)</code></pre></div>
 <div class="output"><pre><code>## [1] 0</code></pre></div>
 </div>
-<footer><p>Last updated: 2025-10-12 19:45:53</p>
+<footer><p>Last updated: 2025-10-12 22:30:18</p>
 </footer><script>
 document.addEventListener('DOMContentLoaded', function() {
   // Theme toggle functionality

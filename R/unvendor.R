@@ -3,8 +3,8 @@
 #' This function removes the vendored cpp4r headers from your package by
 #' automatically finding the vendored headers.
 #'
-#' @param path The directory with the vendored headers. It is recommended to use \code{"./src/vendor"}.
-#' The default is \code{NULL}.
+#' @param path The directory with the vendored headers. It is recommended to use `"./src/vendor"`.
+#' The default is `NULL`.
 #' @return The path to the unvendored code (invisibly).
 #' @export
 #' @examples

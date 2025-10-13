@@ -1,6 +1,6 @@
-#' Generates wrappers for registered C++ functions
+#' @title Generates wrappers for registered C++ functions
 #'
-#' Functions decorated with `[[cpp4r::register]]` in files ending in `.cc`,
+#' @description Functions decorated with `[[cpp4r::register]]` in files ending in `.cc`,
 #' `.cpp`, `.h` or `.hpp` will be wrapped in generated code and registered to
 #' be called from R.
 #'
@@ -9,7 +9,8 @@
 #'
 #' In order to use `register()` the `cli`, `decor`, `desc`, `glue`,
 #' `tibble` and `vctrs` packages must also be installed.
-#' @param path The path to the package root directory. The default is \code{NULL},
+#' 
+#' @param path The path to the package root directory. The default is `NULL`,
 #' @param quiet If `TRUE` suppresses output from this function
 #' @param extension The file extension to use for the generated src/cpp4r file.
 #'   `.cpp` by default, but `.cc` is also supported.

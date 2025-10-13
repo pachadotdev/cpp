@@ -333,4 +333,4 @@ codebase is released under the Apache 2.0 license. Contributions and feedback fr
 help improve the package further. We hope that cpp4r will be a valuable tool for R developers, providing a
 simple solution for performance bottlenecks by integrating C++ code into R packages.
 
-# references
+# References

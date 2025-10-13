@@ -1,6 +1,12 @@
 # The function itself just echos its inputs and outputs to a file called INDEX,
 # which is then opened by RStudio when the new project is opened.
-#' Start a new project with the cpp4r package template
+
+#' @title Start a new project with the cpp4r package template
+#' 
+#' @description This function copies a package template into a new directory.
+#' The template includes a DESCRIPTION file, a minimal R/ directory and placeholders
+#' with instructions. You can then edit these files to customize your new package.
+#' 
 #' @param path Path to the new project
 #' @param pkgname Name of the new package
 #' @return The file path to the copied template (invisibly).
