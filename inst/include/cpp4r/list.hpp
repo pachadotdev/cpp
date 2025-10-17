@@ -67,6 +67,14 @@ inline void r_vector<SEXP>::set_elt(SEXP x, R_xlen_t i,
   SET_VECTOR_ELT(x, i, value);
 }
 
+// Specialization for list proxy to allow automatic conversion from C++ types to SEXP
+template <>
+template <typename U, typename>
+inline r_vector<SEXP>::proxy& r_vector<SEXP>::proxy::operator=(const U& rhs) {
+  set(as_sexp(rhs));
+  return *this;
+}
+
 // Requires specialization to handle the fact that, for lists, each element of the
 // initializer list is considered the scalar "element", i.e. we don't expect that
 // each `named_arg` contains a list of length 1, like we do for the other vector types.

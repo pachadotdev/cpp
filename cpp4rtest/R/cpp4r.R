@@ -92,6 +92,14 @@ cpp4r_insert_ <- function(num_sxp) {
   .Call(`_cpp4rtest_cpp4r_insert_`, num_sxp)
 }
 
+cpp4r_named_list_push_back_ <- function() {
+  .Call(`_cpp4rtest_cpp4r_named_list_push_back_`)
+}
+
+cpp4r_named_list_c_style_ <- function() {
+  .Call(`_cpp4rtest_cpp4r_named_list_c_style_`)
+}
+
 ordered_map_to_list_ <- function(x) {
   .Call(`_cpp4rtest_ordered_map_to_list_`, x)
 }

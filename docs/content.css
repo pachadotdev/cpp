@@ -339,22 +339,7 @@ IMG.img_slide {
   margin-right: auto;
 }
 
-/* MathJax styling */
-.MathJax {
-  font-size: 1em !important;
-}
-
-.MathJax_Display {
-  margin: 1em 0 !important;
-}
-
-/* MathJax SVG styling */
-mjx-container[jax="SVG"] {
-  /* overflow-x: auto; */
-  overflow-y: visible;
-  max-width: 100%;
-  display: inline-block;
-}
+/* MathJax styling - minimal for SVG rendering */
 
 /* Display math (block equations) */
 mjx-container[jax="SVG"][display="true"] {
@@ -363,39 +348,9 @@ mjx-container[jax="SVG"][display="true"] {
   margin: 1em 0;
 }
 
-/* Inline math */
-mjx-container[jax="SVG"][display="false"] {
-  display: inline-block !important;
-  vertical-align: baseline !important;
-  margin: 0 0.1em;
-  transform: translateY(-0.2em) !important;
-  position: relative !important;
-}
-
-/* Target the SVG elements directly for better alignment */
-mjx-container[jax="SVG"][display="false"] svg {
-  vertical-align: baseline !important;
-  position: relative !important;
-  top: -0.2em !important;
-}
-
-/* Alternative alignment approach if the above doesn't work well */
-mjx-container[jax="SVG"]:not([display="true"]) {
-  vertical-align: middle !important;
-  line-height: 1 !important;
-}
-
 /* SVG elements should inherit text color for dark mode */
 [data-theme="dark"] mjx-container[jax="SVG"] svg {
   color: var(--text-color);
-}
-
-/* Ensure SVG math scales properly on different screen sizes */
-@media (max-width: 768px) {
-  mjx-container[jax="SVG"] {
-    max-width: 100%;
-    /* overflow-x: auto; */
-  }
 }
 
 /* Styling for executed R examples */

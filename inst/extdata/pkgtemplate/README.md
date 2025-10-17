@@ -2,8 +2,8 @@
 
 ## Read the documentation
 
-The [basic examples](https://pacha.dev/cpp11armadillo/articles/basic-usage.html)
-should be enough to get you started. 
+The [package website](https://cpp4r.org) covers the basics, customization, and
+advanced usage of the package.
 
 ## Test the package
 
@@ -23,13 +23,3 @@ should be enough to get you started.
    
    Windows: Edit `./src/Makevars.win` to set `DARMA_OPENMP_THREADS` to another
             value.
-
-## Additional documentation
-
-1. [Member functions and variables](https://pacha.dev/cpp11armadillo/articles/member-functions-and-variables.html)
-2. [Matrix, vector, cube and field classes](https://pacha.dev/cpp11armadillo/articles/matrix-vector-cube-and-field-classes.html)
-3. [Generated vectors, matrices, and cubes](https://pacha.dev/cpp11armadillo/articles/generated-vectors-matrices-cubes.html)
-4. [Functions of vectors, matrices, and cubes](https://pacha.dev/cpp11armadillo/articles/functions-of-vector-matrices-cubes.html)
-5. [Fitting regressions with Armadillo](https://pacha.dev/cpp11armadillo/articles/linear-model.html)
-
-For specific Econometrics examples, see the [hansen package](https://pacha.dev/hansen/) documentation.

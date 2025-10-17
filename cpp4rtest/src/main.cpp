@@ -34,6 +34,7 @@ using namespace cpp4r;
 #include "sum_int.h"
 #include "sum_Rcpp.h"
 #include "truncate.h"
+#include "lists.h"
 
 #include "test-runner.h"
 #include "test-as.h"

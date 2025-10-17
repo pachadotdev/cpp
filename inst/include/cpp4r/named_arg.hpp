@@ -31,15 +31,29 @@ class named_arg {
   explicit named_arg(const char* name, T&& value)
       : name_(name), value_(as_sexp(std::forward<T>(value))) {}
 
+  // Specific overloads for common scalar types (non-explicit for convenience)
+  named_arg(const char* name, double value) : name_(name), value_(as_sexp(value)) {}
+  named_arg(const char* name, int value) : name_(name), value_(as_sexp(value)) {}
+  named_arg(const char* name, bool value) : name_(name), value_(as_sexp(value)) {}
+  named_arg(const char* name, const char* value) : name_(name), value_(as_sexp(value)) {}
+  named_arg(const char* name, const std::string& value) : name_(name), value_(as_sexp(value)) {}
+
   named_arg& operator=(std::initializer_list<int> il) {
     value_ = as_sexp(il);
     return *this;
   }
 
   template <typename T>
-  named_arg& operator=(T&& rhs) {
+  named_arg& operator=(T&& rhs) & {
     value_ = as_sexp(std::forward<T>(rhs));
     return *this;
+  }
+
+  // Rvalue overload for use in temporary contexts (like push_back)
+  template <typename T>
+  named_arg&& operator=(T&& rhs) && {
+    value_ = as_sexp(std::forward<T>(rhs));
+    return std::move(*this);
   }
 
   template <typename T>

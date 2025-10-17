@@ -8,15 +8,6 @@
         processEnvironments: true,
         packages: {'[+]': ['ams', 'newcommand', 'configmacros']}
       },
-      svg: {
-        fontCache: 'global',
-        scale: 1.5,  /* Scale SVG math to 150% */
-        minScale: 0.5,
-        mtextInheritFont: false,
-        merrorInheritFont: true,
-        mathmlSpacing: false,
-        exFactor: 0.5  /* Adjust baseline for better alignment */
-      },
       options: {
         ignoreHtmlClass: 'tex2jax_ignore',
         processHtmlClass: 'tex2jax_process'
@@ -29,7 +20,12 @@
     <img src="../man/figures/logo.svg" align="center" height="139" alt="cpp4r logo"></div>
 
   <div class="search-container">
-    <input type="text" id="search-box" placeholder="Search..."><button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">💡</button>
+    <input type="text" id="search-box" placeholder="Search..."></div>
+
+  <div class="search-container">
+    <button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">Toggle theme</button>
+    <button id="font-decrease" title="Decrease font size" aria-label="Decrease font size">A-</button>
+    <button id="font-increase" title="Increase font size" aria-label="Increase font size">A+</button>
   </div>
 
   <div class="submenu">
@@ -202,8 +198,8 @@ bool is_named(cpp4r::strings x) {
 is_named(c(x = "foo"))</code></pre>
 </div>
 <div id="how-do-i-return-a-cpp4rwritablelogicals-object-with-only-a-false-value" class="section level1">
-<h1>7. How do I return a <code>cpp4r::writable::logicals</code> object
-with only a <code>FALSE</code> value?</h1>
+<h1>7. How do I return a “cpp4r::writable::logicals” object with only a
+“FALSE” value?</h1>
 <p>You need to use <a href="https://en.cppreference.com/w/cpp/language/list_initialization.html">list
 initialization</a> with <code>{}</code> to create the object.</p>
 <pre class="cpp"><code>#include &lt;cpp4r.hpp&gt;
@@ -267,8 +263,7 @@ set_foo(x, 1)
 foo_exists(x)</code></pre>
 </div>
 <div id="how-can-i-create-a-cpp4rraws-from-a-stdstring" class="section level1">
-<h1>10. How can I create a <code>cpp4r:raws</code> from a
-<code>std::string</code>?</h1>
+<h1>10. How can I create a “cpp4r:raws” from a “std::string”?</h1>
 <p>There is no built in way to do this. One method would be to
 <code>push_back()</code> each element of the string individually.</p>
 <pre class="cpp"><code>#include &lt;cpp4r.hpp&gt;
@@ -287,8 +282,8 @@ cpp4r::raws push_raws() {
 <pre class="r"><code>push_raws()</code></pre>
 </div>
 <div id="how-can-i-create-a-stdstring-from-a-cpp4rwritablestring" class="section level1">
-<h1>11. How can I create a <code>std::string</code> from a
-<code>cpp4r::writable::string</code>?</h1>
+<h1>11. How can I create a “std::string” from a
+“cpp4r::writable::string”?</h1>
 <p>Because C++ does not allow for two implicit cast, explicitly cast to
 <code>cpp4r::r_string</code> first.</p>
 <pre class="cpp"><code>#include &lt;cpp4r.hpp&gt;
@@ -310,33 +305,40 @@ the vector classes. For example the iterator for
 <code>cpp4r::writable::doubles</code> would be
 <code>cpp4r::writable::doubles::iterator</code>.</p>
 </div>
-<div id="my-code-has-using-namespace-std-why-do-i-still-have-to-include-std-in-the-signatures-of-cpp4rregister-functions" class="section level1">
-<h1>13. My code has <code>using namespace std</code>, why do I still
-have to include <code>std::</code> in the signatures of
-<code>[[cpp4r::register]]</code> functions?</h1>
+<div id="whats-wrong-with-using-namespace-std" class="section level1">
+<h1>13. What’s wrong with “using namespace std”?</h1>
 <p>The <code>using namespace std</code> directive will not be included
-in the generated code of the function signatures, so they still need to
-be fully qualified. However you will <em>not</em> need to qualify the
-type names within those functions.</p>
-<p>The following will not compile</p>
+in the generated code of the function signatures, and it will not be
+included in future releases.</p>
+<p>Please do not use <code>using namespace std;</code>. It is considered
+bad practice in C++ because it can lead to name conflicts and
+ambiguities, especially in larger codebases or when integrating multiple
+libraries.</p>
+<p>Some interesting discussion on this topic can be found in the
+following links:</p>
+<ul><li><a href="https://stackoverflow.com/questions/1452721/whats-the-problem-with-using-namespace-std">What’s
+the problem with “using namespace std;”?</a></li>
+<li><a href="https://www.geeksforgeeks.org/cpp/using-namespace-std-considered-bad-practice/">Why
+“using namespace std” is considered bad practice</a></li>
+<li><a href="https://medium.com/@pradeepbehara/why-you-should-avoid-using-namespace-std-in-c-best-practices-for-clean-and-maintainable-code-e9ab77518be4">Why
+You Should Avoid Using namespace std in C++: Best Practices for Clean
+and Maintainable Code</a></li>
+</ul><p>Even when this will work:</p>
 <pre class="cpp"><code>#include &lt;cpp4r.hpp&gt;
 #include &lt;string&gt;
 
 using namespace std;
 
-[[cpp4r::register]]
-string foobar() {
+[[cpp4r::register]] std::string foobar() {
   return string("foo") + "-bar";
 }</code></pre>
-<p>But this will compile and work as intended</p>
+<p>Please please please do this instead:</p>
 <pre class="cpp"><code>#include &lt;cpp4r.hpp&gt;
 #include &lt;string&gt;
-
-using namespace std;
 
 [[cpp4r::register]]
 std::string foobar() {
-  return string("foo") + "-bar";
+  return std::string("foo") + "-bar";
 }</code></pre>
 </div>
 <div id="how-do-i-modify-a-vector-in-place" class="section level1">
@@ -362,9 +364,8 @@ add_one(x)
 .Internal(inspect(x))
 x</code></pre>
 </div>
-<div id="should-i-call-cpp4runwind_protect-manually" class="section level1">
-<h1>15. Should I call <code>cpp4r::unwind_protect()</code>
-manually?</h1>
+<div id="should-i-call-unwind_protect-manually" class="section level1">
+<h1>15. Should I call “unwind_protect” manually?</h1>
 <p><code>cpp4r::unwind_protect()</code> is cpp4r’s way of safely calling
 R’s C API. In short, it allows you to run a function that might throw an
 R error, catch the <code>longjmp()</code> of that error, promote it to
@@ -521,12 +522,7 @@ an exception.</li>
 <li>The try/catch calls <code>R_ContinueUnwind()</code>, which
 <code>longjmp()</code>s again, and at this point the
 <code>longjmp()</code> can safely proceed to force an R error.</li>
-</ul></div>
-</div>
-<div id="ok-but-i-really-want-to-call-cpp4runwind_protect-manually" class="section level1">
-<h1>16. Ok but I really want to call
-<code>cpp4r::unwind_protect()</code> manually</h1>
-<p>If you have read the above bullet and still feel like you need to
+</ul><p>If you have read the above bullet and still feel like you need to
 call <code>unwind_protect()</code>, then you should keep in mind the
 following when writing the function to unwind-protect:</p>
 <ul><li>You should not create any C++ objects that have destructors.</li>
@@ -580,8 +576,9 @@ bench::mark(
 one of the only places where it is felt to be reasonable to call
 <code>unwind_protect()</code> manually.</p>
 </div>
+</div>
 <div id="how-do-i-modify-a-matrix-rownamescolnames-on-c-side" class="section level1">
-<h1>17. How do I modify a matrix rownames/colnames on C++ side?</h1>
+<h1>16. How do I modify a matrix rownames/colnames on C++ side?</h1>
 <p>Any of the following options will work (the commented code works with
 cpp4r):</p>
 <pre class="cpp"><code>[[cpp4r::register]]
@@ -649,109 +646,8 @@ cpp4r::doubles_matrix&lt;&gt; create_mat_no_rownames() {
 }</code></pre>
 </div>
 </div>
-<footer><p>Last updated: 2025-10-12 22:30:25</p>
-</footer><script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Theme toggle functionality
-  const themeToggle = document.getElementById('theme-toggle');
-  const currentTheme = localStorage.getItem('theme') || 'light';
-
-  // Apply saved theme
-  document.documentElement.setAttribute('data-theme', currentTheme);
-
-  if (themeToggle) {
-    themeToggle.addEventListener('click', function() {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-    });
-  }
-
-  // Search functionality
-  const searchBox = document.getElementById('search-box');
-  if (!searchBox) return;
-
-  let searchIndex = [];
-
-  // Load search index
-  fetch('../search.json')
-    .then(response => response.json())
-    .then(data => {
-      searchIndex = data;
-    })
-    .catch(error => {
-      console.log('Search index not available, falling back to simple search');
-    });
-
-  searchBox.addEventListener('input', function() {
-    const searchTerm = this.value.toLowerCase().trim();
-
-    if (searchTerm === '') {
-      // Show all items when search is empty
-      document.querySelectorAll('#menu .submenu a').forEach(function(link) {
-        link.style.display = 'block';
-      });
-      document.querySelectorAll('#menu .submenu').forEach(function(submenu) {
-        submenu.style.display = 'block';
-      });
-      return;
-    }
-
-    // Content-based search using search index
-    if (searchIndex.length > 0) {
-      const matchingUrls = new Set();
-
-      searchIndex.forEach(function(item) {
-        const searchContent = (item.title + ' ' + item.content).toLowerCase();
-        if (searchContent.includes(searchTerm)) {
-          matchingUrls.add(item.url);
-        }
-      });
-
-      // Show/hide links based on content matches
-      document.querySelectorAll('#menu .submenu a').forEach(function(link) {
-        const href = link.getAttribute('href');
-        const relativePath = href.replace(/^.*\//, ''); // Get just the filename part
-
-        let isMatch = false;
-        matchingUrls.forEach(function(url) {
-          if (url.includes(relativePath)) {
-            isMatch = true;
-          }
-        });
-
-        // Also check link text for simple matches
-        if (!isMatch && link.textContent.toLowerCase().includes(searchTerm)) {
-          isMatch = true;
-        }
-
-        link.style.display = isMatch ? 'block' : 'none';
-      });
-    } else {
-      // Fallback to simple name-based search
-      document.querySelectorAll('#menu .submenu a').forEach(function(link) {
-        const linkText = link.textContent.toLowerCase();
-        link.style.display = linkText.includes(searchTerm) ? 'block' : 'none';
-      });
-    }
-
-    // Show/hide entire submenus if no visible links
-    document.querySelectorAll('#menu .submenu').forEach(function(submenu) {
-      const visibleLinks = submenu.querySelectorAll('a[style*="display: block"]');
-      const label = submenu.querySelector('label');
-
-      // Don't hide the Home submenu
-      if (label && label.textContent.includes('Home')) {
-        return;
-      }
-
-      submenu.style.display = visibleLinks.length > 0 ? 'block' : 'none';
-    });
-  });
-});
-</script></div>
+<footer><p id="last-updated">Loading...</p>
+</footer><script src="../js/footer.js"></script><script src="../js/theme.js"></script><script src="../js/search.js"></script><script src="../js/fontsize.js"></script></div>
 </div>
 </div>
 </body></html>

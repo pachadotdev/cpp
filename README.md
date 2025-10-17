@@ -48,6 +48,19 @@ fork to add the following features:
 Check the [documentation](https://cpp4r.org/) to get started using cpp4r
 in your scripts, particularly if you are new to C++ programming.
 
+You can install cpp4r from CRAN:
+
+``` r
+install.packages("cpp4r", repos = "https://cloud.r-project.org")
+```
+
+Or the development version from GitHub:
+
+``` r
+install.packages("remotes")
+remotes::install_github("pachadotdev/cpp4r")
+```
+
 ## Using cpp4r in a package
 
 Create a new package with `cpp4r::pkg_template("~/path/to/mypkg")` and

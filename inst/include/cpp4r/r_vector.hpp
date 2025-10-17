@@ -287,6 +287,11 @@ class r_vector : public cpp4r::r_vector<T> {
     proxy& operator=(const proxy& rhs);
 
     proxy& operator=(const T& rhs);
+    
+    // Template assignment for automatic type conversion (specialized for lists)
+    template <typename U, typename = typename std::enable_if<!std::is_same<U, T>::value>::type>
+    proxy& operator=(const U& rhs);
+    
     proxy& operator+=(const T& rhs);
     proxy& operator-=(const T& rhs);
     proxy& operator*=(const T& rhs);
@@ -1270,6 +1275,14 @@ inline typename r_vector<T>::proxy& r_vector<T>::proxy::operator=(const T& rhs) 
   const underlying_type elt = static_cast<underlying_type>(rhs);
   set(elt);
   return *this;
+}
+
+// Default implementation for template assignment - allows implicit conversions
+template <typename T>
+template <typename U, typename>
+inline typename r_vector<T>::proxy& r_vector<T>::proxy::operator=(const U& rhs) {
+  // Try to convert U to T and then assign
+  return operator=(static_cast<T>(rhs));
 }
 
 template <typename T>

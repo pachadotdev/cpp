@@ -151,7 +151,7 @@ is_named("foo")
 is_named(c(x = "foo"))
 ```
 
-# 7. How do I return a `cpp4r::writable::logicals` object with only a `FALSE` value?
+# 7. How do I return a "cpp4r::writable::logicals" object with only a "FALSE" value?
 
 You need to use [list initialization](https://en.cppreference.com/w/cpp/language/list_initialization.html) with `{}` to create the object.
 
@@ -227,7 +227,7 @@ set_foo(x, 1)
 foo_exists(x)
 ```
 
-# 10. How can I create a `cpp4r:raws` from a `std::string`?
+# 10. How can I create a "cpp4r:raws" from a "std::string"?
 
 There is no built in way to do this.
 One method would be to `push_back()` each element of the string individually.
@@ -252,7 +252,7 @@ cpp4r::raws push_raws() {
 push_raws()
 ```
 
-# 11. How can I create a `std::string` from a `cpp4r::writable::string`?
+# 11. How can I create a "std::string" from a "cpp4r::writable::string"?
 
 Because C++ does not allow for two implicit cast, explicitly cast to `cpp4r::r_string` first.
 
@@ -273,12 +273,21 @@ std::string my_string() {
 The iterators are `::iterator` classes contained inside the vector classes.
 For example the iterator for `cpp4r::doubles` would be `cpp4r::doubles::iterator` and the iterator for `cpp4r::writable::doubles` would be `cpp4r::writable::doubles::iterator`.
 
-# 13. My code has `using namespace std`, why do I still have to include `std::` in the signatures of `[[cpp4r::register]]` functions?
+# 13. What's wrong with "using namespace std"?
 
-The `using namespace std` directive will not be included in the generated code of the function signatures, so they still need to be fully qualified.
-However you will *not* need to qualify the type names within those functions.
+The `using namespace std` directive will not be included in the generated code of the function signatures, and it
+will not be included in future releases.
 
-The following will not compile
+Please do not use `using namespace std;`. It is considered bad practice in C++ because it can lead to name conflicts and
+ambiguities, especially in larger codebases or when integrating multiple libraries.
+
+Some interesting discussion on this topic can be found in the following links:
+
+* [What's the problem with "using namespace std;"?](https://stackoverflow.com/questions/1452721/whats-the-problem-with-using-namespace-std)
+* [Why "using namespace std" is considered bad practice](https://www.geeksforgeeks.org/cpp/using-namespace-std-considered-bad-practice/)
+* [Why You Should Avoid Using namespace std in C++: Best Practices for Clean and Maintainable Code](https://medium.com/@pradeepbehara/why-you-should-avoid-using-namespace-std-in-c-best-practices-for-clean-and-maintainable-code-e9ab77518be4)
+
+Even when this will work:
 
 ```cpp
 #include <cpp4r.hpp>
@@ -286,23 +295,20 @@ The following will not compile
 
 using namespace std;
 
-[[cpp4r::register]]
-string foobar() {
+[[cpp4r::register]] std::string foobar() {
   return string("foo") + "-bar";
 }
 ```
 
-But this will compile and work as intended
+Please please please do this instead:
 
 ```cpp
 #include <cpp4r.hpp>
 #include <string>
 
-using namespace std;
-
 [[cpp4r::register]]
 std::string foobar() {
-  return string("foo") + "-bar";
+  return std::string("foo") + "-bar";
 }
 ```
 
@@ -333,7 +339,7 @@ add_one(x)
 x
 ```
 
-# 15. Should I call `cpp4r::unwind_protect()` manually?
+# 15. Should I call "unwind_protect" manually?
 
 `cpp4r::unwind_protect()` is cpp4r's way of safely calling R's C API. In short, it allows you to run a function that might throw an R error, catch the `longjmp()` of that error, promote it to an exception that is thrown and caught by a try/catch that cpp4r sets up for you at `.Call()` time (which allows destructors to run), and finally tells R to continue unwinding the stack now that the C++ objects have had a chance to destruct as needed.
 
@@ -463,8 +469,6 @@ It makes more sense if you analyze it one step at a time:
 -   That exception is thrown and caught by the try/catch set up by `test_outer()`.
 -   The try/catch calls `R_ContinueUnwind()`, which `longjmp()`s again, and at this point the `longjmp()` can safely proceed to force an R error.
 
-# 16. Ok but I really want to call `cpp4r::unwind_protect()` manually
-
 If you have read the above bullet and still feel like you need to call `unwind_protect()`, then you should keep in mind the following when writing the function to unwind-protect:
 
 -   You should not create any C++ objects that have destructors.
@@ -518,7 +522,7 @@ bench::mark(
 
 There are plans to improve on this in the future, but for now this is one of the only places where it is felt to be reasonable to call `unwind_protect()` manually.
 
-# 17. How do I modify a matrix rownames/colnames on C++ side?
+# 16. How do I modify a matrix rownames/colnames on C++ side?
 
 Any of the following options will work (the commented code works with cpp4r):
 

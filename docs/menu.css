@@ -43,18 +43,99 @@
 }
 
 #theme-toggle {
-  background: none;
-  border: none;
-  font-size: 1.2em;
-  cursor: pointer;
-  padding: 0.3em;
+  padding: 0.5em 1em;
   border-radius: 4px;
-  transition: background-color 0.2s ease;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
   flex-shrink: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border: 2px solid var(--border-color);
 }
 
 #theme-toggle:hover {
   background-color: var(--border-color);
+  border-color: var(--accent-color);
+}
+
+/* Specific styling for light mode */
+:root #theme-toggle {
+  background-color: #e9ecef;
+  border-color: #495057;
+  color: #212529;
+}
+
+:root #theme-toggle:hover {
+  background-color: #dee2e6;
+  border-color: var(--accent-color);
+}
+
+/* Specific styling for dark mode */
+[data-theme="dark"] #theme-toggle {
+  background-color: #3a3a3a;
+  border-color: #808080;
+  color: #f0f0f0;
+}
+
+[data-theme="dark"] #theme-toggle:hover {
+  background-color: #4a4a4a;
+  border-color: var(--accent-color);
+}
+
+/* Font size control buttons */
+#font-increase,
+#font-decrease {
+  padding: 0.5em 0.8em;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: bold;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border: 2px solid var(--border-color);
+}
+
+#font-increase:hover,
+#font-decrease:hover {
+  background-color: var(--border-color);
+  border-color: var(--accent-color);
+}
+
+/* Specific styling for light mode */
+:root #font-increase,
+:root #font-decrease {
+  background-color: #e9ecef;
+  border-color: #495057;
+  color: #212529;
+}
+
+:root #font-increase:hover,
+:root #font-decrease:hover {
+  background-color: #dee2e6;
+  border-color: var(--accent-color);
+}
+
+/* Specific styling for dark mode */
+[data-theme="dark"] #font-increase,
+[data-theme="dark"] #font-decrease {
+  background-color: #3a3a3a;
+  border-color: #808080;
+  color: #f0f0f0;
+}
+
+[data-theme="dark"] #font-increase:hover,
+[data-theme="dark"] #font-decrease:hover {
+  background-color: #4a4a4a;
+  border-color: var(--accent-color);
+}
+
+/* Disabled state for font buttons */
+#font-increase:disabled,
+#font-decrease:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Search styling */

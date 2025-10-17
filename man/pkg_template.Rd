@@ -15,7 +15,9 @@ pkg_template(path = NULL, pkgname = NULL)
 The file path to the copied template (invisibly).
 }
 \description{
-Start a new project with the cpp4r package template
+This function copies a package template into a new directory.
+The template includes a DESCRIPTION file, a minimal R/ directory and placeholders
+with instructions. You can then edit these files to customize your new package.
 }
 \examples{
 # create a new directory

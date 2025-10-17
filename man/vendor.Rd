@@ -15,8 +15,7 @@ The path to the vendored code (invisibly).
 \description{
 Vendoring is the act of making your own copy of the 3rd party packages your
 project is using. It is often used in the go language community.
-}
-\details{
+
 This function vendors cpp4r into your package by copying the cpp4r
 headers into the \code{inst/include} folder of your package and adding
 'cpp4r version: XYZ' to the top of the files, where XYZ is the version of

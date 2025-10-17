@@ -1,5 +1,10 @@
+# cpp4r 0.3.1
+
+* Added support for implicit conversions for R lists
+
 # cpp4r 0.3.0
 
+* This is the first release on CRAN
 * Added `as_logicals()` and `as_strings()` in the same style of `as_doubles()` and `as_integers()`
 * Improved memory management for `r_vector` iterators
 * Slightly faster than `cpp11`

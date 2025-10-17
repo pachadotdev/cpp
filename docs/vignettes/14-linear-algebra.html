@@ -8,15 +8,6 @@
         processEnvironments: true,
         packages: {'[+]': ['ams', 'newcommand', 'configmacros']}
       },
-      svg: {
-        fontCache: 'global',
-        scale: 1.5,  /* Scale SVG math to 150% */
-        minScale: 0.5,
-        mtextInheritFont: false,
-        merrorInheritFont: true,
-        mathmlSpacing: false,
-        exFactor: 0.5  /* Adjust baseline for better alignment */
-      },
       options: {
         ignoreHtmlClass: 'tex2jax_ignore',
         processHtmlClass: 'tex2jax_process'
@@ -29,7 +20,12 @@
     <img src="../man/figures/logo.svg" align="center" height="139" alt="cpp4r logo"></div>
 
   <div class="search-container">
-    <input type="text" id="search-box" placeholder="Search..."><button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">💡</button>
+    <input type="text" id="search-box" placeholder="Search..."></div>
+
+  <div class="search-container">
+    <button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">Toggle theme</button>
+    <button id="font-decrease" title="Decrease font size" aria-label="Decrease font size">A-</button>
+    <button id="font-increase" title="Increase font size" aria-label="Increase font size">A+</button>
   </div>
 
   <div class="submenu">
@@ -135,109 +131,8 @@ Vargas Sepulveda, Mauricio, and Jonathan Schneider Malamud. 2025.
 </div>
 </div>
 </div>
-<footer><p>Last updated: 2025-10-12 22:30:24</p>
-</footer><script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Theme toggle functionality
-  const themeToggle = document.getElementById('theme-toggle');
-  const currentTheme = localStorage.getItem('theme') || 'light';
-
-  // Apply saved theme
-  document.documentElement.setAttribute('data-theme', currentTheme);
-
-  if (themeToggle) {
-    themeToggle.addEventListener('click', function() {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-    });
-  }
-
-  // Search functionality
-  const searchBox = document.getElementById('search-box');
-  if (!searchBox) return;
-
-  let searchIndex = [];
-
-  // Load search index
-  fetch('../search.json')
-    .then(response => response.json())
-    .then(data => {
-      searchIndex = data;
-    })
-    .catch(error => {
-      console.log('Search index not available, falling back to simple search');
-    });
-
-  searchBox.addEventListener('input', function() {
-    const searchTerm = this.value.toLowerCase().trim();
-
-    if (searchTerm === '') {
-      // Show all items when search is empty
-      document.querySelectorAll('#menu .submenu a').forEach(function(link) {
-        link.style.display = 'block';
-      });
-      document.querySelectorAll('#menu .submenu').forEach(function(submenu) {
-        submenu.style.display = 'block';
-      });
-      return;
-    }
-
-    // Content-based search using search index
-    if (searchIndex.length > 0) {
-      const matchingUrls = new Set();
-
-      searchIndex.forEach(function(item) {
-        const searchContent = (item.title + ' ' + item.content).toLowerCase();
-        if (searchContent.includes(searchTerm)) {
-          matchingUrls.add(item.url);
-        }
-      });
-
-      // Show/hide links based on content matches
-      document.querySelectorAll('#menu .submenu a').forEach(function(link) {
-        const href = link.getAttribute('href');
-        const relativePath = href.replace(/^.*\//, ''); // Get just the filename part
-
-        let isMatch = false;
-        matchingUrls.forEach(function(url) {
-          if (url.includes(relativePath)) {
-            isMatch = true;
-          }
-        });
-
-        // Also check link text for simple matches
-        if (!isMatch && link.textContent.toLowerCase().includes(searchTerm)) {
-          isMatch = true;
-        }
-
-        link.style.display = isMatch ? 'block' : 'none';
-      });
-    } else {
-      // Fallback to simple name-based search
-      document.querySelectorAll('#menu .submenu a').forEach(function(link) {
-        const linkText = link.textContent.toLowerCase();
-        link.style.display = linkText.includes(searchTerm) ? 'block' : 'none';
-      });
-    }
-
-    // Show/hide entire submenus if no visible links
-    document.querySelectorAll('#menu .submenu').forEach(function(submenu) {
-      const visibleLinks = submenu.querySelectorAll('a[style*="display: block"]');
-      const label = submenu.querySelector('label');
-
-      // Don't hide the Home submenu
-      if (label && label.textContent.includes('Home')) {
-        return;
-      }
-
-      submenu.style.display = visibleLinks.length > 0 ? 'block' : 'none';
-    });
-  });
-});
-</script></div>
+<footer><p id="last-updated">Loading...</p>
+</footer><script src="../js/footer.js"></script><script src="../js/theme.js"></script><script src="../js/search.js"></script><script src="../js/fontsize.js"></script></div>
 </div>
 </div>
 </body></html>
